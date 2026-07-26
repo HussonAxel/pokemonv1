@@ -84,7 +84,8 @@
     "tailwindcss": "^4.1.18",
     "tailwindcss-animate": "^1.0.7",
     "tw-animate-css": "^1.3.6",
-    "zod": "^4.3.6"
+    "typed-openapi": "^3.1.0",
+    "zod": "^4.4.3"
   },
   "devDependencies": {
     "@content-collections/core": "^0.13.1",
