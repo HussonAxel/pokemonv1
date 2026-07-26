@@ -19,6 +19,7 @@
     "hooks": "#/hooks"
   },
   "registries": {
-    "@uitripled": "https://ui.tripled.work/r/{name}.json"
+    "@uitripled": "https://ui.tripled.work/r/{name}.json",
+    "@extend": "https://ui.extend.ai/r/{name}.json"
   }
 }
