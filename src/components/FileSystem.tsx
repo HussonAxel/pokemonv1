@@ -1,6 +1,7 @@
 "use client";
 
 import { FileSystem, type FileSystemItem } from "@/components/extend/file-system";
+import { NativeImageCheckboxDemo } from "./SelectableAvatar";
 
 // Flat manifest — maps 1:1 from S3/R2 ListObjectsV2:
 //   Contents[].Key          -> file.key / file.path
