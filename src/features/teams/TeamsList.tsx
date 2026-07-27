@@ -164,14 +164,13 @@ export default function TeamsList() {
                   {ACTIVE_MEMBERS.length}
                 </span>
               </h2>
-              <Link
-                to="/builder">
-              <Button
-                variant="outline"
-                size="icon"
-                className="h-9 w-9 rounded-full border-border/50 text-muted-foreground hover:bg-muted/50 cursor-pointer"
-              >
-                <HugeiconsIcon icon={Add01Icon} size={18} strokeWidth={2.5} />
+              <Link to="/builder" viewTransition aria-label="Créer une équipe">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  className="h-9 w-9 rounded-full border-border/50 text-muted-foreground hover:bg-muted/50 cursor-pointer"
+                >
+                  <HugeiconsIcon icon={Add01Icon} size={18} strokeWidth={2.5} />
                 </Button>
               </Link>
             </div>
