@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
+import { Route as BuilderRouteImport } from './routes/builder'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as ApiRemyChatRouteImport } from './routes/api.remy-chat'
 import { Route as ComponentsComponentsRouteImport } from './routes/components/components'
@@ -25,6 +26,8 @@ import { Route as SpeakersIndexRouteImport } from './routes/speakers.index'
 import { Route as SpeakersSlugRouteImport } from './routes/speakers.$slug'
 import { Route as TalksIndexRouteImport } from './routes/talks.index'
 import { Route as TalksSlugRouteImport } from './routes/talks.$slug'
+import { Route as TeamsIndexRouteImport } from './routes/teams/index'
+import { Route as TeamsTeamRouteImport } from './routes/teams/$team'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
 
 const IndexRoute = IndexRouteImport.update({
@@ -35,6 +38,11 @@ const IndexRoute = IndexRouteImport.update({
 const AboutRoute = AboutRouteImport.update({
   id: '/about',
   path: '/about',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const BuilderRoute = BuilderRouteImport.update({
+  id: '/builder',
+  path: '/builder',
   getParentRoute: () => rootRouteImport,
 } as any)
 const HomeRoute = HomeRouteImport.update({
@@ -107,6 +115,16 @@ const TalksSlugRoute = TalksSlugRouteImport.update({
   path: '/talks/$slug',
   getParentRoute: () => rootRouteImport,
 } as any)
+const TeamsIndexRoute = TeamsIndexRouteImport.update({
+  id: '/teams/',
+  path: '/teams/',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TeamsTeamRoute = TeamsTeamRouteImport.update({
+  id: '/teams/$team',
+  path: '/teams/$team',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   id: '/api/auth/$',
   path: '/api/auth/$',
@@ -116,6 +134,7 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/builder': typeof BuilderRoute
   '/home': typeof HomeRoute
   '/api/remy-chat': typeof ApiRemyChatRoute
   '/components/components': typeof ComponentsComponentsRoute
@@ -127,14 +146,17 @@ export interface FileRoutesByFullPath {
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/speakers/$slug': typeof SpeakersSlugRoute
   '/talks/$slug': typeof TalksSlugRoute
+  '/teams/$team': typeof TeamsTeamRoute
   '/schedule/': typeof ScheduleIndexRoute
   '/speakers/': typeof SpeakersIndexRoute
   '/talks/': typeof TalksIndexRoute
+  '/teams/': typeof TeamsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/builder': typeof BuilderRoute
   '/home': typeof HomeRoute
   '/api/remy-chat': typeof ApiRemyChatRoute
   '/components/components': typeof ComponentsComponentsRoute
@@ -146,15 +168,18 @@ export interface FileRoutesByTo {
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/speakers/$slug': typeof SpeakersSlugRoute
   '/talks/$slug': typeof TalksSlugRoute
+  '/teams/$team': typeof TeamsTeamRoute
   '/schedule': typeof ScheduleIndexRoute
   '/speakers': typeof SpeakersIndexRoute
   '/talks': typeof TalksIndexRoute
+  '/teams': typeof TeamsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
+  '/builder': typeof BuilderRoute
   '/home': typeof HomeRoute
   '/api/remy-chat': typeof ApiRemyChatRoute
   '/components/components': typeof ComponentsComponentsRoute
@@ -166,9 +191,11 @@ export interface FileRoutesById {
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
   '/speakers/$slug': typeof SpeakersSlugRoute
   '/talks/$slug': typeof TalksSlugRoute
+  '/teams/$team': typeof TeamsTeamRoute
   '/schedule/': typeof ScheduleIndexRoute
   '/speakers/': typeof SpeakersIndexRoute
   '/talks/': typeof TalksIndexRoute
+  '/teams/': typeof TeamsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
 }
 export interface FileRouteTypes {
@@ -176,6 +203,7 @@ export interface FileRouteTypes {
   fullPaths:
     | '/'
     | '/about'
+    | '/builder'
     | '/home'
     | '/api/remy-chat'
     | '/components/components'
@@ -187,14 +215,17 @@ export interface FileRouteTypes {
     | '/demo/tanstack-query'
     | '/speakers/$slug'
     | '/talks/$slug'
+    | '/teams/$team'
     | '/schedule/'
     | '/speakers/'
     | '/talks/'
+    | '/teams/'
     | '/api/auth/$'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
     | '/about'
+    | '/builder'
     | '/home'
     | '/api/remy-chat'
     | '/components/components'
@@ -206,14 +237,17 @@ export interface FileRouteTypes {
     | '/demo/tanstack-query'
     | '/speakers/$slug'
     | '/talks/$slug'
+    | '/teams/$team'
     | '/schedule'
     | '/speakers'
     | '/talks'
+    | '/teams'
     | '/api/auth/$'
   id:
     | '__root__'
     | '/'
     | '/about'
+    | '/builder'
     | '/home'
     | '/api/remy-chat'
     | '/components/components'
@@ -225,15 +259,18 @@ export interface FileRouteTypes {
     | '/demo/tanstack-query'
     | '/speakers/$slug'
     | '/talks/$slug'
+    | '/teams/$team'
     | '/schedule/'
     | '/speakers/'
     | '/talks/'
+    | '/teams/'
     | '/api/auth/$'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
+  BuilderRoute: typeof BuilderRoute
   HomeRoute: typeof HomeRoute
   ApiRemyChatRoute: typeof ApiRemyChatRoute
   ComponentsComponentsRoute: typeof ComponentsComponentsRoute
@@ -245,9 +282,11 @@ export interface RootRouteChildren {
   DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
   SpeakersSlugRoute: typeof SpeakersSlugRoute
   TalksSlugRoute: typeof TalksSlugRoute
+  TeamsTeamRoute: typeof TeamsTeamRoute
   ScheduleIndexRoute: typeof ScheduleIndexRoute
   SpeakersIndexRoute: typeof SpeakersIndexRoute
   TalksIndexRoute: typeof TalksIndexRoute
+  TeamsIndexRoute: typeof TeamsIndexRoute
   ApiAuthSplatRoute: typeof ApiAuthSplatRoute
 }
 
@@ -265,6 +304,13 @@ declare module '@tanstack/react-router' {
       path: '/about'
       fullPath: '/about'
       preLoaderRoute: typeof AboutRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/builder': {
+      id: '/builder'
+      path: '/builder'
+      fullPath: '/builder'
+      preLoaderRoute: typeof BuilderRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/home': {
@@ -365,6 +411,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof TalksSlugRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/teams/': {
+      id: '/teams/'
+      path: '/teams'
+      fullPath: '/teams/'
+      preLoaderRoute: typeof TeamsIndexRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/teams/$team': {
+      id: '/teams/$team'
+      path: '/teams/$team'
+      fullPath: '/teams/$team'
+      preLoaderRoute: typeof TeamsTeamRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/api/auth/$': {
       id: '/api/auth/$'
       path: '/api/auth/$'
@@ -378,6 +438,7 @@ declare module '@tanstack/react-router' {
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
+  BuilderRoute: BuilderRoute,
   HomeRoute: HomeRoute,
   ApiRemyChatRoute: ApiRemyChatRoute,
   ComponentsComponentsRoute: ComponentsComponentsRoute,
@@ -389,9 +450,11 @@ const rootRouteChildren: RootRouteChildren = {
   DemoTanstackQueryRoute: DemoTanstackQueryRoute,
   SpeakersSlugRoute: SpeakersSlugRoute,
   TalksSlugRoute: TalksSlugRoute,
+  TeamsTeamRoute: TeamsTeamRoute,
   ScheduleIndexRoute: ScheduleIndexRoute,
   SpeakersIndexRoute: SpeakersIndexRoute,
   TalksIndexRoute: TalksIndexRoute,
+  TeamsIndexRoute: TeamsIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
 }
 export const routeTree = rootRouteImport
