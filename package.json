@@ -107,13 +107,7 @@
     "vite": "npm:@voidzero-dev/vite-plus-core@latest",
     "vite-plus": "latest"
   },
-  "devEngines": {
-    "packageManager": {
-      "name": "pnpm",
-      "version": "11.16.0",
-      "onFail": "download"
-    }
-  },
+  "packageManager": "pnpm@11.16.0",
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild",
