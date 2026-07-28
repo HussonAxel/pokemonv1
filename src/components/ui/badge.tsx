@@ -1,56 +1,111 @@
-import * as React from "react";
-import { cva, type VariantProps } from "class-variance-authority";
-import { Slot } from "radix-ui";
+"use client";
 
+import { forwardRef, type HTMLAttributes } from "react";
+import { cva, type VariantProps } from "class-variance-authority";
 import { cn } from "#/lib/utils.ts";
+import { useShape } from "#/lib/shape-context.tsx";
+
+const badgeColors = {
+  gray: "#6B7280",
+  normal: "#A8A878",
+  fire: "#F08030",
+  water: "#6890F0",
+  electric: "#F8D030",
+  grass: "#78C850",
+  ice: "#98D8D8",
+  fighting: "#C03028",
+  poison: "#A040A0",
+  ground: "#E0C068",
+  flying: "#A890F0",
+  psychic: "#F85888",
+  bug: "#A8B820",
+  rock: "#B8A038",
+  ghost: "#705898",
+  dragon: "#7038F8",
+  dark: "#705848",
+  steel: "#B8B8D0",
+  fairy: "#EE99AC",
+} as const;
+
+type BadgeColor = keyof typeof badgeColors;
 
 const badgeVariants = cva(
-  "inline-flex w-fit shrink-0 items-center justify-center gap-1 overflow-hidden rounded-full border border-transparent px-2 py-0.5 text-xs font-medium whitespace-nowrap transition-[color,box-shadow] focus-visible:border-ring focus-visible:ring-[3px] focus-visible:ring-ring/50 aria-invalid:border-destructive aria-invalid:ring-destructive/20 dark:aria-invalid:ring-destructive/40 [&>svg]:pointer-events-none [&>svg]:size-3",
+  "inline-flex items-center justify-center rounded-md font-semibold whitespace-nowrap transition-[background-color,color,box-shadow,transform] duration-200 motion-reduce:transition-none",
   {
     variants: {
       variant: {
-        default: "bg-primary text-primary-foreground [a&]:hover:bg-primary/90",
-        secondary: "bg-secondary text-secondary-foreground [a&]:hover:bg-secondary/90",
-        destructive:
-          "bg-destructive text-white focus-visible:ring-destructive/20 dark:bg-destructive/60 dark:focus-visible:ring-destructive/40 [a&]:hover:bg-destructive/90",
-        success: "bg-emerald-600 text-white",
-        error: "bg-destructive text-white",
-        warning: "bg-amber-500 text-amber-950",
-        info: "bg-sky-600 text-white",
-        outline:
-          "border-border text-foreground [a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
-        ghost: "[a&]:hover:bg-accent [a&]:hover:text-accent-foreground",
-        link: "text-primary underline-offset-4 [a&]:hover:underline",
+        solid: "",
+        dot: "",
       },
       size: {
-        sm: "px-1.5 py-0 text-[10px]",
-        default: "px-2 py-0.5 text-xs",
+        sm: "h-5 px-2 text-[11px] gap-1",
+        md: "h-6 px-2.5 text-[12px] gap-1.5",
+        lg: "h-7 px-3 text-[13px] gap-1.5",
       },
     },
     defaultVariants: {
-      variant: "default",
-      size: "default",
+      variant: "solid",
+      size: "md",
     },
   },
 );
 
-function Badge({
-  className,
-  variant = "default",
-  size = "default",
-  asChild = false,
-  ...props
-}: React.ComponentProps<"span"> & VariantProps<typeof badgeVariants> & { asChild?: boolean }) {
-  const Comp = asChild ? Slot.Root : "span";
-
-  return (
-    <Comp
-      data-slot="badge"
-      data-variant={variant}
-      className={cn(badgeVariants({ variant, size }), className)}
-      {...props}
-    />
-  );
+interface BadgeProps
+  extends Omit<HTMLAttributes<HTMLSpanElement>, "color">, VariantProps<typeof badgeVariants> {
+  color?: BadgeColor;
 }
 
-export { Badge, badgeVariants };
+const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
+  (
+    { className, variant = "solid", size = "md", color = "gray", children, style, ...props },
+    ref,
+  ) => {
+    const shape = useShape();
+    const colorValue = badgeColors[color];
+    const isSolid = variant === "solid";
+    const dotSize = size === "sm" ? 6 : size === "lg" ? 8 : 7;
+
+    const colorStyle = {
+      color: `color-mix(in oklab, ${colorValue} 72%, var(--foreground))`,
+      backgroundColor: isSolid
+        ? `color-mix(in oklab, ${colorValue} 16%, var(--background))`
+        : `color-mix(in oklab, ${colorValue} 7%, var(--background))`,
+      boxShadow: [
+        `inset 0 0 0 1px color-mix(in oklab, ${colorValue} 58%, transparent)`,
+        "0 1px 1px rgb(0 0 0 / 0.04)",
+      ].join(", "),
+    };
+
+    const dotColor = color === "gray" ? "var(--muted-foreground)" : colorValue;
+
+    return (
+      <span
+        ref={ref}
+        className={cn(badgeVariants({ variant, size }), shape.item, className)}
+        style={{ ...colorStyle, ...style }}
+        {...props}
+      >
+        {!isSolid && (
+          <span
+            className="shrink-0 rounded-md"
+            style={{
+              width: dotSize,
+              height: dotSize,
+              backgroundColor: dotColor,
+              boxShadow: `0 0 0 2px color-mix(in oklab, ${dotColor} 16%, transparent)`,
+            }}
+          />
+        )}
+        {/* text-box needs a block container — the badge root is a flex
+            container, so the label gets its own span. Height is fixed (h-*),
+            so trimming only recenters the letterforms. */}
+        <span className="capitalize py-2 px-1">{children}</span>
+      </span>
+    );
+  },
+);
+
+Badge.displayName = "Badge";
+
+export { Badge, badgeVariants, badgeColors };
+export type { BadgeProps, BadgeColor };

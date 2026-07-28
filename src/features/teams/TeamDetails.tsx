@@ -3,24 +3,27 @@
 import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useState } from "react";
 import { HugeiconsIcon } from "@hugeicons/react";
-import {
-  Briefcase01Icon,
-  PaintBoardIcon,
-  Database01Icon,
-  QuillWrite01Icon,
-  ChevronDown
-} from "@hugeicons/core-free-icons";
+import { ChevronDown } from "@hugeicons/core-free-icons";
 
 import { CenterMorphModalPreview } from "./PokemonDetails";
-
+import { Badge, type BadgeColor } from "#/components/ui/badge";
 interface Member {
   id: string;
   name: string;
-  status: string;
+  number: string;
+  level: number;
   online: boolean;
-  role: string;
-  roleType: "pm" | "designer" | "data" | "creator";
+  types: BadgeColor[];
   avatar: string;
+  avatarBackground: string;
+}
+
+interface PokemonDetail {
+  ability: string;
+  abilityDescription: string;
+  item: string;
+  stats: Array<{ label: string; value: number; iv: number; ev: number; color: string }>;
+  moves: Array<{ name: string; type: BadgeColor }>;
 }
 
 const POKEMON_DETAILS = {
@@ -68,69 +71,72 @@ const POKEMON_DETAILS = {
   },
 } as const;
 
+const EXPANDED_DETAILS: Record<string, PokemonDetail> = {
+  "01": {
+    ability: "Intimidation",
+    abilityDescription: "Réduit l’attaque adverse.",
+    item: "Bandeau Choix",
+    stats: [
+      { label: "PV", value: 90, iv: 31, ev: 4, color: "#C75A4F" },
+      { label: "+Atk", value: 110, iv: 31, ev: 252, color: "#D59635" },
+      { label: "Def", value: 80, iv: 31, ev: 0, color: "#6799BB" },
+      { label: "−SpA", value: 100, iv: 31, ev: 0, color: "#D59635" },
+      { label: "SpD", value: 80, iv: 31, ev: 0, color: "#C75A4F" },
+      { label: "Vit", value: 95, iv: 31, ev: 252, color: "#D07830" },
+    ],
+    moves: [
+      { name: "Boutefeu", type: "fire" },
+      { name: "Vitesse Extrême", type: "normal" },
+      { name: "Mâchouille", type: "dark" },
+      { name: "Aboiement", type: "dark" },
+    ],
+  },
+};
+
 const ALL_MEMBERS: Member[] = [
   {
     id: "01",
-    name: "Oliver Smith",
-    status: "Online",
+    name: "Arcanine",
+    number: "#0059",
+    level: 58,
     online: true,
-    role: "Project Manager",
-    roleType: "pm",
-    avatar: "https://tapback.co/api/avatar/Oliver.webp",
+    types: ["fire"],
+    avatar:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/59.png",
+    avatarBackground: "bg-orange-100/80 dark:bg-orange-950/30",
   },
   {
     id: "02",
-    name: "Sophie Chen",
-    status: "Online",
+    name: "Venusaur",
+    number: "#0003",
+    level: 57,
     online: true,
-    role: "Designer",
-    roleType: "designer",
-    avatar: "https://tapback.co/api/avatar/Sophie.webp",
+    types: ["grass", "poison"],
+    avatar:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png",
+    avatarBackground: "bg-emerald-100/80 dark:bg-emerald-950/30",
   },
   {
     id: "03",
-    name: "Noah Wilson",
-    status: "Online",
+    name: "Gengar",
+    number: "#0094",
+    level: 56,
     online: true,
-    role: "Data Specialist",
-    roleType: "data",
-    avatar: "https://tapback.co/api/avatar/Noah.webp",
+    types: ["ghost", "poison"],
+    avatar:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png",
+    avatarBackground: "bg-violet-100/80 dark:bg-violet-950/30",
   },
   {
     id: "04",
-    name: "Emma Davis",
-    status: "Online",
+    name: "Lapras",
+    number: "#0131",
+    level: 54,
     online: true,
-    role: "Creator",
-    roleType: "creator",
-    avatar: "https://tapback.co/api/avatar/Emma.webp",
-  },
-  {
-    id: "05",
-    name: "Leo Garcia",
-    status: "Online",
-    online: false,
-    role: "Designer",
-    roleType: "designer",
-    avatar: "https://tapback.co/api/avatar/Leo.webp",
-  },
-  {
-    id: "06",
-    name: "Mia Thompson",
-    status: "Online",
-    online: false,
-    role: "Project Manager",
-    roleType: "pm",
-    avatar: "https://tapback.co/api/avatar/Mia.webp",
-  },
-  {
-    id: "07",
-    name: "Ethan Wright",
-    status: "5h ago",
-    online: false,
-    role: "Data Specialist",
-    roleType: "data",
-    avatar: "https://tapback.co/api/avatar/Ethan.webp",
+    types: ["water", "ice"],
+    avatar:
+      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/131.png",
+    avatarBackground: "bg-sky-100/80 dark:bg-sky-950/30",
   },
 ];
 
@@ -143,54 +149,17 @@ const sweepSpring = {
   mass: 0.5,
 };
 
-const RoleBadge = ({ type, label }: { type: Member["roleType"]; label: string }) => {
-  const styles = {
-    pm: {
-      bg: "bg-[#FFFCEB]",
-      text: "text-[#856404]",
-      border: "border-[#FFEBA5]",
-      icon: Briefcase01Icon,
-    },
-    designer: {
-      bg: "bg-[#F0F7FF]",
-      text: "text-[#004085]",
-      border: "border-[#B8DAFF]",
-      icon: PaintBoardIcon,
-    },
-    data: {
-      bg: "bg-[#F3FAF4]",
-      text: "text-[#155724]",
-      border: "border-[#C3E6CB]",
-      icon: Database01Icon,
-    },
-    creator: {
-      bg: "bg-[#FCF5FF]",
-      text: "text-[#522785]",
-      border: "border-[#E8D1FF]",
-      icon: QuillWrite01Icon,
-    },
-  };
-
-  const style = styles[type];
-  const Icon = style.icon;
-
-  return (
-    <div
-      className={`flex items-center gap-1.5 px-2.5 py-1 rounded-full border ${style.bg} ${style.text} ${style.border} shrink-0`}
-    >
-      <HugeiconsIcon icon={Icon} size={12} strokeWidth={1.8} />
-      <span className="text-xs font-regular tracking-tight uppercase whitespace-nowrap truncate max-w-[60px] sm:max-w-none">
-        {label}
-      </span>
-    </div>
-  );
-};
-
 const MemberItem = ({ member }: { member: Member }) => {
   const [isOpen, setIsOpen] = useState(false);
   const reduceMotion = useReducedMotion();
   const pokemon =
     POKEMON_DETAILS[member.id as keyof typeof POKEMON_DETAILS] ?? POKEMON_DETAILS["01"];
+  const detail =
+    EXPANDED_DETAILS[member.id] ??
+    ({
+      ...EXPANDED_DETAILS["01"],
+      ability: pokemon.ability,
+    } satisfies PokemonDetail);
 
   return (
     <motion.div
@@ -201,44 +170,44 @@ const MemberItem = ({ member }: { member: Member }) => {
       }}
       transition={sweepSpring}
       style={{ originX: 1, originY: 1 }}
-      className="rounded-2xl border border-transparent transition-[background-color,border-color] duration-300 hover:border-border/60 hover:bg-sidebar-accent/50"
+      className="overflow-hidden rounded-[18px] border border-transparent bg-background transition-[background-color,border-color,box-shadow] duration-300 hover:border-border/60 hover:bg-sidebar-accent/50 data-[open=true]:border-[#ECE8DF] data-[open=true]:shadow-[0_5px_18px_rgba(40,31,18,0.03)] dark:data-[open=true]:border-border"
+      data-open={isOpen}
     >
       <button
         type="button"
         aria-expanded={isOpen}
         aria-controls={`pokemon-details-${member.id}`}
         onClick={() => setIsOpen((open) => !open)}
-        className="flex w-full items-center gap-4 py-4 px-2 text-left outline-none "
+        className="flex h-[88px] w-full items-center gap-3.5 px-3.5 text-left outline-none"
       >
-        <div className="relative shrink-0">
+        <div className="relative h-16 w-16 shrink-0 overflow-visible">
+          <div
+            className={`absolute inset-0 rounded-full ring-1 ring-background shadow-sm ${member.avatarBackground}`}
+          />
           <img
             src={member.avatar}
             alt={member.name}
-            className="w-12 h-12 rounded-full ring-2 ring-background shadow-sm grayscale-[0.1] group-hover:grayscale-0 transition-all duration-300"
+            className="absolute left-1/2 top-1/2 h-20 w-20 -translate-x-1/2 -translate-y-1/2 object-contain grayscale-[0.1] transition-all duration-300 group-hover:scale-105 group-hover:grayscale-0"
           />
-          {member.online && (
-            <div className="absolute bottom-0 right-0 w-3.5 h-3.5 bg-background rounded-full flex items-center justify-center shadow-sm">
-              <div className="w-2 h-2 bg-green-500 rounded-full" />
-            </div>
-          )}
         </div>
         <div className="min-w-0 flex-1">
-          <h3 className="text-base font-semibold text-foreground tracking-tight leading-none mb-1.5 truncate">
-            {member.name}
-          </h3>
-          <div className="flex items-center gap-1.5 opacity-80">
-            {member.online && <div className="w-1.5 h-1.5 bg-green-500 rounded-full" />}
-            <p
-              className={`text-sm font-medium leading-none ${
-                member.online ? "text-green-600" : "text-muted-foreground"
-              }`}
-            >
-              {member.status}
-            </p>
+          <div className="flex items-baseline gap-1.5">
+            <h3 className="truncate text-lg font-semibold leading-5.5 tracking-tight text-foreground">
+              {member.name}
+            </h3>
+            <span className="text-[10px] leading-3 text-muted-foreground">{member.number}</span>
+          </div>
+          <div className="flex items-center gap-2">
+            <div className="size-2 rounded-full bg-orange-400" />
+            <p className="text-sm leading-4 text-muted-foreground">Niv. {member.level}</p>
           </div>
         </div>
-        <div className="shrink-0">
-          <RoleBadge type={member.roleType} label={member.role} />
+        <div className="flex shrink-0 flex-wrap items-center justify-end gap-1.5">
+          {member.types.map((type) => (
+            <Badge key={type} color={type} size="sm" variant="dot">
+              {type}
+            </Badge>
+          ))}
         </div>
         <span
           aria-hidden="true"
@@ -259,30 +228,93 @@ const MemberItem = ({ member }: { member: Member }) => {
             }
             className="overflow-hidden"
           >
-            <div className="grid gap-4 border-t border-border/30 px-2 pb-5 pt-4 sm:grid-cols-[auto_1fr] sm:items-start">
-              <div className="space-y-3">
-                <div>
-                  <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
+            <div className="space-y-3.5 border-t border-[#ECE9E1] px-3.5 pb-5 pt-4 dark:border-border">
+              <div className="flex gap-2.5">
+                <section className="min-w-0 flex-1 rounded-[10px] border border-[#EBE7DF] bg-[#FFFEFA] px-3 py-2.5 dark:border-border dark:bg-card">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.08em] text-amber-700 dark:text-amber-400">
                     Talent
                   </p>
-                  <p className="mt-1 text-sm text-foreground">{pokemon.ability}</p>
-                </div>
-                <div>
-                  <p className="text-[10px] font-medium uppercase tracking-wider text-muted-foreground">
-                    Attaques
+                  <p className="mt-1 text-sm font-semibold text-foreground">{detail.ability}</p>
+                  <p className="mt-1 text-[10px] leading-[13px] text-muted-foreground">
+                    {detail.abilityDescription}
                   </p>
-                  <div className="mt-1 flex flex-wrap gap-1.5">
-                    {pokemon.moves.map((move) => (
-                      <span
-                        key={move}
-                        className="rounded-full bg-background px-2 py-1 text-xs text-foreground ring-1 ring-border/60"
-                      >
-                        {move}
-                      </span>
-                    ))}
+                </section>
+                <section className="w-32 shrink-0 rounded-[10px] border border-[#EBE7DF] bg-[#FFFEFA] px-3 py-2.5 dark:border-border dark:bg-card">
+                  <p className="text-[9px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
+                    Objet
+                  </p>
+                  <p className="mt-2 text-xs font-semibold leading-3.5 text-foreground">
+                    {detail.item}
+                  </p>
+                </section>
+              </div>
+
+              <section>
+                <div className="mb-1.5 flex items-center justify-between">
+                  <p className="text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
+                    Statistiques
+                  </p>
+                  <div className="flex gap-3 text-[9px] font-bold tracking-[0.07em] text-muted-foreground">
+                    <span>IV</span>
+                    <span>EV</span>
                   </div>
                 </div>
-              </div>
+                <div className="space-y-0.5 rounded-[10px] border border-[#EBE7DF] bg-[#FFFEFA] px-3 py-2 dark:border-border dark:bg-card">
+                  {detail.stats.map((stat) => (
+                    <div key={stat.label} className="flex h-6 items-center gap-2">
+                      <span className="w-7 shrink-0 text-[10px] font-semibold text-muted-foreground">
+                        {stat.label}
+                      </span>
+                      <span className="w-6 shrink-0 text-[11px] font-semibold text-foreground">
+                        {stat.value}
+                      </span>
+                      <span className="h-1.5 min-w-0 flex-1 overflow-hidden rounded-full bg-[#EBE8E1] dark:bg-muted">
+                        <span
+                          className="block h-full rounded-full"
+                          style={{
+                            width: `${Math.round((stat.value / 135) * 100)}%`,
+                            backgroundColor: stat.color,
+                          }}
+                        />
+                      </span>
+                      <span className="w-5 shrink-0 text-right text-[10px] font-semibold text-muted-foreground">
+                        {stat.iv}
+                      </span>
+                      <span className="w-6 shrink-0 text-right text-[10px] font-semibold text-muted-foreground">
+                        {stat.ev}
+                      </span>
+                    </div>
+                  ))}
+                </div>
+                <div className="mt-1.5 flex items-center justify-between px-0.5 text-[10px]">
+                  <span className="text-muted-foreground">
+                    BST {detail.stats.reduce((total, stat) => total + stat.value, 0)}
+                  </span>
+                  <span className="text-foreground">IV 100%</span>
+                  <span className="text-foreground">508 / 508 EVs</span>
+                </div>
+              </section>
+
+              <section>
+                <p className="mb-1.5 text-[10px] font-bold uppercase tracking-[0.08em] text-muted-foreground">
+                  Attaques
+                </p>
+                <div className="grid grid-cols-2 gap-2">
+                  {detail.moves.map((move) => (
+                    <div
+                      key={move.name}
+                      className="flex h-9.5 min-w-0 items-center justify-between gap-2 rounded-lg border border-[#E7E3DC] bg-white px-2.5 dark:border-border dark:bg-card"
+                    >
+                      <span className="truncate text-[11px] font-medium text-foreground">
+                        {move.name}
+                      </span>
+                      <Badge color={move.type} size="sm">
+                        {move.type}
+                      </Badge>
+                    </div>
+                  ))}
+                </div>
+              </section>
             </div>
           </motion.div>
         )}
@@ -329,7 +361,7 @@ export default function TeamDetails() {
   const MissingMembers = MAX_ACTIVE_POKEMONS - VisibleMembers.length;
 
   return (
-    <div className="flex w-full max-w-[500px] min-w-0 box-border p-6 font-sans not-prose">
+    <div className="flex w-full max-w-[550px] min-w-0 box-border p-6 font-sans not-prose">
       <div className="relative w-full min-w-0 pb-6 bg-background rounded-[40px] border border-border flex flex-col overflow-hidden shadow-none">
         <div className="flex flex-col h-full bg-background">
           <div className="p-8 pb-3">
