@@ -1,12 +1,10 @@
-import { createFileRoute } from '@tanstack/react-router'
-import TeamDetails from '#/features/teams/TeamDetails'
+import { createFileRoute } from "@tanstack/react-router";
+import TeamOneDetails from "#/features/teams/TeamOneDetails";
 
-
-export const Route = createFileRoute('/teams/$team')({
+export const Route = createFileRoute("/teams/$team")({
   component: RouteComponent,
-})
+});
 
 function RouteComponent() {
-  return     <TeamDetails />
-
+  return <TeamOneDetails />;
 }
