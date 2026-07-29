@@ -206,7 +206,7 @@ function PokemonCard({ member }: { member: Pokemon }) {
   return (
     <PokemonDetailsModal
       ariaLabel={`${member.name} competitive details`}
-      className="max-w-[760px] rounded-[24px] dark:border-[#343842] dark:bg-[#101116]"
+      className="max-w-[660px] rounded-[24px] dark:border-[#343842] dark:bg-[#101116]"
       trigger={
         <button
           type="button"
