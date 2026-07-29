@@ -94,48 +94,56 @@ const sweepSpring = {
 };
 
 const MemberItem = ({ member }: { member: Member }) => (
-  <motion.div
-    variants={{
-      hidden: { opacity: 0, x: 10, y: 15, rotate: 1 },
-      visible: { opacity: 1, x: 0, y: 0, rotate: 0 },
-    }}
-    transition={sweepSpring}
-    style={{ originX: 1, originY: 1 }}
-    className="group flex cursor-pointer flex-col gap-4 rounded-2xl border border-transparent p-4 transition-[background-color,border-color] duration-300 hover:border-border/60 hover:bg-sidebar-accent/50 sm:flex-row sm:items-center sm:gap-0 sm:rounded-md sm:px-2"
+  <Link
+    to="/teams/$team"
+    params={{ team: member.id }}
+    viewTransition
+    aria-label={`Ouvrir l'équipe ${member.name}`}
+    className="block rounded-2xl outline-none focus-visible:ring-2 focus-visible:ring-ring/70 sm:rounded-md"
   >
-    <div className="min-w-0 flex-1 ml-2">
-      <h2 className="mb-1.5 truncate text-base font-semibold leading-none tracking-tight text-foreground sm:text-lg">
-        {member.name}
-      </h2>
-      <div className="flex items-center gap-1.5 opacity-80">
-        {member.online && <div className="size-1.5 rounded-full bg-green-500" />}
-        <p
-          className={`text-sm font-medium leading-none ${
-            member.online && "text-muted-foreground/60 font-light"
-          }`}
-        >
-          {member.status}
-        </p>
-      </div>
-    </div>
-    <div
-      className="grid w-full grid-cols-6 gap-1.5 sm:mr-4 sm:w-auto sm:shrink-0 sm:flex sm:gap-3"
-      aria-label={`Pokémon de l'équipe ${member.name}`}
+    <motion.div
+      variants={{
+        hidden: { opacity: 0, x: 10, y: 15, rotate: 1 },
+        visible: { opacity: 1, x: 0, y: 0, rotate: 0 },
+      }}
+      transition={sweepSpring}
+      style={{ originX: 1, originY: 1 }}
+      className="group flex cursor-pointer flex-col gap-4 rounded-2xl border border-transparent p-4 transition-[background-color,border-color] duration-300 hover:border-border/60 hover:bg-sidebar-accent/50 sm:flex-row sm:items-center sm:gap-0 sm:rounded-md sm:px-2"
     >
-      {Array.from({ length: 6 }, (_, index) => (
-        <div
-          key={`${member.id}-pokemon-${index}`}
-          className="grid aspect-square min-w-0 place-items-center rounded-xl border border-border/70 bg-background p-0.5 shadow-sm transition duration-300 group-hover:border-border sm:size-[54px] sm:rounded-sm"
-        >
-          <img
-            src={member.avatar}
-            alt=""
-            className="size-9 rounded-full object-cover grayscale-[0.1] transition duration-300 group-hover:grayscale-0 sm:size-12"
-          />
+      <div className="min-w-0 flex-1 ml-2">
+        <h2 className="mb-1.5 truncate text-base font-semibold leading-none tracking-tight text-foreground sm:text-lg">
+          {member.name}
+        </h2>
+        <div className="flex items-center gap-1.5 opacity-80">
+          {member.online && <div className="size-1.5 rounded-full bg-green-500" />}
+          <p
+            className={`text-sm font-medium leading-none ${
+              member.online && "text-muted-foreground/60 font-light"
+            }`}
+          >
+            {member.status}
+          </p>
         </div>
-      ))}
-    </div>
-  </motion.div>
+      </div>
+      <div
+        className="grid w-full grid-cols-6 gap-1.5 sm:mr-4 sm:w-auto sm:shrink-0 sm:flex sm:gap-3"
+        aria-label={`Pokémon de l'équipe ${member.name}`}
+      >
+        {Array.from({ length: 6 }, (_, index) => (
+          <div
+            key={`${member.id}-pokemon-${index}`}
+            className="grid aspect-square min-w-0 place-items-center rounded-xl border border-border/70 bg-background p-0.5 shadow-sm transition duration-300 group-hover:border-border sm:size-[54px] sm:rounded-sm"
+          >
+            <img
+              src={member.avatar}
+              alt=""
+              className="size-9 rounded-full object-cover grayscale-[0.1] transition duration-300 group-hover:grayscale-0 sm:size-12"
+            />
+          </div>
+        ))}
+      </div>
+    </motion.div>
+  </Link>
 );
 
 export default function TeamsList() {
