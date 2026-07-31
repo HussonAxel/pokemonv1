@@ -21,6 +21,7 @@
   "registries": {
     "@uitripled": "https://ui.tripled.work/r/{name}.json",
     "@extend": "https://ui.extend.ai/r/{name}.json",
-    "@beui": "https://beui.dev/r/{name}.json"
+    "@beui": "https://beui.dev/r/{name}.json",
+    "@bundui": "https://bundui.io/api/registry/{name}.json"
   }
 }

@@ -12,7 +12,13 @@ import { Route as rootRouteImport } from './routes/__root'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as AboutRouteImport } from './routes/about'
 import { Route as BuilderRouteImport } from './routes/builder'
+import { Route as ChasserRouteImport } from './routes/chasser'
+import { Route as CollectionnerRouteImport } from './routes/collectionner'
+import { Route as ExplorerRouteImport } from './routes/explorer'
 import { Route as HomeRouteImport } from './routes/home'
+import { Route as JouerRouteImport } from './routes/jouer'
+import { Route as OutilsRouteImport } from './routes/outils'
+import { Route as StrategieRouteImport } from './routes/strategie'
 import { Route as ApiRemyChatRouteImport } from './routes/api.remy-chat'
 import { Route as ComponentsComponentsRouteImport } from './routes/components/components'
 import { Route as DemoBetterAuthRouteImport } from './routes/demo/better-auth'
@@ -21,6 +27,13 @@ import { Route as DemoDbChatApiRouteImport } from './routes/demo/db-chat-api'
 import { Route as DemoDrizzleRouteImport } from './routes/demo/drizzle'
 import { Route as DemoTableRouteImport } from './routes/demo/table'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
+import { Route as ExplorerAttaquesRouteImport } from './routes/explorer.attaques'
+import { Route as ExplorerEvolutionsRouteImport } from './routes/explorer.evolutions'
+import { Route as ExplorerObjetsRouteImport } from './routes/explorer.objets'
+import { Route as ExplorerPokemonRouteImport } from './routes/explorer.pokemon'
+import { Route as ExplorerStatistiquesRouteImport } from './routes/explorer.statistiques'
+import { Route as ExplorerTalentsRouteImport } from './routes/explorer.talents'
+import { Route as ExplorerTypesRouteImport } from './routes/explorer.types'
 import { Route as ScheduleIndexRouteImport } from './routes/schedule.index'
 import { Route as SpeakersIndexRouteImport } from './routes/speakers.index'
 import { Route as SpeakersSlugRouteImport } from './routes/speakers.$slug'
@@ -45,9 +58,39 @@ const BuilderRoute = BuilderRouteImport.update({
   path: '/builder',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ChasserRoute = ChasserRouteImport.update({
+  id: '/chasser',
+  path: '/chasser',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const CollectionnerRoute = CollectionnerRouteImport.update({
+  id: '/collectionner',
+  path: '/collectionner',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const ExplorerRoute = ExplorerRouteImport.update({
+  id: '/explorer',
+  path: '/explorer',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const HomeRoute = HomeRouteImport.update({
   id: '/home',
   path: '/home',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const JouerRoute = JouerRouteImport.update({
+  id: '/jouer',
+  path: '/jouer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const OutilsRoute = OutilsRouteImport.update({
+  id: '/outils',
+  path: '/outils',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const StrategieRoute = StrategieRouteImport.update({
+  id: '/strategie',
+  path: '/strategie',
   getParentRoute: () => rootRouteImport,
 } as any)
 const ApiRemyChatRoute = ApiRemyChatRouteImport.update({
@@ -89,6 +132,41 @@ const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
   id: '/demo/tanstack-query',
   path: '/demo/tanstack-query',
   getParentRoute: () => rootRouteImport,
+} as any)
+const ExplorerAttaquesRoute = ExplorerAttaquesRouteImport.update({
+  id: '/attaques',
+  path: '/attaques',
+  getParentRoute: () => ExplorerRoute,
+} as any)
+const ExplorerEvolutionsRoute = ExplorerEvolutionsRouteImport.update({
+  id: '/evolutions',
+  path: '/evolutions',
+  getParentRoute: () => ExplorerRoute,
+} as any)
+const ExplorerObjetsRoute = ExplorerObjetsRouteImport.update({
+  id: '/objets',
+  path: '/objets',
+  getParentRoute: () => ExplorerRoute,
+} as any)
+const ExplorerPokemonRoute = ExplorerPokemonRouteImport.update({
+  id: '/pokemon',
+  path: '/pokemon',
+  getParentRoute: () => ExplorerRoute,
+} as any)
+const ExplorerStatistiquesRoute = ExplorerStatistiquesRouteImport.update({
+  id: '/statistiques',
+  path: '/statistiques',
+  getParentRoute: () => ExplorerRoute,
+} as any)
+const ExplorerTalentsRoute = ExplorerTalentsRouteImport.update({
+  id: '/talents',
+  path: '/talents',
+  getParentRoute: () => ExplorerRoute,
+} as any)
+const ExplorerTypesRoute = ExplorerTypesRouteImport.update({
+  id: '/types',
+  path: '/types',
+  getParentRoute: () => ExplorerRoute,
 } as any)
 const ScheduleIndexRoute = ScheduleIndexRouteImport.update({
   id: '/schedule/',
@@ -135,7 +213,13 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/builder': typeof BuilderRoute
+  '/chasser': typeof ChasserRoute
+  '/collectionner': typeof CollectionnerRoute
+  '/explorer': typeof ExplorerRouteWithChildren
   '/home': typeof HomeRoute
+  '/jouer': typeof JouerRoute
+  '/outils': typeof OutilsRoute
+  '/strategie': typeof StrategieRoute
   '/api/remy-chat': typeof ApiRemyChatRoute
   '/components/components': typeof ComponentsComponentsRoute
   '/demo/better-auth': typeof DemoBetterAuthRoute
@@ -144,6 +228,13 @@ export interface FileRoutesByFullPath {
   '/demo/drizzle': typeof DemoDrizzleRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/explorer/attaques': typeof ExplorerAttaquesRoute
+  '/explorer/evolutions': typeof ExplorerEvolutionsRoute
+  '/explorer/objets': typeof ExplorerObjetsRoute
+  '/explorer/pokemon': typeof ExplorerPokemonRoute
+  '/explorer/statistiques': typeof ExplorerStatistiquesRoute
+  '/explorer/talents': typeof ExplorerTalentsRoute
+  '/explorer/types': typeof ExplorerTypesRoute
   '/speakers/$slug': typeof SpeakersSlugRoute
   '/talks/$slug': typeof TalksSlugRoute
   '/teams/$team': typeof TeamsTeamRoute
@@ -157,7 +248,13 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/builder': typeof BuilderRoute
+  '/chasser': typeof ChasserRoute
+  '/collectionner': typeof CollectionnerRoute
+  '/explorer': typeof ExplorerRouteWithChildren
   '/home': typeof HomeRoute
+  '/jouer': typeof JouerRoute
+  '/outils': typeof OutilsRoute
+  '/strategie': typeof StrategieRoute
   '/api/remy-chat': typeof ApiRemyChatRoute
   '/components/components': typeof ComponentsComponentsRoute
   '/demo/better-auth': typeof DemoBetterAuthRoute
@@ -166,6 +263,13 @@ export interface FileRoutesByTo {
   '/demo/drizzle': typeof DemoDrizzleRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/explorer/attaques': typeof ExplorerAttaquesRoute
+  '/explorer/evolutions': typeof ExplorerEvolutionsRoute
+  '/explorer/objets': typeof ExplorerObjetsRoute
+  '/explorer/pokemon': typeof ExplorerPokemonRoute
+  '/explorer/statistiques': typeof ExplorerStatistiquesRoute
+  '/explorer/talents': typeof ExplorerTalentsRoute
+  '/explorer/types': typeof ExplorerTypesRoute
   '/speakers/$slug': typeof SpeakersSlugRoute
   '/talks/$slug': typeof TalksSlugRoute
   '/teams/$team': typeof TeamsTeamRoute
@@ -180,7 +284,13 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/about': typeof AboutRoute
   '/builder': typeof BuilderRoute
+  '/chasser': typeof ChasserRoute
+  '/collectionner': typeof CollectionnerRoute
+  '/explorer': typeof ExplorerRouteWithChildren
   '/home': typeof HomeRoute
+  '/jouer': typeof JouerRoute
+  '/outils': typeof OutilsRoute
+  '/strategie': typeof StrategieRoute
   '/api/remy-chat': typeof ApiRemyChatRoute
   '/components/components': typeof ComponentsComponentsRoute
   '/demo/better-auth': typeof DemoBetterAuthRoute
@@ -189,6 +299,13 @@ export interface FileRoutesById {
   '/demo/drizzle': typeof DemoDrizzleRoute
   '/demo/table': typeof DemoTableRoute
   '/demo/tanstack-query': typeof DemoTanstackQueryRoute
+  '/explorer/attaques': typeof ExplorerAttaquesRoute
+  '/explorer/evolutions': typeof ExplorerEvolutionsRoute
+  '/explorer/objets': typeof ExplorerObjetsRoute
+  '/explorer/pokemon': typeof ExplorerPokemonRoute
+  '/explorer/statistiques': typeof ExplorerStatistiquesRoute
+  '/explorer/talents': typeof ExplorerTalentsRoute
+  '/explorer/types': typeof ExplorerTypesRoute
   '/speakers/$slug': typeof SpeakersSlugRoute
   '/talks/$slug': typeof TalksSlugRoute
   '/teams/$team': typeof TeamsTeamRoute
@@ -204,7 +321,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/builder'
+    | '/chasser'
+    | '/collectionner'
+    | '/explorer'
     | '/home'
+    | '/jouer'
+    | '/outils'
+    | '/strategie'
     | '/api/remy-chat'
     | '/components/components'
     | '/demo/better-auth'
@@ -213,6 +336,13 @@ export interface FileRouteTypes {
     | '/demo/drizzle'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/explorer/attaques'
+    | '/explorer/evolutions'
+    | '/explorer/objets'
+    | '/explorer/pokemon'
+    | '/explorer/statistiques'
+    | '/explorer/talents'
+    | '/explorer/types'
     | '/speakers/$slug'
     | '/talks/$slug'
     | '/teams/$team'
@@ -226,7 +356,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/builder'
+    | '/chasser'
+    | '/collectionner'
+    | '/explorer'
     | '/home'
+    | '/jouer'
+    | '/outils'
+    | '/strategie'
     | '/api/remy-chat'
     | '/components/components'
     | '/demo/better-auth'
@@ -235,6 +371,13 @@ export interface FileRouteTypes {
     | '/demo/drizzle'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/explorer/attaques'
+    | '/explorer/evolutions'
+    | '/explorer/objets'
+    | '/explorer/pokemon'
+    | '/explorer/statistiques'
+    | '/explorer/talents'
+    | '/explorer/types'
     | '/speakers/$slug'
     | '/talks/$slug'
     | '/teams/$team'
@@ -248,7 +391,13 @@ export interface FileRouteTypes {
     | '/'
     | '/about'
     | '/builder'
+    | '/chasser'
+    | '/collectionner'
+    | '/explorer'
     | '/home'
+    | '/jouer'
+    | '/outils'
+    | '/strategie'
     | '/api/remy-chat'
     | '/components/components'
     | '/demo/better-auth'
@@ -257,6 +406,13 @@ export interface FileRouteTypes {
     | '/demo/drizzle'
     | '/demo/table'
     | '/demo/tanstack-query'
+    | '/explorer/attaques'
+    | '/explorer/evolutions'
+    | '/explorer/objets'
+    | '/explorer/pokemon'
+    | '/explorer/statistiques'
+    | '/explorer/talents'
+    | '/explorer/types'
     | '/speakers/$slug'
     | '/talks/$slug'
     | '/teams/$team'
@@ -271,7 +427,13 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AboutRoute: typeof AboutRoute
   BuilderRoute: typeof BuilderRoute
+  ChasserRoute: typeof ChasserRoute
+  CollectionnerRoute: typeof CollectionnerRoute
+  ExplorerRoute: typeof ExplorerRouteWithChildren
   HomeRoute: typeof HomeRoute
+  JouerRoute: typeof JouerRoute
+  OutilsRoute: typeof OutilsRoute
+  StrategieRoute: typeof StrategieRoute
   ApiRemyChatRoute: typeof ApiRemyChatRoute
   ComponentsComponentsRoute: typeof ComponentsComponentsRoute
   DemoBetterAuthRoute: typeof DemoBetterAuthRoute
@@ -313,11 +475,53 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof BuilderRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/chasser': {
+      id: '/chasser'
+      path: '/chasser'
+      fullPath: '/chasser'
+      preLoaderRoute: typeof ChasserRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/collectionner': {
+      id: '/collectionner'
+      path: '/collectionner'
+      fullPath: '/collectionner'
+      preLoaderRoute: typeof CollectionnerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/explorer': {
+      id: '/explorer'
+      path: '/explorer'
+      fullPath: '/explorer'
+      preLoaderRoute: typeof ExplorerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/home': {
       id: '/home'
       path: '/home'
       fullPath: '/home'
       preLoaderRoute: typeof HomeRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/jouer': {
+      id: '/jouer'
+      path: '/jouer'
+      fullPath: '/jouer'
+      preLoaderRoute: typeof JouerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/outils': {
+      id: '/outils'
+      path: '/outils'
+      fullPath: '/outils'
+      preLoaderRoute: typeof OutilsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/strategie': {
+      id: '/strategie'
+      path: '/strategie'
+      fullPath: '/strategie'
+      preLoaderRoute: typeof StrategieRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/api/remy-chat': {
@@ -375,6 +579,55 @@ declare module '@tanstack/react-router' {
       fullPath: '/demo/tanstack-query'
       preLoaderRoute: typeof DemoTanstackQueryRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/explorer/attaques': {
+      id: '/explorer/attaques'
+      path: '/attaques'
+      fullPath: '/explorer/attaques'
+      preLoaderRoute: typeof ExplorerAttaquesRouteImport
+      parentRoute: typeof ExplorerRoute
+    }
+    '/explorer/evolutions': {
+      id: '/explorer/evolutions'
+      path: '/evolutions'
+      fullPath: '/explorer/evolutions'
+      preLoaderRoute: typeof ExplorerEvolutionsRouteImport
+      parentRoute: typeof ExplorerRoute
+    }
+    '/explorer/objets': {
+      id: '/explorer/objets'
+      path: '/objets'
+      fullPath: '/explorer/objets'
+      preLoaderRoute: typeof ExplorerObjetsRouteImport
+      parentRoute: typeof ExplorerRoute
+    }
+    '/explorer/pokemon': {
+      id: '/explorer/pokemon'
+      path: '/pokemon'
+      fullPath: '/explorer/pokemon'
+      preLoaderRoute: typeof ExplorerPokemonRouteImport
+      parentRoute: typeof ExplorerRoute
+    }
+    '/explorer/statistiques': {
+      id: '/explorer/statistiques'
+      path: '/statistiques'
+      fullPath: '/explorer/statistiques'
+      preLoaderRoute: typeof ExplorerStatistiquesRouteImport
+      parentRoute: typeof ExplorerRoute
+    }
+    '/explorer/talents': {
+      id: '/explorer/talents'
+      path: '/talents'
+      fullPath: '/explorer/talents'
+      preLoaderRoute: typeof ExplorerTalentsRouteImport
+      parentRoute: typeof ExplorerRoute
+    }
+    '/explorer/types': {
+      id: '/explorer/types'
+      path: '/types'
+      fullPath: '/explorer/types'
+      preLoaderRoute: typeof ExplorerTypesRouteImport
+      parentRoute: typeof ExplorerRoute
     }
     '/schedule/': {
       id: '/schedule/'
@@ -435,11 +688,41 @@ declare module '@tanstack/react-router' {
   }
 }
 
+interface ExplorerRouteChildren {
+  ExplorerAttaquesRoute: typeof ExplorerAttaquesRoute
+  ExplorerEvolutionsRoute: typeof ExplorerEvolutionsRoute
+  ExplorerObjetsRoute: typeof ExplorerObjetsRoute
+  ExplorerPokemonRoute: typeof ExplorerPokemonRoute
+  ExplorerStatistiquesRoute: typeof ExplorerStatistiquesRoute
+  ExplorerTalentsRoute: typeof ExplorerTalentsRoute
+  ExplorerTypesRoute: typeof ExplorerTypesRoute
+}
+
+const ExplorerRouteChildren: ExplorerRouteChildren = {
+  ExplorerAttaquesRoute: ExplorerAttaquesRoute,
+  ExplorerEvolutionsRoute: ExplorerEvolutionsRoute,
+  ExplorerObjetsRoute: ExplorerObjetsRoute,
+  ExplorerPokemonRoute: ExplorerPokemonRoute,
+  ExplorerStatistiquesRoute: ExplorerStatistiquesRoute,
+  ExplorerTalentsRoute: ExplorerTalentsRoute,
+  ExplorerTypesRoute: ExplorerTypesRoute,
+}
+
+const ExplorerRouteWithChildren = ExplorerRoute._addFileChildren(
+  ExplorerRouteChildren,
+)
+
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AboutRoute: AboutRoute,
   BuilderRoute: BuilderRoute,
+  ChasserRoute: ChasserRoute,
+  CollectionnerRoute: CollectionnerRoute,
+  ExplorerRoute: ExplorerRouteWithChildren,
   HomeRoute: HomeRoute,
+  JouerRoute: JouerRoute,
+  OutilsRoute: OutilsRoute,
+  StrategieRoute: StrategieRoute,
   ApiRemyChatRoute: ApiRemyChatRoute,
   ComponentsComponentsRoute: ComponentsComponentsRoute,
   DemoBetterAuthRoute: DemoBetterAuthRoute,
