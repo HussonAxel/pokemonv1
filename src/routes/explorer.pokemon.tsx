@@ -1,7 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Outlet, createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/explorer/pokemon")({ component: EmptyRoute });
+export const Route = createFileRoute("/explorer/pokemon")({ component: PokemonLayout });
 
-function EmptyRoute() {
-  return null;
+function PokemonLayout() {
+  return <Outlet />;
 }

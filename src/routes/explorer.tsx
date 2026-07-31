@@ -1,7 +1,7 @@
-import { createFileRoute } from "@tanstack/react-router";
+import { Outlet, createFileRoute } from "@tanstack/react-router";
 
-export const Route = createFileRoute("/explorer")({ component: EmptyRoute });
+export const Route = createFileRoute("/explorer")({ component: ExplorerLayout });
 
-function EmptyRoute() {
-  return null;
+function ExplorerLayout() {
+  return <Outlet />;
 }
