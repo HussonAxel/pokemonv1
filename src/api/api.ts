@@ -17,10 +17,14 @@
 import { type Fetcher, type RequestFormat, createApiClient } from "./client.ts";
 
 // Basic configuration. Pass an explicit URL to createApi() in browser-only runtimes.
+const runtimeApiBaseUrl = (
+  globalThis as {
+    process?: { env?: Record<string, string | undefined> };
+  }
+).process?.env?.["API_BASE_URL"];
+
 const API_BASE_URL =
-  (globalThis as { process?: { env?: Record<string, string | undefined> } }).process?.env?.[
-    "API_BASE_URL"
-  ] ?? "https://api.example.com";
+  runtimeApiBaseUrl ?? import.meta.env.VITE_POKEAPI_BASE_URL ?? "https://pokeapi.co";
 
 const isMutationMethod = (method: string) =>
   ["post", "put", "patch", "delete"].includes(method.toLowerCase());
@@ -128,8 +132,14 @@ export const defaultFetcher: Fetcher["fetch"] = async (input) => {
   return response;
 };
 
-/** Create a client with an explicit base URL when your runtime owns environment access. */
+/**
+ * Create a client with an explicit base URL when your runtime owns environment access.
+ *
+ * OpenAPI types remain the compile-time contract. Runtime output validation is
+ * intentionally disabled because PokéAPI's live payload contains a few legacy
+ * shapes that are stricter/different than the generated schema.
+ */
 export const createApi = (baseUrl = API_BASE_URL) =>
-  createApiClient({ fetch: defaultFetcher }, baseUrl);
+  createApiClient({ fetch: defaultFetcher }, baseUrl, { validate: "input" });
 
 export const api = createApi();
