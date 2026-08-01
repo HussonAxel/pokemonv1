@@ -111,7 +111,7 @@ function MenuPanel({
 function MobileMenu({ sections }: { sections: readonly MegaMenuSection[] }) {
   const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="relative block min-[901px]:hidden">
+    <div className="static block min-[901px]:hidden">
       <button
         type="button"
         className="inline-flex size-10 items-center justify-center rounded-[11px] border border-foreground/15 bg-foreground/[0.07] text-foreground transition-[background-color,border-color,transform] duration-150 ease-out active:scale-[0.96] motion-reduce:transition-none motion-reduce:transform-none"
@@ -137,7 +137,7 @@ function MobileMenu({ sections }: { sections: readonly MegaMenuSection[] }) {
       </button>
       <div
         id="mobile-navigation-menu"
-        className={`absolute right-0 top-[calc(100%+12px)] z-[60] w-[calc(100vw-2rem)] max-w-[420px] origin-top-right overflow-hidden rounded-[20px] border border-foreground/20 bg-popover/95 px-3.5 py-2.5 shadow-[0_24px_70px_color-mix(in_srgb,#000_34%,transparent)] backdrop-blur-2xl transition-[opacity,transform,visibility] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] motion-reduce:transition-none ${isOpen ? "visible translate-y-0 scale-100 opacity-100 pointer-events-auto" : "invisible -translate-y-2 scale-[0.98] opacity-0 pointer-events-none"}`}
+        className={`absolute left-1/2 top-[calc(100%+12px)] z-[60] w-[calc(100vw-2rem)] max-w-[420px] -translate-x-1/2 origin-top overflow-hidden rounded-[20px] border border-foreground/20 bg-popover/95 px-3.5 py-2.5 shadow-[0_24px_70px_color-mix(in_srgb,#000_34%,transparent)] backdrop-blur-2xl transition-[opacity,transform,visibility] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] motion-reduce:transition-none ${isOpen ? "visible translate-y-0 scale-100 opacity-100 pointer-events-auto" : "invisible -translate-y-2 scale-[0.98] opacity-0 pointer-events-none"}`}
         aria-hidden={!isOpen}
         aria-label="Navigation principale"
       >
@@ -184,7 +184,7 @@ export function MegaMenu({ sections = pokemonMegaMenu, className = "" }: MegaMen
   };
   return (
     <div
-      className={`relative z-[60] font-sans min-[901px]:absolute min-[901px]:left-1/2 min-[901px]:top-1/2 min-[901px]:-translate-x-1/2 min-[901px]:-translate-y-1/2 ${className}`.trim()}
+      className={`z-[60] font-sans min-[901px]:relative min-[901px]:absolute min-[901px]:left-1/2 min-[901px]:top-1/2 min-[901px]:-translate-x-1/2 min-[901px]:-translate-y-1/2 ${className}`.trim()}
       onPointerLeave={scheduleClose}
     >
       <div
