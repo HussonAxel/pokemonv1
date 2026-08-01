@@ -1,4 +1,5 @@
 import { Link, useRouterState } from "@tanstack/react-router";
+import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useId, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 
@@ -110,6 +111,14 @@ function MenuPanel({
 
 function MobileMenu({ sections }: { sections: readonly MegaMenuSection[] }) {
   const [isOpen, setIsOpen] = useState(false);
+  const [openSectionId, setOpenSectionId] = useState<string | null>(null);
+  const shouldReduceMotion = useReducedMotion();
+
+  function closeMenu() {
+    setIsOpen(false);
+    setOpenSectionId(null);
+  }
+
   return (
     <div className="static block min-[901px]:hidden">
       <button
@@ -118,7 +127,13 @@ function MobileMenu({ sections }: { sections: readonly MegaMenuSection[] }) {
         aria-expanded={isOpen}
         aria-controls="mobile-navigation-menu"
         aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
-        onClick={() => setIsOpen((open) => !open)}
+        onClick={() => {
+          if (isOpen) {
+            closeMenu();
+          } else {
+            setIsOpen(true);
+          }
+        }}
       >
         <span
           className="relative inline-flex h-4 w-[19px] flex-col justify-between"
@@ -135,36 +150,71 @@ function MobileMenu({ sections }: { sections: readonly MegaMenuSection[] }) {
           />
         </span>
       </button>
-      <div
+      <motion.div
+        layout={!shouldReduceMotion}
+        transition={{ type: "spring", stiffness: 240, damping: 30, mass: 0.8 }}
         id="mobile-navigation-menu"
         className={`absolute left-1/2 top-[calc(100%+12px)] z-[60] w-[calc(100vw-2rem)] max-w-[420px] -translate-x-1/2 origin-top overflow-hidden rounded-[20px] border border-foreground/20 bg-popover/95 px-3.5 py-2.5 shadow-[0_24px_70px_color-mix(in_srgb,#000_34%,transparent)] backdrop-blur-2xl transition-[opacity,transform,visibility] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] motion-reduce:transition-none ${isOpen ? "visible translate-y-0 scale-100 opacity-100 pointer-events-auto" : "invisible -translate-y-2 scale-[0.98] opacity-0 pointer-events-none"}`}
         aria-hidden={!isOpen}
         aria-label="Navigation principale"
       >
-        {sections.map((section) => (
-          <details
-            key={section.id}
-            className={`group border-b border-foreground/[0.12] opacity-0 transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] last:border-b-0 motion-reduce:translate-y-0 motion-reduce:transition-none ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-1"}`}
-          >
-            <summary className="flex w-full list-none items-center justify-between px-1 py-[13px] text-[15px] font-semibold text-foreground marker:content-none [&::-webkit-details-marker]:hidden">
-              <span>{section.label}</span>
-              <span
-                aria-hidden="true"
-                className="transition-transform duration-150 group-open:rotate-45 motion-reduce:transition-none"
+        {sections.map((section) => {
+          const isSectionOpen = openSectionId === section.id;
+
+          return (
+            <div
+              key={section.id}
+              className={`border-b border-foreground/[0.12] opacity-0 transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] last:border-b-0 motion-reduce:translate-y-0 motion-reduce:transition-none ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-1"}`}
+            >
+              <button
+                type="button"
+                className="flex w-full items-center justify-between px-1 py-[13px] text-left text-[15px] font-semibold text-foreground"
+                aria-expanded={isSectionOpen}
+                aria-controls={`mobile-navigation-section-${section.id}`}
+                onClick={() =>
+                  setOpenSectionId((current) => (current === section.id ? null : section.id))
+                }
               >
-                +
-              </span>
-            </summary>
-            <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-[220ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-open:grid-rows-[1fr] motion-reduce:transition-none">
-              <div className="min-h-0 overflow-hidden">
-                <div className="-translate-y-1 opacity-0 transition-[transform,opacity] duration-[180ms] ease-[cubic-bezier(0.19,1,0.22,1)] group-open:translate-y-0 group-open:opacity-100 motion-reduce:translate-y-0 motion-reduce:transition-opacity motion-reduce:duration-150">
-                  <MenuPanel section={section} onNavigate={() => setIsOpen(false)} mobile />
-                </div>
-              </div>
+                <span>{section.label}</span>
+                <span
+                  aria-hidden="true"
+                  className={`transition-transform duration-150 motion-reduce:transition-none ${isSectionOpen ? "rotate-45" : ""}`}
+                >
+                  +
+                </span>
+              </button>
+              <AnimatePresence initial={false}>
+                {isSectionOpen ? (
+                  <motion.div
+                    id={`mobile-navigation-section-${section.id}`}
+                    initial={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                    animate={shouldReduceMotion ? { opacity: 1 } : { height: "auto", opacity: 1 }}
+                    exit={shouldReduceMotion ? { opacity: 0 } : { height: 0, opacity: 0 }}
+                    transition={
+                      shouldReduceMotion
+                        ? { duration: 0.15, ease: "easeOut" }
+                        : {
+                            height: { type: "spring", stiffness: 240, damping: 30, mass: 0.8 },
+                            opacity: { duration: 0.18, ease: "easeOut" },
+                          }
+                    }
+                    className="overflow-hidden"
+                  >
+                    <motion.div
+                      initial={shouldReduceMotion ? false : { opacity: 0, y: -8 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      exit={shouldReduceMotion ? { opacity: 0 } : { opacity: 0, y: -8 }}
+                      transition={{ duration: 0.18, ease: "easeOut" }}
+                    >
+                      <MenuPanel section={section} onNavigate={closeMenu} mobile />
+                    </motion.div>
+                  </motion.div>
+                ) : null}
+              </AnimatePresence>
             </div>
-          </details>
-        ))}
-      </div>
+          );
+        })}
+      </motion.div>
     </div>
   );
 }
