@@ -240,7 +240,7 @@ export function MegaMenu({ sections = pokemonMegaMenu, className = "" }: MegaMen
   };
   return (
     <div
-      className={`z-[60] font-sans min-[901px]:relative min-[901px]:absolute min-[901px]:left-1/2 min-[901px]:top-1/2 min-[901px]:-translate-x-1/2 min-[901px]:-translate-y-1/2 ${className}`.trim()}
+      className={`static z-[60] font-sans min-[901px]:absolute min-[901px]:left-1/2 min-[901px]:top-1/2 min-[901px]:-translate-x-1/2 min-[901px]:-translate-y-1/2 ${className}`.trim()}
       onPointerLeave={scheduleClose}
     >
       <div
@@ -272,7 +272,7 @@ export function MegaMenu({ sections = pokemonMegaMenu, className = "" }: MegaMen
                 aria-expanded={isOpen}
                 aria-haspopup="true"
                 role="menuitem"
-                onClick={() => (isOpen ? setOpenSectionId(null) : openSection(section.id))}
+                onClick={() => openSection(section.id)}
                 onKeyDown={(event) => {
                   if (event.key === "Escape") {
                     setOpenSectionId(null);
