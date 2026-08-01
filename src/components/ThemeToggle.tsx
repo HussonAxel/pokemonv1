@@ -1,4 +1,7 @@
 import { useEffect, useState } from "react";
+import { Desktop, Moon, Sun } from "@phosphor-icons/react";
+
+import { headerActionClassName } from "./header-action";
 
 type ThemeMode = "light" | "dark" | "auto";
 
@@ -65,6 +68,7 @@ export default function ThemeToggle() {
     mode === "auto"
       ? "Theme mode: auto (system). Click to switch to light mode."
       : `Theme mode: ${mode}. Click to switch mode.`;
+  const Icon = mode === "auto" ? Desktop : mode === "dark" ? Moon : Sun;
 
   return (
     <button
@@ -72,9 +76,9 @@ export default function ThemeToggle() {
       onClick={toggleMode}
       aria-label={label}
       title={label}
-      className="rounded-full border border-[var(--chip-line)] bg-[var(--chip-bg)] px-3 py-1.5 text-sm font-semibold text-[var(--sea-ink)] shadow-[0_8px_22px_rgba(30,90,72,0.08)] transition hover:-translate-y-0.5"
+      className={headerActionClassName}
     >
-      {mode === "auto" ? "Auto" : mode === "dark" ? "Dark" : "Light"}
+      <Icon aria-hidden="true" size={20} weight="duotone" />
     </button>
   );
 }

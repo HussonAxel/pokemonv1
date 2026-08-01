@@ -1,21 +1,24 @@
 import { authClient } from "#/lib/auth-client";
 import { Link } from "@tanstack/react-router";
+import { SignIn, SignOut } from "@phosphor-icons/react";
+
+import { headerActionClassName } from "../../components/header-action";
 
 export default function BetterAuthHeader() {
   const { data: session, isPending } = authClient.useSession();
 
   if (isPending) {
-    return <div className="h-8 w-8 bg-neutral-100 dark:bg-neutral-800 animate-pulse" />;
+    return <div className="size-10 animate-pulse rounded-xl bg-muted" />;
   }
 
   if (session?.user) {
     return (
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-1.5">
         {session.user.image ? (
-          <img src={session.user.image} alt="" className="h-8 w-8" />
+          <img src={session.user.image} alt="" className="size-10 rounded-xl object-cover" />
         ) : (
-          <div className="h-8 w-8 bg-neutral-100 dark:bg-neutral-800 flex items-center justify-center">
-            <span className="text-xs font-medium text-neutral-600 dark:text-neutral-400">
+          <div className="flex size-10 items-center justify-center rounded-xl border border-border/70 bg-muted text-muted-foreground">
+            <span className="text-sm font-semibold">
               {session.user.name?.charAt(0).toUpperCase() || "U"}
             </span>
           </div>
@@ -24,9 +27,11 @@ export default function BetterAuthHeader() {
           onClick={() => {
             void authClient.signOut();
           }}
-          className="flex-1 h-9 px-4 text-sm font-medium bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors"
+          aria-label="Se déconnecter"
+          title="Se déconnecter"
+          className={headerActionClassName}
         >
-          Sign out
+          <SignOut aria-hidden="true" size={20} weight="duotone" />
         </button>
       </div>
     );
@@ -35,9 +40,11 @@ export default function BetterAuthHeader() {
   return (
     <Link
       to="/demo/better-auth"
-      className="h-9 px-4 text-sm font-medium bg-white dark:bg-neutral-900 text-neutral-900 dark:text-neutral-50 border border-neutral-300 dark:border-neutral-700 hover:bg-neutral-50 dark:hover:bg-neutral-800 transition-colors inline-flex items-center"
+      aria-label="Se connecter"
+      title="Se connecter"
+      className={headerActionClassName}
     >
-      Sign in
+      <SignIn aria-hidden="true" size={20} weight="duotone" />
     </Link>
   );
 }

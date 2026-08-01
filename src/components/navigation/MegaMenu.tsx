@@ -3,6 +3,7 @@ import { AnimatePresence, motion, useReducedMotion } from "motion/react";
 import { useId, useRef, useState } from "react";
 import type { CSSProperties } from "react";
 
+import { headerActionClassName } from "../header-action";
 import { pokemonMegaMenu } from "./mega-menu-config";
 import type { MegaMenuGroup, MegaMenuLink, MegaMenuSection } from "./mega-menu-config";
 
@@ -123,7 +124,7 @@ function MobileMenu({ sections }: { sections: readonly MegaMenuSection[] }) {
     <div className="static block min-[901px]:hidden">
       <button
         type="button"
-        className="inline-flex size-10 items-center justify-center rounded-[11px] border border-foreground/15 bg-foreground/[0.07] text-foreground transition-[background-color,border-color,transform] duration-150 ease-out active:scale-[0.96] motion-reduce:transition-none motion-reduce:transform-none"
+        className={headerActionClassName}
         aria-expanded={isOpen}
         aria-controls="mobile-navigation-menu"
         aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
