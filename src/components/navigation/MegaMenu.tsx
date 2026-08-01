@@ -5,16 +5,15 @@ import type { CSSProperties } from "react";
 import { pokemonMegaMenu } from "./mega-menu-config";
 import type { MegaMenuGroup, MegaMenuLink, MegaMenuSection } from "./mega-menu-config";
 
-export type MegaMenuProps = {
-  sections?: readonly MegaMenuSection[];
-  className?: string;
-};
+export type MegaMenuProps = { sections?: readonly MegaMenuSection[]; className?: string };
+
+const menuLinkClassName =
+  "group flex min-h-[42px] items-center gap-2.5 rounded-[13px] px-[11px] py-[7px] text-muted-foreground no-underline transition-[color,background-color] duration-150 ease-out hover:bg-foreground/[0.09] hover:text-foreground focus-visible:bg-foreground/[0.09] focus-visible:text-foreground focus-visible:outline-none motion-reduce:transition-none";
 
 function isSectionActive(section: MegaMenuSection, pathname: string) {
   return section.groups.some((group) =>
-    group.links.some((item) => {
-      const target = item.link.to;
-
+    group.links.some(({ link }) => {
+      const target = link.to;
       return (
         typeof target === "string" && (pathname === target || pathname.startsWith(`${target}/`))
       );
@@ -24,22 +23,24 @@ function isSectionActive(section: MegaMenuSection, pathname: string) {
 
 function MenuLink({ item, onNavigate }: { item: MegaMenuLink; onNavigate?: () => void }) {
   const Icon = item.icon;
-
   return (
     <Link
       {...item.link}
-      className="mega-menu__link"
+      className={menuLinkClassName}
+      activeProps={{ className: `${menuLinkClassName} bg-foreground/[0.09] text-foreground` }}
       role="menuitem"
-      activeProps={{ className: "mega-menu__link is-active" }}
       onClick={onNavigate}
     >
-      <span className="mega-menu__icon" aria-hidden="true">
+      <span
+        className="flex size-[25px] shrink-0 items-center justify-center text-[var(--mega-menu-tone)] transition-transform duration-150 ease-out group-hover:rotate-[-2deg] group-hover:scale-[1.06] motion-reduce:transform-none motion-reduce:transition-none [&>svg]:size-[19px] [&>svg]:stroke-current [&>svg]:stroke-[1.7]"
+        aria-hidden="true"
+      >
         <Icon />
       </span>
-      <span className="mega-menu__link-copy">
-        <span className="mega-menu__link-label">{item.label}</span>
+      <span className="flex min-w-0 flex-1 flex-col gap-0.5">
+        <span className="truncate text-base leading-[21px]">{item.label}</span>
         {item.description ? (
-          <span className="mega-menu__link-description">{item.description}</span>
+          <span className="text-xs leading-4 text-muted-foreground">{item.description}</span>
         ) : null}
       </span>
     </Link>
@@ -49,11 +50,13 @@ function MenuLink({ item, onNavigate }: { item: MegaMenuLink; onNavigate?: () =>
 function MenuGroup({ group, onNavigate }: { group: MegaMenuGroup; onNavigate?: () => void }) {
   return (
     <section
-      className="mega-menu__group"
+      className="min-w-0 flex-[1_1_0]"
       style={{ "--mega-menu-tone": group.tone } as CSSProperties}
     >
-      <h3 className="mega-menu__group-title">{group.label}</h3>
-      <div className="mega-menu__group-links">
+      <h3 className="mb-3.5 pl-2.5 font-mono text-xs font-medium uppercase leading-4 tracking-[0.08em] text-[var(--mega-menu-tone)]">
+        {group.label}
+      </h3>
+      <div className="flex flex-col gap-[3px]">
         {group.links.map((item) => (
           <MenuLink key={item.id} item={item} onNavigate={onNavigate} />
         ))}
@@ -62,27 +65,40 @@ function MenuGroup({ group, onNavigate }: { group: MegaMenuGroup; onNavigate?: (
   );
 }
 
-function MenuPanel({ section, onNavigate }: { section: MegaMenuSection; onNavigate?: () => void }) {
+function MenuPanel({
+  section,
+  onNavigate,
+  mobile = false,
+}: {
+  section: MegaMenuSection;
+  onNavigate?: () => void;
+  mobile?: boolean;
+}) {
   return (
-    <div className="mega-menu__panel-content">
-      <div className="mega-menu__groups">
+    <div className={mobile ? "pb-[18px]" : "px-[38px] pb-7 pt-[34px]"}>
+      <div className={mobile ? "flex flex-col gap-5" : "flex items-start gap-[42px]"}>
         {section.groups.map((group) => (
           <MenuGroup key={group.id} group={group} onNavigate={onNavigate} />
         ))}
       </div>
       {section.browse ? (
-        <div className="mega-menu__footer">
+        <div
+          className={`mt-[26px] flex border-t border-foreground/[0.12] pt-3.5 ${mobile ? "justify-start" : "justify-center"}`}
+        >
           <Link
             {...section.browse.link}
-            className="mega-menu__browse"
+            className="group flex items-center gap-2 rounded-[9px] px-2.5 py-[7px] font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground no-underline transition-[color,background-color] duration-150 ease-out hover:bg-foreground/[0.07] hover:text-foreground focus-visible:bg-foreground/[0.07] focus-visible:text-foreground focus-visible:outline-none motion-reduce:transition-none"
             role="menuitem"
             onClick={onNavigate}
           >
-            <span aria-hidden="true" className="mega-menu__browse-icon">
+            <span aria-hidden="true" className="text-[15px] leading-none text-primary">
               ▦
             </span>
             {section.browse.label}
-            <span aria-hidden="true" className="mega-menu__browse-arrow">
+            <span
+              aria-hidden="true"
+              className="text-base text-primary transition-transform duration-150 ease-out group-hover:translate-x-[3px] group-focus-visible:translate-x-[3px] motion-reduce:transform-none motion-reduce:transition-none"
+            >
               →
             </span>
           </Link>
@@ -93,17 +109,56 @@ function MenuPanel({ section, onNavigate }: { section: MegaMenuSection; onNaviga
 }
 
 function MobileMenu({ sections }: { sections: readonly MegaMenuSection[] }) {
+  const [isOpen, setIsOpen] = useState(false);
   return (
-    <div className="mega-menu__mobile" aria-label="Navigation principale">
-      {sections.map((section) => (
-        <details key={section.id} className="mega-menu__mobile-section">
-          <summary className="mega-menu__mobile-trigger">
-            <span>{section.label}</span>
-            <span aria-hidden="true">+</span>
-          </summary>
-          <MenuPanel section={section} />
-        </details>
-      ))}
+    <div className="relative block min-[901px]:hidden">
+      <button
+        type="button"
+        className="inline-flex size-10 items-center justify-center rounded-[11px] border border-foreground/15 bg-foreground/[0.07] text-foreground transition-[background-color,border-color,transform] duration-150 ease-out active:scale-[0.96] motion-reduce:transition-none motion-reduce:transform-none"
+        aria-expanded={isOpen}
+        aria-controls="mobile-navigation-menu"
+        aria-label={isOpen ? "Fermer le menu" : "Ouvrir le menu"}
+        onClick={() => setIsOpen((open) => !open)}
+      >
+        <span
+          className="relative inline-flex h-4 w-[19px] flex-col justify-between"
+          aria-hidden="true"
+        >
+          <span
+            className={`block h-0.5 w-[19px] origin-center rounded-full bg-current transition-[transform,opacity] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] motion-reduce:transition-none ${isOpen ? "translate-y-[7px] rotate-45" : ""}`}
+          />
+          <span
+            className={`block h-0.5 w-[19px] origin-center rounded-full bg-current transition-[transform,opacity] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] motion-reduce:transition-none ${isOpen ? "opacity-0" : ""}`}
+          />
+          <span
+            className={`block h-0.5 w-[19px] origin-center rounded-full bg-current transition-[transform,opacity] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] motion-reduce:transition-none ${isOpen ? "-translate-y-[7px] -rotate-45" : ""}`}
+          />
+        </span>
+      </button>
+      <div
+        id="mobile-navigation-menu"
+        className={`absolute right-0 top-[calc(100%+12px)] z-[60] w-[min(420px,calc(100vw-2rem))] origin-top-right overflow-hidden rounded-[20px] border border-foreground/20 bg-popover/95 px-3.5 py-2.5 shadow-[0_24px_70px_color-mix(in_srgb,#000_34%,transparent)] backdrop-blur-2xl transition-[opacity,transform,visibility] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] motion-reduce:transition-none ${isOpen ? "visible translate-y-0 scale-100 opacity-100 pointer-events-auto" : "invisible -translate-y-2 scale-[0.98] opacity-0 pointer-events-none"}`}
+        aria-hidden={!isOpen}
+        aria-label="Navigation principale"
+      >
+        {sections.map((section) => (
+          <details
+            key={section.id}
+            className={`group border-b border-foreground/[0.12] opacity-0 transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] last:border-b-0 motion-reduce:translate-y-0 motion-reduce:transition-none ${isOpen ? "translate-y-0 opacity-100" : "-translate-y-1"}`}
+          >
+            <summary className="flex w-full list-none items-center justify-between px-1 py-[13px] text-[15px] font-semibold text-foreground marker:content-none [&::-webkit-details-marker]:hidden">
+              <span>{section.label}</span>
+              <span
+                aria-hidden="true"
+                className="transition-transform duration-150 group-open:rotate-45 motion-reduce:transition-none"
+              >
+                +
+              </span>
+            </summary>
+            <MenuPanel section={section} onNavigate={() => setIsOpen(false)} mobile />
+          </details>
+        ))}
+      </div>
     </div>
   );
 }
@@ -113,49 +168,49 @@ export function MegaMenu({ sections = pokemonMegaMenu, className = "" }: MegaMen
   const [openSectionId, setOpenSectionId] = useState<string | null>(null);
   const closeTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const menuId = useId();
-
-  function cancelClose() {
+  const cancelClose = () => {
     if (closeTimeout.current) {
       clearTimeout(closeTimeout.current);
       closeTimeout.current = null;
     }
-  }
-
-  function scheduleClose() {
+  };
+  const scheduleClose = () => {
     cancelClose();
     closeTimeout.current = setTimeout(() => setOpenSectionId(null), 120);
-  }
-
-  function openSection(sectionId: string) {
+  };
+  const openSection = (sectionId: string) => {
     cancelClose();
     setOpenSectionId(sectionId);
-  }
-
+  };
   return (
-    <div className={`mega-menu ${className}`.trim()} onPointerLeave={scheduleClose}>
-      <div className="mega-menu__desktop" role="menubar" aria-label="Navigation principale">
+    <div
+      className={`relative z-[60] font-sans min-[901px]:absolute min-[901px]:left-1/2 min-[901px]:top-1/2 min-[901px]:-translate-x-1/2 min-[901px]:-translate-y-1/2 ${className}`.trim()}
+      onPointerLeave={scheduleClose}
+    >
+      <div
+        className="hidden items-center gap-1 min-[901px]:flex"
+        role="menubar"
+        aria-label="Navigation principale"
+      >
         {sections.map((section) => {
           const isOpen = openSectionId === section.id;
           const panelId = `${menuId}-${section.id}`;
           const isActive = isSectionActive(section, pathname);
-
           return (
             <div
-              className="mega-menu__item"
+              className="flex h-[42px] items-center"
               key={section.id}
               onBlurCapture={(event) => {
                 const nextTarget = event.relatedTarget;
-
-                if (!(nextTarget instanceof Node) || !event.currentTarget.contains(nextTarget)) {
+                if (!(nextTarget instanceof Node) || !event.currentTarget.contains(nextTarget))
                   scheduleClose();
-                }
               }}
               onFocusCapture={() => openSection(section.id)}
               onPointerEnter={() => openSection(section.id)}
             >
               <button
                 type="button"
-                className={`mega-menu__trigger${isOpen || isActive ? " is-active" : ""}`}
+                className={`inline-flex h-[42px] items-center rounded-[10px] px-3 text-[13px] font-semibold text-muted-foreground transition-[color,background-color,transform] duration-150 ease-out hover:bg-foreground/[0.08] hover:text-foreground focus-visible:bg-foreground/[0.08] focus-visible:text-foreground focus-visible:outline-none active:scale-[0.98] motion-reduce:transition-[color,background-color] motion-reduce:transform-none ${isOpen || isActive ? "bg-foreground/[0.08] text-foreground shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--mega-menu-tone)_38%,transparent)]" : ""}`}
                 style={{ "--mega-menu-tone": section.tone } as CSSProperties}
                 aria-controls={isOpen ? panelId : undefined}
                 aria-expanded={isOpen}
@@ -172,7 +227,11 @@ export function MegaMenu({ sections = pokemonMegaMenu, className = "" }: MegaMen
                 {section.label}
               </button>
               {isOpen ? (
-                <div id={panelId} className="mega-menu__dropdown" role="menu">
+                <div
+                  id={panelId}
+                  className="absolute left-1/2 top-[calc(100%+12px)] w-[min(960px,calc(100vw-2rem))] -translate-x-1/2 overflow-hidden rounded-[20px] bg-popover/95 shadow-[0_0_0_1px_color-mix(in_srgb,var(--foreground)_20%,transparent),0_24px_70px_color-mix(in_srgb,#000_34%,transparent),inset_0_0_0_1px_color-mix(in_srgb,#fff_7%,transparent)] backdrop-blur-2xl animate-in fade-in duration-200 motion-reduce:animate-none"
+                  role="menu"
+                >
                   <MenuPanel section={section} onNavigate={() => setOpenSectionId(null)} />
                 </div>
               ) : null}
