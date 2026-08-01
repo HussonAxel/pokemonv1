@@ -1472,6 +1472,15 @@
   }
 }
 
+.scrollbar-hidden {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.scrollbar-hidden::-webkit-scrollbar {
+  display: none;
+}
+
 .menu-bento--editorial .menu-bento__arrow--dark,
 .menu-bento--editorial .menu-bento__pager span {
   background: var(--foreground);
