@@ -86,6 +86,15 @@ const ALL_MEMBERS: Member[] = [
 
 const ACTIVE_MEMBERS = ALL_MEMBERS.filter((m) => m.online);
 
+const matchesTeamSearch = (member: Member, query: string) => {
+  const normalizedQuery = query.toLowerCase();
+
+  return (
+    member.name.toLowerCase().includes(normalizedQuery) ||
+    member.role.toLowerCase().includes(normalizedQuery)
+  );
+};
+
 const sweepSpring = {
   type: "spring" as const,
   stiffness: 400,
@@ -151,12 +160,12 @@ export default function TeamsList() {
   const [searchQuery, setSearchQuery] = useState("");
 
   const filteredAllMembers = useMemo(
-    () =>
-      ALL_MEMBERS.filter(
-        (m) =>
-          m.name.toLowerCase().includes(searchQuery.toLowerCase()) ||
-          m.role.toLowerCase().includes(searchQuery.toLowerCase()),
-      ),
+    () => ALL_MEMBERS.filter((member) => matchesTeamSearch(member, searchQuery)),
+    [searchQuery],
+  );
+
+  const filteredActiveMembers = useMemo(
+    () => ACTIVE_MEMBERS.filter((member) => matchesTeamSearch(member, searchQuery)),
     [searchQuery],
   );
 
@@ -204,7 +213,7 @@ export default function TeamsList() {
               animate="visible"
               variants={{ visible: { transition: { staggerChildren: 0.04 } } }}
             >
-              {ACTIVE_MEMBERS.map((member) => (
+              {filteredActiveMembers.map((member) => (
                 <MemberItem key={`active-${member.id}`} member={member} />
               ))}
             </motion.div>

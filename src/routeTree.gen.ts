@@ -18,6 +18,8 @@ import { Route as ExplorerRouteImport } from './routes/explorer'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as JouerRouteImport } from './routes/jouer'
 import { Route as OutilsRouteImport } from './routes/outils'
+import { Route as PartagesRouteImport } from './routes/partages'
+import { Route as PreferencesRouteImport } from './routes/preferences'
 import { Route as StrategieRouteImport } from './routes/strategie'
 import { Route as ApiRemyChatRouteImport } from './routes/api.remy-chat'
 import { Route as ComponentsComponentsRouteImport } from './routes/components/components'
@@ -42,6 +44,8 @@ import { Route as TalksSlugRouteImport } from './routes/talks.$slug'
 import { Route as TeamsIndexRouteImport } from './routes/teams/index'
 import { Route as TeamsTeamRouteImport } from './routes/teams/$team'
 import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
+import { Route as ExplorerPokemonIndexRouteImport } from './routes/explorer.pokemon.index'
+import { Route as ExplorerPokemonIdRouteImport } from './routes/explorer.pokemon.$id'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -86,6 +90,16 @@ const JouerRoute = JouerRouteImport.update({
 const OutilsRoute = OutilsRouteImport.update({
   id: '/outils',
   path: '/outils',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PartagesRoute = PartagesRouteImport.update({
+  id: '/partages',
+  path: '/partages',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const PreferencesRoute = PreferencesRouteImport.update({
+  id: '/preferences',
+  path: '/preferences',
   getParentRoute: () => rootRouteImport,
 } as any)
 const StrategieRoute = StrategieRouteImport.update({
@@ -208,6 +222,16 @@ const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
   path: '/api/auth/$',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExplorerPokemonIndexRoute = ExplorerPokemonIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ExplorerPokemonRoute,
+} as any)
+const ExplorerPokemonIdRoute = ExplorerPokemonIdRouteImport.update({
+  id: '/$id',
+  path: '/$id',
+  getParentRoute: () => ExplorerPokemonRoute,
+} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -219,6 +243,8 @@ export interface FileRoutesByFullPath {
   '/home': typeof HomeRoute
   '/jouer': typeof JouerRoute
   '/outils': typeof OutilsRoute
+  '/partages': typeof PartagesRoute
+  '/preferences': typeof PreferencesRoute
   '/strategie': typeof StrategieRoute
   '/api/remy-chat': typeof ApiRemyChatRoute
   '/components/components': typeof ComponentsComponentsRoute
@@ -231,7 +257,7 @@ export interface FileRoutesByFullPath {
   '/explorer/attaques': typeof ExplorerAttaquesRoute
   '/explorer/evolutions': typeof ExplorerEvolutionsRoute
   '/explorer/objets': typeof ExplorerObjetsRoute
-  '/explorer/pokemon': typeof ExplorerPokemonRoute
+  '/explorer/pokemon': typeof ExplorerPokemonRouteWithChildren
   '/explorer/statistiques': typeof ExplorerStatistiquesRoute
   '/explorer/talents': typeof ExplorerTalentsRoute
   '/explorer/types': typeof ExplorerTypesRoute
@@ -243,6 +269,8 @@ export interface FileRoutesByFullPath {
   '/talks/': typeof TalksIndexRoute
   '/teams/': typeof TeamsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/explorer/pokemon/$id': typeof ExplorerPokemonIdRoute
+  '/explorer/pokemon/': typeof ExplorerPokemonIndexRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -254,6 +282,8 @@ export interface FileRoutesByTo {
   '/home': typeof HomeRoute
   '/jouer': typeof JouerRoute
   '/outils': typeof OutilsRoute
+  '/partages': typeof PartagesRoute
+  '/preferences': typeof PreferencesRoute
   '/strategie': typeof StrategieRoute
   '/api/remy-chat': typeof ApiRemyChatRoute
   '/components/components': typeof ComponentsComponentsRoute
@@ -266,7 +296,6 @@ export interface FileRoutesByTo {
   '/explorer/attaques': typeof ExplorerAttaquesRoute
   '/explorer/evolutions': typeof ExplorerEvolutionsRoute
   '/explorer/objets': typeof ExplorerObjetsRoute
-  '/explorer/pokemon': typeof ExplorerPokemonRoute
   '/explorer/statistiques': typeof ExplorerStatistiquesRoute
   '/explorer/talents': typeof ExplorerTalentsRoute
   '/explorer/types': typeof ExplorerTypesRoute
@@ -278,6 +307,8 @@ export interface FileRoutesByTo {
   '/talks': typeof TalksIndexRoute
   '/teams': typeof TeamsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/explorer/pokemon/$id': typeof ExplorerPokemonIdRoute
+  '/explorer/pokemon': typeof ExplorerPokemonIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -290,6 +321,8 @@ export interface FileRoutesById {
   '/home': typeof HomeRoute
   '/jouer': typeof JouerRoute
   '/outils': typeof OutilsRoute
+  '/partages': typeof PartagesRoute
+  '/preferences': typeof PreferencesRoute
   '/strategie': typeof StrategieRoute
   '/api/remy-chat': typeof ApiRemyChatRoute
   '/components/components': typeof ComponentsComponentsRoute
@@ -302,7 +335,7 @@ export interface FileRoutesById {
   '/explorer/attaques': typeof ExplorerAttaquesRoute
   '/explorer/evolutions': typeof ExplorerEvolutionsRoute
   '/explorer/objets': typeof ExplorerObjetsRoute
-  '/explorer/pokemon': typeof ExplorerPokemonRoute
+  '/explorer/pokemon': typeof ExplorerPokemonRouteWithChildren
   '/explorer/statistiques': typeof ExplorerStatistiquesRoute
   '/explorer/talents': typeof ExplorerTalentsRoute
   '/explorer/types': typeof ExplorerTypesRoute
@@ -314,6 +347,8 @@ export interface FileRoutesById {
   '/talks/': typeof TalksIndexRoute
   '/teams/': typeof TeamsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
+  '/explorer/pokemon/$id': typeof ExplorerPokemonIdRoute
+  '/explorer/pokemon/': typeof ExplorerPokemonIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -327,6 +362,8 @@ export interface FileRouteTypes {
     | '/home'
     | '/jouer'
     | '/outils'
+    | '/partages'
+    | '/preferences'
     | '/strategie'
     | '/api/remy-chat'
     | '/components/components'
@@ -351,6 +388,8 @@ export interface FileRouteTypes {
     | '/talks/'
     | '/teams/'
     | '/api/auth/$'
+    | '/explorer/pokemon/$id'
+    | '/explorer/pokemon/'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -362,6 +401,8 @@ export interface FileRouteTypes {
     | '/home'
     | '/jouer'
     | '/outils'
+    | '/partages'
+    | '/preferences'
     | '/strategie'
     | '/api/remy-chat'
     | '/components/components'
@@ -374,7 +415,6 @@ export interface FileRouteTypes {
     | '/explorer/attaques'
     | '/explorer/evolutions'
     | '/explorer/objets'
-    | '/explorer/pokemon'
     | '/explorer/statistiques'
     | '/explorer/talents'
     | '/explorer/types'
@@ -386,6 +426,8 @@ export interface FileRouteTypes {
     | '/talks'
     | '/teams'
     | '/api/auth/$'
+    | '/explorer/pokemon/$id'
+    | '/explorer/pokemon'
   id:
     | '__root__'
     | '/'
@@ -397,6 +439,8 @@ export interface FileRouteTypes {
     | '/home'
     | '/jouer'
     | '/outils'
+    | '/partages'
+    | '/preferences'
     | '/strategie'
     | '/api/remy-chat'
     | '/components/components'
@@ -421,6 +465,8 @@ export interface FileRouteTypes {
     | '/talks/'
     | '/teams/'
     | '/api/auth/$'
+    | '/explorer/pokemon/$id'
+    | '/explorer/pokemon/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
@@ -433,6 +479,8 @@ export interface RootRouteChildren {
   HomeRoute: typeof HomeRoute
   JouerRoute: typeof JouerRoute
   OutilsRoute: typeof OutilsRoute
+  PartagesRoute: typeof PartagesRoute
+  PreferencesRoute: typeof PreferencesRoute
   StrategieRoute: typeof StrategieRoute
   ApiRemyChatRoute: typeof ApiRemyChatRoute
   ComponentsComponentsRoute: typeof ComponentsComponentsRoute
@@ -515,6 +563,20 @@ declare module '@tanstack/react-router' {
       path: '/outils'
       fullPath: '/outils'
       preLoaderRoute: typeof OutilsRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/partages': {
+      id: '/partages'
+      path: '/partages'
+      fullPath: '/partages'
+      preLoaderRoute: typeof PartagesRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/preferences': {
+      id: '/preferences'
+      path: '/preferences'
+      fullPath: '/preferences'
+      preLoaderRoute: typeof PreferencesRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/strategie': {
@@ -685,14 +747,42 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ApiAuthSplatRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explorer/pokemon/': {
+      id: '/explorer/pokemon/'
+      path: '/'
+      fullPath: '/explorer/pokemon/'
+      preLoaderRoute: typeof ExplorerPokemonIndexRouteImport
+      parentRoute: typeof ExplorerPokemonRoute
+    }
+    '/explorer/pokemon/$id': {
+      id: '/explorer/pokemon/$id'
+      path: '/$id'
+      fullPath: '/explorer/pokemon/$id'
+      preLoaderRoute: typeof ExplorerPokemonIdRouteImport
+      parentRoute: typeof ExplorerPokemonRoute
+    }
   }
 }
+
+interface ExplorerPokemonRouteChildren {
+  ExplorerPokemonIdRoute: typeof ExplorerPokemonIdRoute
+  ExplorerPokemonIndexRoute: typeof ExplorerPokemonIndexRoute
+}
+
+const ExplorerPokemonRouteChildren: ExplorerPokemonRouteChildren = {
+  ExplorerPokemonIdRoute: ExplorerPokemonIdRoute,
+  ExplorerPokemonIndexRoute: ExplorerPokemonIndexRoute,
+}
+
+const ExplorerPokemonRouteWithChildren = ExplorerPokemonRoute._addFileChildren(
+  ExplorerPokemonRouteChildren,
+)
 
 interface ExplorerRouteChildren {
   ExplorerAttaquesRoute: typeof ExplorerAttaquesRoute
   ExplorerEvolutionsRoute: typeof ExplorerEvolutionsRoute
   ExplorerObjetsRoute: typeof ExplorerObjetsRoute
-  ExplorerPokemonRoute: typeof ExplorerPokemonRoute
+  ExplorerPokemonRoute: typeof ExplorerPokemonRouteWithChildren
   ExplorerStatistiquesRoute: typeof ExplorerStatistiquesRoute
   ExplorerTalentsRoute: typeof ExplorerTalentsRoute
   ExplorerTypesRoute: typeof ExplorerTypesRoute
@@ -702,7 +792,7 @@ const ExplorerRouteChildren: ExplorerRouteChildren = {
   ExplorerAttaquesRoute: ExplorerAttaquesRoute,
   ExplorerEvolutionsRoute: ExplorerEvolutionsRoute,
   ExplorerObjetsRoute: ExplorerObjetsRoute,
-  ExplorerPokemonRoute: ExplorerPokemonRoute,
+  ExplorerPokemonRoute: ExplorerPokemonRouteWithChildren,
   ExplorerStatistiquesRoute: ExplorerStatistiquesRoute,
   ExplorerTalentsRoute: ExplorerTalentsRoute,
   ExplorerTypesRoute: ExplorerTypesRoute,
@@ -722,6 +812,8 @@ const rootRouteChildren: RootRouteChildren = {
   HomeRoute: HomeRoute,
   JouerRoute: JouerRoute,
   OutilsRoute: OutilsRoute,
+  PartagesRoute: PartagesRoute,
+  PreferencesRoute: PreferencesRoute,
   StrategieRoute: StrategieRoute,
   ApiRemyChatRoute: ApiRemyChatRoute,
   ComponentsComponentsRoute: ComponentsComponentsRoute,
