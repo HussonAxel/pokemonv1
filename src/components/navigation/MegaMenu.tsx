@@ -155,7 +155,13 @@ function MobileMenu({ sections }: { sections: readonly MegaMenuSection[] }) {
                 +
               </span>
             </summary>
-            <MenuPanel section={section} onNavigate={() => setIsOpen(false)} mobile />
+            <div className="grid grid-rows-[0fr] transition-[grid-template-rows] duration-[220ms] ease-[cubic-bezier(0.25,1,0.5,1)] group-open:grid-rows-[1fr] motion-reduce:transition-none">
+              <div className="min-h-0 overflow-hidden">
+                <div className="-translate-y-1 opacity-0 transition-[transform,opacity] duration-[180ms] ease-[cubic-bezier(0.19,1,0.22,1)] group-open:translate-y-0 group-open:opacity-100 motion-reduce:translate-y-0 motion-reduce:transition-opacity motion-reduce:duration-150">
+                  <MenuPanel section={section} onNavigate={() => setIsOpen(false)} mobile />
+                </div>
+              </div>
+            </div>
           </details>
         ))}
       </div>
