@@ -137,7 +137,7 @@ function MobileMenu({ sections }: { sections: readonly MegaMenuSection[] }) {
       </button>
       <div
         id="mobile-navigation-menu"
-        className={`absolute right-0 top-[calc(100%+12px)] z-[60] w-[min(420px,calc(100vw-2rem))] origin-top-right overflow-hidden rounded-[20px] border border-foreground/20 bg-popover/95 px-3.5 py-2.5 shadow-[0_24px_70px_color-mix(in_srgb,#000_34%,transparent)] backdrop-blur-2xl transition-[opacity,transform,visibility] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] motion-reduce:transition-none ${isOpen ? "visible translate-y-0 scale-100 opacity-100 pointer-events-auto" : "invisible -translate-y-2 scale-[0.98] opacity-0 pointer-events-none"}`}
+        className={`absolute right-0 top-[calc(100%+12px)] z-[60] w-[calc(100vw-2rem)] max-w-[420px] origin-top-right overflow-hidden rounded-[20px] border border-foreground/20 bg-popover/95 px-3.5 py-2.5 shadow-[0_24px_70px_color-mix(in_srgb,#000_34%,transparent)] backdrop-blur-2xl transition-[opacity,transform,visibility] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] motion-reduce:transition-none ${isOpen ? "visible translate-y-0 scale-100 opacity-100 pointer-events-auto" : "invisible -translate-y-2 scale-[0.98] opacity-0 pointer-events-none"}`}
         aria-hidden={!isOpen}
         aria-label="Navigation principale"
       >
