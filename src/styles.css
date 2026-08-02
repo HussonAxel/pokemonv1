@@ -1201,6 +1201,21 @@
   align-content: stretch;
 }
 
+@media (max-width: 767px) {
+  .finder-grid {
+    grid-auto-rows: 10.25rem;
+    overflow-x: hidden;
+    overflow-y: auto;
+    overscroll-behavior-y: contain;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .finder-grid--fill {
+    grid-auto-rows: 10.25rem;
+    align-content: start;
+  }
+}
+
 .finder-icon-button {
   display: inline-flex;
   align-items: center;
