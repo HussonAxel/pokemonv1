@@ -502,11 +502,11 @@ function PptxSidebarThumbnail({
         type: PPTX_MIME_TYPE,
       }}
       previewAspectRatio={aspectRatio}
-      previewClassName="rounded-sm bg-white"
+      previewClassName="rounded-sm bg-card"
       previewContent={
         <div
           ref={containerRef}
-          className="size-full overflow-hidden bg-white [&_[data-rpv-slide-wrapper]]:!m-0"
+          className="size-full overflow-hidden bg-card [&_[data-rpv-slide-wrapper]]:!m-0"
         />
       }
       isLoading={status !== "ready" && status !== "error"}

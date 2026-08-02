@@ -186,18 +186,18 @@ export function CardsSlider() {
                   <div className="absolute top-4 left-4">
                     <Badge
                       variant="secondary"
-                      className="bg-background/50 backdrop-blur-md border-white/10 text-xs font-medium px-3 py-1"
+                      className="border-border/30 bg-background/50 px-3 py-1 text-xs font-medium backdrop-blur-md"
                     >
                       {card.category}
                     </Badge>
                   </div>
 
                   {/* Hover Overlay Action */}
-                  <div className="absolute inset-0 flex items-center justify-center bg-black/20 backdrop-blur-[2px] opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                  <div className="absolute inset-0 flex items-center justify-center bg-foreground/20 opacity-0 backdrop-blur-[2px] transition-opacity duration-300 group-hover:opacity-100">
                     <motion.button
                       whileHover={{ scale: 1.05 }}
                       whileTap={{ scale: 0.95 }}
-                      className="flex items-center gap-2 rounded-full bg-white/90 px-5 py-2 text-sm font-semibold text-black shadow-lg"
+                      className="flex items-center gap-2 rounded-full bg-background/90 px-5 py-2 text-sm font-semibold text-foreground shadow-lg"
                     >
                       View Details
                     </motion.button>

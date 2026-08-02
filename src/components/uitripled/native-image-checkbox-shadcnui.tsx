@@ -110,7 +110,7 @@ export function NativeImageCheckbox({
 
       {/* Overlay for better check visibility */}
       <motion.div
-        className="absolute inset-0 bg-black"
+        className="absolute inset-0 bg-foreground"
         initial={{ opacity: 0 }}
         animate={{ opacity: selected ? 0 : 0.15 }}
         transition={{ duration: 0.3 }}
@@ -133,17 +133,17 @@ export function NativeImageCheckbox({
       >
         <div
           className={cn(
-            "bg-green-500 rounded-full flex items-center justify-center shadow-lg",
+            "flex items-center justify-center rounded-full bg-chart-3 shadow-lg",
             checkContainer,
           )}
         >
-          <Check className={cn("text-white stroke-[3]", check)} />
+          <Check className={cn("stroke-[3] text-primary-foreground", check)} />
         </div>
       </motion.div>
 
       {/* Ring border when selected */}
       <motion.div
-        className="absolute inset-0 rounded-lg border-2 border-green-500"
+        className="absolute inset-0 rounded-lg border-2 border-chart-3"
         initial={{ opacity: 0 }}
         animate={{ opacity: selected ? 1 : 0 }}
         transition={{ duration: 0.3 }}

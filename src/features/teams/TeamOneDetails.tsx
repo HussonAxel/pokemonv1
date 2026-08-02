@@ -1,6 +1,7 @@
 import { ArrowUpRight, Share2, SlidersHorizontal } from "lucide-react";
 
-import { Badge, type BadgeColor } from "#/components/ui/badge";
+import Badge from "#/components/badge";
+import type { BadgeColor } from "#/components/ui/badge";
 import { Button } from "#/components/ui/button";
 import { PokemonCompetitiveDetails, type PokemonDetail } from "#/features/teams/TeamDetails";
 import { PokemonDetailsModal } from "#/features/teams/PokemonDetails";
@@ -44,7 +45,7 @@ const pokemon: Pokemon[] = [
     item: "Bandeau Choix",
     types: ["fire"],
     avatar: artwork(59),
-    avatarBackground: "bg-orange-100/80 dark:bg-orange-950/30",
+    avatarBackground: "bg-primary/10",
     stats: baseStats,
     moves: [
       { name: "Boutefeu", type: "fire" },
@@ -62,7 +63,7 @@ const pokemon: Pokemon[] = [
     item: "Boue Noire",
     types: ["grass", "poison"],
     avatar: artwork(3),
-    avatarBackground: "bg-emerald-100/80 dark:bg-emerald-950/30",
+    avatarBackground: "bg-chart-3/10",
     stats: baseStats,
     moves: [
       { name: "Giga-Sangsue", type: "grass" },
@@ -80,7 +81,7 @@ const pokemon: Pokemon[] = [
     item: "Orbe Vie",
     types: ["ghost", "poison"],
     avatar: artwork(94),
-    avatarBackground: "bg-violet-100/80 dark:bg-violet-950/30",
+    avatarBackground: "bg-chart-4/10",
     stats: baseStats,
     moves: [
       { name: "Ball’Ombre", type: "ghost" },
@@ -98,7 +99,7 @@ const pokemon: Pokemon[] = [
     item: "Restes",
     types: ["water", "ice"],
     avatar: artwork(131),
-    avatarBackground: "bg-sky-100/80 dark:bg-sky-950/30",
+    avatarBackground: "bg-chart-2/10",
     stats: baseStats,
     moves: [
       { name: "Hydrocanon", type: "water" },
@@ -116,7 +117,7 @@ const pokemon: Pokemon[] = [
     item: "Lunettes Choix",
     types: ["fairy", "flying"],
     avatar: artwork(468),
-    avatarBackground: "bg-pink-100/80 dark:bg-pink-950/30",
+    avatarBackground: "bg-chart-4/10",
     stats: baseStats,
     moves: [
       { name: "Lame d’Air", type: "flying" },
@@ -134,7 +135,7 @@ const pokemon: Pokemon[] = [
     item: "Casque Brut",
     types: ["flying", "steel"],
     avatar: artwork(823),
-    avatarBackground: "bg-indigo-100/80 dark:bg-indigo-950/30",
+    avatarBackground: "bg-chart-4/10",
     stats: baseStats,
     moves: [
       { name: "Rapace", type: "flying" },
@@ -206,7 +207,7 @@ function PokemonCard({ member }: { member: Pokemon }) {
   return (
     <PokemonDetailsModal
       ariaLabel={`${member.name} competitive details`}
-      className="max-w-[660px] rounded-[24px] dark:border-[#343842] dark:bg-[#101116]"
+      className="max-w-[660px] rounded-[24px]"
       trigger={
         <button
           type="button"
@@ -227,13 +228,7 @@ function PokemonCard({ member }: { member: Pokemon }) {
             <p className="mt-1 text-sm text-muted-foreground">
               Niv. {member.level} · {member.ability}
             </p>
-            <div className="mt-2 flex flex-wrap gap-1">
-              {member.types.map((type) => (
-                <Badge key={type} color={type} size="sm" variant="dot">
-                  {type}
-                </Badge>
-              ))}
-            </div>
+            <Badge className="mt-2 gap-1" items={member.types} size="xs" />
           </div>
           <ArrowUpRight
             aria-hidden="true"

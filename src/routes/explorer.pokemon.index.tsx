@@ -12,10 +12,10 @@ const listParams = getDefaultPokemonListParams();
 
 export const Route = createFileRoute("/explorer/pokemon/")({
   component: PokemonIndexPage,
-  loader: ({ context }) =>
-    context.queryCacheReady.then(() =>
-      context.queryClient.ensureQueryData(pokemonListQueryOptions(listParams)),
-    ),
+  loader: async ({ context }) => {
+    await Promise.resolve(context.queryCacheReady);
+    return context.queryClient.ensureQueryData(pokemonListQueryOptions(listParams));
+  },
 });
 
 function PokemonIndexPage() {

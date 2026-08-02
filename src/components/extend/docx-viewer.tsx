@@ -661,13 +661,13 @@ function DocxSidebarThumbnail({
         type: DOCX_MIME_TYPE,
       }}
       previewAspectRatio={previewAspectRatio}
-      previewClassName="rounded-md bg-white"
+      previewClassName="rounded-md bg-card"
       previewContent={
         <canvas
           ref={canvasRef}
           width={pixelWidthPx}
           height={pixelHeightPx}
-          className="!size-full bg-white object-cover object-top"
+          className="!size-full bg-card object-cover object-top"
         />
       }
       isLoading={isLoading}
@@ -1425,7 +1425,7 @@ function DocxViewerContent({
                   showComments={showComments}
                   renderCommentCard={renderCommentCard}
                   loadingState={loadingState}
-                  pageBackgroundColor={effectiveIsDark ? "#0a0a0a" : undefined}
+                  pageBackgroundColor={effectiveIsDark ? "var(--background)" : undefined}
                   pageGapBackgroundColor={viewerBackgroundColor}
                   pageVirtualization={pageVirtualization}
                   deferInitialPaginationPaint={false}

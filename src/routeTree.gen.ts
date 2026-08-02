@@ -29,6 +29,7 @@ import { Route as DemoDbChatApiRouteImport } from './routes/demo/db-chat-api'
 import { Route as DemoDrizzleRouteImport } from './routes/demo/drizzle'
 import { Route as DemoTableRouteImport } from './routes/demo/table'
 import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
+import { Route as ExplorerIndexRouteImport } from './routes/explorer.index'
 import { Route as ExplorerAttaquesRouteImport } from './routes/explorer.attaques'
 import { Route as ExplorerEvolutionsRouteImport } from './routes/explorer.evolutions'
 import { Route as ExplorerObjetsRouteImport } from './routes/explorer.objets'
@@ -142,6 +143,11 @@ const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
   path: '/demo/tanstack-query',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ExplorerIndexRoute = ExplorerIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => ExplorerRoute,
+} as any)
 const ExplorerAttaquesRoute = ExplorerAttaquesRouteImport.update({
   id: '/attaques',
   path: '/attaques',
@@ -232,6 +238,7 @@ export interface FileRoutesByFullPath {
   '/explorer/talents': typeof ExplorerTalentsRoute
   '/explorer/types': typeof ExplorerTypesRoute
   '/teams/$team': typeof TeamsTeamRoute
+  '/explorer/': typeof ExplorerIndexRoute
   '/teams/': typeof TeamsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/explorer/pokemon/$id': typeof ExplorerPokemonIdRoute
@@ -243,7 +250,6 @@ export interface FileRoutesByTo {
   '/builder': typeof BuilderRoute
   '/chasser': typeof ChasserRoute
   '/collectionner': typeof CollectionnerRoute
-  '/explorer': typeof ExplorerRouteWithChildren
   '/home': typeof HomeRoute
   '/jouer': typeof JouerRoute
   '/outils': typeof OutilsRoute
@@ -265,6 +271,7 @@ export interface FileRoutesByTo {
   '/explorer/talents': typeof ExplorerTalentsRoute
   '/explorer/types': typeof ExplorerTypesRoute
   '/teams/$team': typeof TeamsTeamRoute
+  '/explorer': typeof ExplorerIndexRoute
   '/teams': typeof TeamsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/explorer/pokemon/$id': typeof ExplorerPokemonIdRoute
@@ -300,6 +307,7 @@ export interface FileRoutesById {
   '/explorer/talents': typeof ExplorerTalentsRoute
   '/explorer/types': typeof ExplorerTypesRoute
   '/teams/$team': typeof TeamsTeamRoute
+  '/explorer/': typeof ExplorerIndexRoute
   '/teams/': typeof TeamsIndexRoute
   '/api/auth/$': typeof ApiAuthSplatRoute
   '/explorer/pokemon/$id': typeof ExplorerPokemonIdRoute
@@ -336,6 +344,7 @@ export interface FileRouteTypes {
     | '/explorer/talents'
     | '/explorer/types'
     | '/teams/$team'
+    | '/explorer/'
     | '/teams/'
     | '/api/auth/$'
     | '/explorer/pokemon/$id'
@@ -347,7 +356,6 @@ export interface FileRouteTypes {
     | '/builder'
     | '/chasser'
     | '/collectionner'
-    | '/explorer'
     | '/home'
     | '/jouer'
     | '/outils'
@@ -369,6 +377,7 @@ export interface FileRouteTypes {
     | '/explorer/talents'
     | '/explorer/types'
     | '/teams/$team'
+    | '/explorer'
     | '/teams'
     | '/api/auth/$'
     | '/explorer/pokemon/$id'
@@ -403,6 +412,7 @@ export interface FileRouteTypes {
     | '/explorer/talents'
     | '/explorer/types'
     | '/teams/$team'
+    | '/explorer/'
     | '/teams/'
     | '/api/auth/$'
     | '/explorer/pokemon/$id'
@@ -577,6 +587,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DemoTanstackQueryRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/explorer/': {
+      id: '/explorer/'
+      path: '/'
+      fullPath: '/explorer/'
+      preLoaderRoute: typeof ExplorerIndexRouteImport
+      parentRoute: typeof ExplorerRoute
+    }
     '/explorer/attaques': {
       id: '/explorer/attaques'
       path: '/attaques'
@@ -686,6 +703,7 @@ interface ExplorerRouteChildren {
   ExplorerStatistiquesRoute: typeof ExplorerStatistiquesRoute
   ExplorerTalentsRoute: typeof ExplorerTalentsRoute
   ExplorerTypesRoute: typeof ExplorerTypesRoute
+  ExplorerIndexRoute: typeof ExplorerIndexRoute
 }
 
 const ExplorerRouteChildren: ExplorerRouteChildren = {
@@ -696,6 +714,7 @@ const ExplorerRouteChildren: ExplorerRouteChildren = {
   ExplorerStatistiquesRoute: ExplorerStatistiquesRoute,
   ExplorerTalentsRoute: ExplorerTalentsRoute,
   ExplorerTypesRoute: ExplorerTypesRoute,
+  ExplorerIndexRoute: ExplorerIndexRoute,
 }
 
 const ExplorerRouteWithChildren = ExplorerRoute._addFileChildren(

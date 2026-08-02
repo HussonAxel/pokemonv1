@@ -72,7 +72,7 @@ const Badge = forwardRef<HTMLSpanElement, BadgeProps>(
         : `color-mix(in oklab, ${colorValue} 7%, var(--background))`,
       boxShadow: [
         `inset 0 0 0 1px color-mix(in oklab, ${colorValue} 58%, transparent)`,
-        "0 1px 1px rgb(0 0 0 / 0.04)",
+        "0 1px 1px color-mix(in srgb, var(--foreground) 4%, transparent)",
       ].join(", "),
     };
 
