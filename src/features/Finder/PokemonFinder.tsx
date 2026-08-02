@@ -450,7 +450,11 @@ export function PokemonFinder() {
 
         <FileSystem
           items={items}
-          className={isCaughtView ? "[&_[data-file-index]]:opacity-35" : undefined}
+          className={
+            isCaughtView
+              ? "!h-full min-h-0 [&_[data-file-index]]:opacity-35"
+              : "!h-full min-h-0"
+          }
           title={
             pokemonCollectionFilters.find((item) => item.key === filters.collection)?.title ??
             "All Pokemon"

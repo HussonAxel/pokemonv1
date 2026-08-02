@@ -3262,6 +3262,7 @@ function FileSystemIconsView({
   return (
     <ScrollArea
       orientation="vertical"
+      className="size-full"
       viewportRef={viewportRef}
       viewportClassName="p-3"
       viewportProps={{
