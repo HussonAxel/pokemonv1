@@ -127,7 +127,7 @@ export default function RemyAssistant({ speakerSlug, talkSlug, contextTitle }: R
         </div>
         <button
           onClick={handleToggle}
-          className="text-cream/50 hover:text-cream transition-colors p-2 hover:bg-white/5 rounded-xl"
+          className="rounded-xl p-2 text-cream/50 transition-colors hover:bg-foreground/5 hover:text-cream"
         >
           <X className="w-5 h-5" />
         </button>
@@ -182,7 +182,7 @@ export default function RemyAssistant({ speakerSlug, talkSlug, contextTitle }: R
             <button
               type="submit"
               disabled={!input.trim() || isLoading}
-              className="absolute right-3 top-1/2 -translate-y-1/2 p-2 rounded-lg bg-gradient-to-r from-copper to-copper-dark text-charcoal disabled:opacity-30 disabled:bg-gray-600 disabled:from-gray-600 disabled:to-gray-600 transition-all hover:shadow-lg hover:shadow-copper/20"
+              className="absolute right-3 top-1/2 -translate-y-1/2 rounded-lg bg-gradient-to-r from-copper to-copper-dark p-2 text-charcoal transition-all hover:shadow-lg hover:shadow-copper/20 disabled:bg-muted disabled:from-muted disabled:to-muted disabled:opacity-30"
             >
               <Send className="w-4 h-4" />
             </button>

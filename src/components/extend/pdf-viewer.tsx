@@ -156,7 +156,7 @@ const THUMBNAIL_SIDEBAR_CLOSED_CLASS = "-ml-40";
 const PAGE_BASE_RENDER_MAX_SCALE = 1;
 const PAGE_BASE_RENDER_DPR = 1;
 const PDF_SEARCH_DEBOUNCE_MS = 300;
-const TEXT_SELECTION_BACKGROUND = "rgba(59, 130, 246, 0.14)";
+const TEXT_SELECTION_BACKGROUND = "color-mix(in srgb, var(--chart-2) 14%, transparent)";
 const THUMBNAIL_FOCUS_RING_CLASS =
   "group-focus-visible/pdf-thumbnail-sidebar:ring-2 group-focus-visible/pdf-thumbnail-sidebar:ring-ring group-focus-visible/pdf-thumbnail-sidebar:ring-offset-1 group-focus-visible/pdf-thumbnail-sidebar:ring-offset-background";
 const DEFAULT_SCROLL_AREA_VIEWPORT_SELECTOR = '[data-slot="scroll-area-viewport"]';
@@ -2351,7 +2351,7 @@ function PDFViewerInner({
               onPagePointerCancel?.(event, pageNumber)
             }
           >
-            <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-white" />
+            <div aria-hidden="true" className="pointer-events-none absolute inset-0 bg-card" />
             <RenderLayer
               documentId={documentId}
               pageIndex={page.pageIndex}
@@ -2369,8 +2369,8 @@ function PDFViewerInner({
               documentId={documentId}
               pageIndex={page.pageIndex}
               className="pointer-events-none"
-              highlightColor="rgba(253, 224, 71, 0.45)"
-              activeHighlightColor="rgba(249, 115, 22, 0.55)"
+              highlightColor="color-mix(in srgb, var(--chart-5) 45%, transparent)"
+              activeHighlightColor="color-mix(in srgb, var(--primary) 55%, transparent)"
             />
             <PDFViewerTextSelectionLayer
               documentId={documentId}

@@ -971,7 +971,7 @@ function FileGenericPreview({ file }: { file: FileEntry }) {
   return (
     <div
       data-file-system-on-light=""
-      className="flex size-full flex-col items-center justify-center gap-1.5 bg-white text-neutral-400 dark:bg-neutral-100"
+      className="flex size-full flex-col items-center justify-center gap-1.5 bg-card text-muted-foreground"
     >
       <FileTypeIcon fileName={file.name} className="size-1/3 min-h-4 min-w-4" />
       {extension ? (
@@ -1187,7 +1187,7 @@ function FileVisual({
       file={{ name: file.name, type: file.contentType ?? "" }}
       className={cn("@container", !showPager && className)}
       previewAspectRatio={resolvedAspectRatio}
-      previewClassName={cn("bg-white dark:bg-neutral-100", previewClassName)}
+      previewClassName={cn("bg-card", previewClassName)}
       previewImageUrl={previewUrl ?? undefined}
       isLoading={isLazyPagePending}
       previewContent={
@@ -2238,7 +2238,7 @@ function FileSystemSearchField({
   const input = (
     <div
       className={cn(
-        "relative flex h-7 min-w-0 flex-1 items-center rounded-lg border border-input bg-popover text-sm text-foreground shadow-xs/5 transition-shadow outline-none not-dark:bg-clip-padding before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] not-focus-within:before:shadow-[0_1px_--theme(--color-black/4%)] focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-1 focus-within:ring-offset-background dark:bg-input/32 dark:not-focus-within:before:shadow-[0_-1px_--theme(--color-white/6%)]",
+        "relative flex h-7 min-w-0 flex-1 items-center rounded-lg border border-input bg-popover text-sm text-foreground shadow-xs/5 transition-shadow outline-none not-dark:bg-clip-padding before:pointer-events-none before:absolute before:inset-0 before:rounded-[calc(var(--radius-lg)-1px)] not-focus-within:before:shadow-xs focus-within:ring-2 focus-within:ring-ring focus-within:ring-offset-1 focus-within:ring-offset-background dark:bg-input/32 dark:not-focus-within:before:shadow-xs",
         isInline && "max-w-56",
       )}
     >
@@ -4366,7 +4366,7 @@ const FileSystemColumn = React.memo(function FileSystemColumn({
                       src={coverUrl}
                       alt=""
                       draggable={false}
-                      className="size-4 shrink-0 rounded-[3px] bg-white object-cover"
+                      className="size-4 shrink-0 rounded-[3px] bg-card object-cover"
                     />
                   ) : (
                     <FileTypeIcon fileName={entry.name} className="size-4 shrink-0" />

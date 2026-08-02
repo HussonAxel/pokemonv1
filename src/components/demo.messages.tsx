@@ -2,10 +2,10 @@ import type { Message } from "#/db-collections";
 
 export const getAvatarColor = (username: string) => {
   const colors = [
-    "bg-[var(--lagoon-deep)]",
-    "bg-[var(--palm)]",
-    "bg-[var(--sea-ink-soft)]",
-    "bg-[var(--lagoon)]",
+    "bg-primary",
+    "bg-chart-2",
+    "bg-muted-foreground",
+    "bg-chart-3",
   ];
   const index = username.split("").reduce((acc, char) => acc + char.charCodeAt(0), 0);
   return colors[index % colors.length];
@@ -22,7 +22,7 @@ export default function Messages({ messages, user }: { messages: Message[]; user
             }`}
           >
             <div
-              className={`w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-medium ${getAvatarColor(
+              className={`flex h-8 w-8 items-center justify-center rounded-full text-primary-foreground text-sm font-medium ${getAvatarColor(
                 msg.user,
               )}`}
             >
@@ -32,8 +32,8 @@ export default function Messages({ messages, user }: { messages: Message[]; user
             <div
               className={`px-4 py-2 rounded-2xl ${
                 msg.user === user
-                  ? "bg-[var(--lagoon-deep)] text-white rounded-br-md"
-                  : "border border-[var(--line)] bg-[var(--chip-bg)] text-[var(--sea-ink)] rounded-bl-md"
+                  ? "rounded-br-md bg-primary text-primary-foreground"
+                  : "rounded-bl-md border border-border bg-muted text-foreground"
               }`}
             >
               {msg.user !== user && (

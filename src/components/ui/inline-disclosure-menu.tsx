@@ -67,9 +67,9 @@ const confirmVariants: Variants = {
 const MenuItem: React.FC<MenuItemProps> = ({ icon, label, onClick, className = "" }) => (
   <button
     onClick={onClick}
-    className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm text-[#363538] transition-colors hover:bg-[#F6F5FA] dark:text-zinc-200 dark:hover:bg-zinc-800 ${className}`}
+    className={`flex w-full items-center gap-3 rounded-lg px-3 py-2 text-left text-sm text-foreground transition-colors hover:bg-accent ${className}`}
   >
-    <span className="text-gray-500 dark:text-zinc-400">{icon}</span>
+    <span className="text-muted-foreground">{icon}</span>
     <span className="font-medium tracking-tight">{label}</span>
   </button>
 );
@@ -139,7 +139,7 @@ export function InlineDisclosureMenu({
                 </div>
 
                 {showDelete && (
-                  <div className="relative h-[56px] overflow-hidden border-t-2 border-[#EEEEF2] dark:border-zinc-800">
+                  <div className="relative h-[56px] overflow-hidden border-t-2 border-border">
                     <AnimatePresence custom={confirm} mode="popLayout" initial={false}>
                       {!confirm ? (
                         <motion.div
@@ -152,9 +152,9 @@ export function InlineDisclosureMenu({
                           className="absolute inset-0 flex items-center px-2"
                         >
                           <MenuItem
-                            icon={<HugeiconsIcon icon={Delete02Icon} size={16} color="#e94447" />}
+                            icon={<HugeiconsIcon icon={Delete02Icon} size={16} color="var(--destructive)" />}
                             label="Delete"
-                            className="cursor-pointer text-[#e94447]"
+                            className="cursor-pointer text-destructive"
                             onClick={() => setConfirm(true)}
                           />
                         </motion.div>
@@ -170,14 +170,14 @@ export function InlineDisclosureMenu({
                         >
                           <button
                             onClick={onDelete}
-                            className="h-10 flex-1 cursor-pointer rounded-xl bg-[#F24140] font-semibold text-white"
+                            className="h-10 flex-1 cursor-pointer rounded-xl bg-destructive font-semibold text-destructive-foreground"
                           >
                             Yes, Delete
                           </button>
 
                           <button
                             onClick={() => setConfirm(false)}
-                            className="h-10 flex-1 cursor-pointer rounded-xl border border-gray-200 text-gray-600 dark:border-zinc-700 dark:text-zinc-300"
+                            className="h-10 flex-1 cursor-pointer rounded-xl border border-border text-muted-foreground"
                           >
                             Cancel
                           </button>

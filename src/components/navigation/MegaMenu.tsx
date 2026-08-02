@@ -155,7 +155,7 @@ function MobileMenu({ sections }: { sections: readonly MegaMenuSection[] }) {
         layout={!shouldReduceMotion}
         transition={{ type: "spring", stiffness: 240, damping: 30, mass: 0.8 }}
         id="mobile-navigation-menu"
-        className={`absolute left-1/2 top-[calc(100%+12px)] z-[60] w-[calc(100vw-2rem)] max-w-[420px] -translate-x-1/2 origin-top overflow-hidden rounded-[20px] border border-foreground/20 bg-popover/95 px-3.5 py-2.5 shadow-[0_24px_70px_color-mix(in_srgb,#000_34%,transparent)] backdrop-blur-2xl transition-[opacity,transform,visibility] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] motion-reduce:transition-none ${isOpen ? "visible translate-y-0 scale-100 opacity-100 pointer-events-auto" : "invisible -translate-y-2 scale-[0.98] opacity-0 pointer-events-none"}`}
+        className={`absolute left-1/2 top-[calc(100%+12px)] z-[60] w-[calc(100vw-2rem)] max-w-[420px] -translate-x-1/2 origin-top overflow-hidden rounded-[20px] border border-foreground/20 bg-popover/95 px-3.5 py-2.5 shadow-[0_24px_70px_color-mix(in_srgb,var(--shadow-color)_34%,transparent)] backdrop-blur-2xl transition-[opacity,transform,visibility] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] motion-reduce:transition-none ${isOpen ? "visible translate-y-0 scale-100 opacity-100 pointer-events-auto" : "invisible -translate-y-2 scale-[0.98] opacity-0 pointer-events-none"}`}
         aria-hidden={!isOpen}
         aria-label="Navigation principale"
       >
@@ -286,7 +286,7 @@ export function MegaMenu({ sections = pokemonMegaMenu, className = "" }: MegaMen
               {isOpen ? (
                 <div
                   id={panelId}
-                  className="absolute left-1/2 top-[calc(100%+12px)] w-[min(960px,calc(100vw-2rem))] -translate-x-1/2 overflow-hidden rounded-[20px] bg-popover/95 shadow-[0_0_0_1px_color-mix(in_srgb,var(--foreground)_20%,transparent),0_24px_70px_color-mix(in_srgb,#000_34%,transparent),inset_0_0_0_1px_color-mix(in_srgb,#fff_7%,transparent)] backdrop-blur-2xl animate-in fade-in duration-200 motion-reduce:animate-none"
+                  className="absolute left-1/2 top-[calc(100%+12px)] w-[min(960px,calc(100vw-2rem))] -translate-x-1/2 overflow-hidden rounded-[20px] bg-popover/95 shadow-[0_0_0_1px_color-mix(in_srgb,var(--foreground)_20%,transparent),0_24px_70px_color-mix(in_srgb,var(--shadow-color)_34%,transparent),inset_0_0_0_1px_color-mix(in_srgb,var(--background)_7%,transparent)] backdrop-blur-2xl animate-in fade-in duration-200 motion-reduce:animate-none"
                   role="menu"
                 >
                   <MenuPanel section={section} onNavigate={() => setOpenSectionId(null)} />

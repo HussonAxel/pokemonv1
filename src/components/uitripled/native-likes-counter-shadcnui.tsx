@@ -201,7 +201,7 @@ export function NativeLikesCounter({
                 className={cn(
                   sizeConfig.icon,
                   "transition-colors duration-150",
-                  isLiked ? "fill-red-500 text-red-500" : "text-muted-foreground",
+                  isLiked ? "fill-destructive text-destructive" : "text-muted-foreground",
                 )}
               />
             </motion.span>

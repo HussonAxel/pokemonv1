@@ -124,7 +124,7 @@ const MemberItem = ({ member }: { member: Member }) => (
           {member.name}
         </h2>
         <div className="flex items-center gap-1.5 opacity-80">
-          {member.online && <div className="size-1.5 rounded-full bg-green-500" />}
+          {member.online && <div className="size-1.5 rounded-full bg-chart-3" />}
           <p
             className={`text-sm font-medium leading-none ${
               member.online && "text-muted-foreground/60 font-light"
@@ -247,7 +247,7 @@ export default function TeamsList() {
             }`}
           >
             <div className="flex min-w-0 items-center gap-2 sm:gap-3">
-              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-border bg-background text-muted-foreground/80 shadow-[0_1px_2px_rgba(0,0,0,0.02)] transition-transform group-hover/bar:scale-105 sm:size-11">
+              <div className="flex size-10 shrink-0 items-center justify-center rounded-xl border border-border bg-background text-muted-foreground/80 shadow-sm transition-transform group-hover/bar:scale-105 sm:size-11">
                 <HugeiconsIcon icon={ProfileIcon} size={20} strokeWidth={2} />
               </div>
               <motion.div layout="position">
