@@ -30,7 +30,7 @@ export function AuthCenteredSignin() {
       if (result.error) {
         setError(result.error.message || "Impossible de continuer. Vérifiez vos informations.");
       } else if (isSignUp) {
-        setSuccess("Si cette adresse peut être utilisée, un email de vérification vient d’être envoyé. Consultez votre boîte de réception.");
+        setSuccess("Compte créé. Vous pouvez maintenant vous connecter.");
         setPassword("");
       }
     } catch {
