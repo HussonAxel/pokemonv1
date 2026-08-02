@@ -56,7 +56,8 @@ import {
 } from "lucide-react";
 import * as React from "react";
 
-const PAGE_SIZE = 30;
+const DEFAULT_PAGE_SIZE = 30;
+const MAX_PAGE_SIZE = 96;
 const CATALOG_LIMIT = 2000;
 const SPRITE_BASE_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon";
 const FAVORITES_STORAGE_KEY = "pokemon-finder:favorites";
@@ -226,6 +227,7 @@ export function PokemonFinder() {
   const { favoriteIdSet, setFavoriteStatus } = usePokemonFavorites();
   const [searchValue, setSearchValue] = React.useState("");
   const [page, setPage] = React.useState(1);
+  const [pageSize, setPageSize] = React.useState(DEFAULT_PAGE_SIZE);
   const [currentView, setCurrentView] = React.useState<FileSystemView>("icons");
   const [filters, setFilters] = React.useState<PokemonFilterState>({});
   const [selectedFiles, setSelectedFiles] = React.useState<FileSystemFileItem[]>([]);
@@ -270,7 +272,7 @@ export function PokemonFinder() {
       abilityIdSets,
     ),
   );
-  const pageSummaries = matchingSummaries.slice((page - 1) * PAGE_SIZE, page * PAGE_SIZE);
+  const pageSummaries = matchingSummaries.slice((page - 1) * pageSize, page * pageSize);
   const pageDetailQueries = useQueries({
     queries: pageSummaries.map((summary) => {
       const id = getPokemonId(summary.url);
@@ -290,7 +292,7 @@ export function PokemonFinder() {
     toPokemonFinderItem(summary, detailsById.get(getPokemonId(summary.url))),
   );
   const total = matchingSummaries.length;
-  const totalPages = Math.max(1, Math.ceil(total / PAGE_SIZE));
+  const totalPages = Math.max(1, Math.ceil(total / pageSize));
   const isShiny = Boolean(filters.shinyView);
   const isCaughtView = Boolean(filters.catchedView);
 
@@ -323,6 +325,15 @@ export function PokemonFinder() {
     setCurrentView(view);
   };
 
+  const updateIconGridCapacity = React.useCallback((capacity: number) => {
+    const nextPageSize = Math.min(Math.max(capacity, 1), MAX_PAGE_SIZE);
+    setPageSize((previous) => (previous === nextPageSize ? previous : nextPageSize));
+  }, []);
+
+  React.useEffect(() => {
+    setPage((currentPage) => Math.min(currentPage, totalPages));
+  }, [totalPages]);
+
   const prefetchPokemon = (file: FileSystemFileItem) => {
     const id = Number(file.key);
     if (!Number.isFinite(id)) return;
@@ -337,6 +348,7 @@ export function PokemonFinder() {
   };
 
   const openPokemon = (file: FileSystemFileItem) => {
+    prefetchPokemon(file);
     void navigate({
       to: "/explorer/pokemon/$id",
       params: { id: String(file.key) },
@@ -448,6 +460,7 @@ export function PokemonFinder() {
             setPage(1);
           }}
           onViewChange={changeView}
+          onIconGridCapacityChange={updateIconGridCapacity}
           onSelectionChange={(item) => item?.kind === "file" && prefetchPokemon(item)}
           onSelectedItemsChange={setSelectedFiles}
           onFileOpen={openPokemon}

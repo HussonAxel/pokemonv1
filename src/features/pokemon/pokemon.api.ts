@@ -15,7 +15,7 @@ export interface PokemonListParams {
   search?: string;
 }
 
-const DEFAULT_PAGE_SIZE = 24;
+const DEFAULT_PAGE_SIZE = 1025;
 const DEFAULT_POKEMON_LIST_PARAMS = {
   limit: DEFAULT_PAGE_SIZE,
   offset: 0,

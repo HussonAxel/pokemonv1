@@ -75,7 +75,7 @@
 
 ::view-transition-old(root),
 ::view-transition-new(root) {
-  animation-duration: 360ms;
+  animation-duration: 180ms;
   animation-timing-function: cubic-bezier(0.16, 1, 0.3, 1);
 }
 
@@ -90,14 +90,14 @@
 @keyframes route-fade-out {
   to {
     opacity: 0;
-    transform: translateY(-8px) scale(0.99);
+    transform: translateY(-4px) scale(0.995);
   }
 }
 
 @keyframes route-fade-in {
   from {
     opacity: 0;
-    transform: translateY(12px) scale(0.99);
+    transform: translateY(6px) scale(0.995);
   }
 }
 

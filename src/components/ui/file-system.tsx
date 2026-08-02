@@ -45,6 +45,7 @@ type FileSystemProps = {
   searchValue?: string;
   onSearchChange?: (value: string) => void;
   onViewChange?: (view: FileSystemView) => void;
+  onIconGridCapacityChange?: (capacity: number) => void;
   onSelectionChange?: (item: FileSystemItem | null) => void;
   onSelectedItemsChange?: (items: FileSystemFileItem[]) => void;
   onFileOpen?: (file: FileSystemFileItem) => void;
@@ -112,6 +113,7 @@ export function FileSystem({
   searchValue = "",
   onSearchChange,
   onViewChange,
+  onIconGridCapacityChange,
   onSelectionChange,
   onSelectedItemsChange,
   onFileOpen,
@@ -134,11 +136,42 @@ export function FileSystem({
   const [selectedPaths, setSelectedPaths] = React.useState<string[]>([]);
   const [selectionAnchorPath, setSelectionAnchorPath] = React.useState<string | null>(null);
   const iconGridRef = React.useRef<HTMLDivElement>(null);
+  const [iconGridCapacity, setIconGridCapacity] = React.useState(0);
   const isShiftHeld = useKeyHold("Shift");
   const view = controlledView ?? internalView;
   const files = items.filter((item): item is FileSystemFileItem => item.kind === "file");
   const selectedPathSet = React.useMemo(() => new Set(selectedPaths), [selectedPaths]);
   const selected = files.find((file) => file.path === selectedPath) ?? null;
+
+  React.useEffect(() => {
+    const grid = iconGridRef.current;
+    if (view !== "icons" || !grid || !onIconGridCapacityChange) return;
+
+    const measureCapacity = () => {
+      const styles = window.getComputedStyle(grid);
+      const columnCount = styles.gridTemplateColumns.split(" ").filter(Boolean).length;
+      const rootFontSize = Number.parseFloat(
+        window.getComputedStyle(document.documentElement).fontSize,
+      );
+      const rowGap = Number.parseFloat(styles.rowGap);
+      const verticalPadding =
+        Number.parseFloat(styles.paddingTop) + Number.parseFloat(styles.paddingBottom);
+      const minimumRowHeight = rootFontSize * 10.25;
+      const rowCount = Math.max(
+        1,
+        Math.floor((grid.clientHeight - verticalPadding + rowGap) / (minimumRowHeight + rowGap)),
+      );
+      const capacity = Math.max(1, columnCount * rowCount);
+
+      setIconGridCapacity((previous) => (previous === capacity ? previous : capacity));
+      onIconGridCapacityChange(capacity);
+    };
+
+    measureCapacity();
+    const observer = new ResizeObserver(measureCapacity);
+    observer.observe(grid);
+    return () => observer.disconnect();
+  }, [onIconGridCapacityChange, view]);
 
   React.useEffect(() => {
     const visiblePaths = new Set(files.map((file) => file.path));
@@ -430,7 +463,7 @@ export function FileSystem({
             ref={iconGridRef}
             className={cn(
               "finder-grid h-full w-full p-1",
-              files.length >= 20 && "finder-grid--fill",
+              iconGridCapacity > 0 && files.length >= iconGridCapacity && "finder-grid--fill",
             )}
             tabIndex={-1}
           >

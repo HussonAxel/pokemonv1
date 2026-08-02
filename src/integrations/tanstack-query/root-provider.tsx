@@ -6,8 +6,9 @@ import {
 } from "@tanstack/query-persist-client-core";
 
 const PERSISTENCE_KEY = "pokemon-home:query-cache";
-const PERSISTENCE_BUSTER = "pokemon-home-api-v1";
+const PERSISTENCE_BUSTER = "pokemon-home-api-v2";
 const PERSISTENCE_MAX_AGE = 1000 * 60 * 60 * 24 * 7;
+const MAX_PERSISTED_CACHE_BYTES = 1_000_000;
 
 function createLocalStoragePersister(storage: Storage): Persister {
   return {
@@ -21,6 +22,10 @@ function createLocalStoragePersister(storage: Storage): Persister {
     restoreClient: async () => {
       try {
         const value = storage.getItem(PERSISTENCE_KEY);
+        if (value && value.length > MAX_PERSISTED_CACHE_BYTES) {
+          storage.removeItem(PERSISTENCE_KEY);
+          return undefined;
+        }
         return value ? (JSON.parse(value) as PersistedClient) : undefined;
       } catch {
         return undefined;
@@ -55,7 +60,11 @@ function createQueryClient() {
   const [, queryCacheReady] = persistQueryClient({
     buster: PERSISTENCE_BUSTER,
     dehydrateOptions: {
-      shouldDehydrateQuery: (query) => query.queryKey[0] === "pokemon",
+      // The National Pokédex summary is compact and makes repeat visits instant.
+      // Detail/species responses include full move and form lists; serialising each one on every
+      // query update can make navigation noticeably sluggish.
+      shouldDehydrateQuery: (query) =>
+        query.queryKey[0] === "pokemon" && query.queryKey[1] === "list",
     },
     maxAge: PERSISTENCE_MAX_AGE,
     persister: createLocalStoragePersister(window.localStorage),
