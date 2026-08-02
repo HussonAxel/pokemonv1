@@ -324,7 +324,7 @@ export function CenterMorphModalContent({
                       transition={
                         reduce ? { duration: 0.14, ease: EASE_OUT } : CENTER_UNFOLD_TRANSITION
                       }
-                      className="relative w-full overflow-hidden rounded-[23px] bg-background will-change-[clip-path] dark:bg-[#101116]"
+                      className="relative w-full overflow-hidden rounded-[23px] bg-background will-change-[clip-path]"
                     >
                       {children}
                     </motion.div>

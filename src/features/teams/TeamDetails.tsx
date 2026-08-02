@@ -3,7 +3,8 @@
 import { Archive, ArrowUpRight, Zap } from "lucide-react";
 import { motion } from "motion/react";
 
-import { Badge, type BadgeColor } from "#/components/ui/badge";
+import Badge from "#/components/badge";
+import type { BadgeColor } from "#/components/ui/badge";
 import { CenterMorphModalPreview, PokemonDetailsModal } from "./PokemonDetails";
 
 export interface Member {
@@ -244,7 +245,7 @@ const ALL_MEMBERS: Member[] = [
     types: ["fire"],
     avatar:
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/59.png",
-    avatarBackground: "bg-orange-100/80 dark:bg-orange-950/30",
+    avatarBackground: "bg-primary/10",
   },
   {
     id: "02",
@@ -254,7 +255,7 @@ const ALL_MEMBERS: Member[] = [
     types: ["grass", "poison"],
     avatar:
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/3.png",
-    avatarBackground: "bg-emerald-100/80 dark:bg-emerald-950/30",
+    avatarBackground: "bg-chart-3/10",
   },
   {
     id: "03",
@@ -264,7 +265,7 @@ const ALL_MEMBERS: Member[] = [
     types: ["ghost", "poison"],
     avatar:
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/94.png",
-    avatarBackground: "bg-violet-100/80 dark:bg-violet-950/30",
+    avatarBackground: "bg-chart-4/10",
   },
   {
     id: "04",
@@ -274,16 +275,16 @@ const ALL_MEMBERS: Member[] = [
     types: ["water", "ice"],
     avatar:
       "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/131.png",
-    avatarBackground: "bg-sky-100/80 dark:bg-sky-950/30",
+    avatarBackground: "bg-chart-2/10",
   },
 ];
 
 const sweepSpring = { type: "spring" as const, stiffness: 400, damping: 35, mass: 0.5 };
 
 const categoryStyles: Record<MoveCategory, string> = {
-  physical: "bg-orange-500 text-white dark:bg-[#d85e4c]",
-  special: "bg-pink-500 text-white dark:bg-[#d677a5]",
-  status: "bg-emerald-600 text-white dark:bg-[#92caa1] dark:text-[#102517]",
+  physical: "bg-primary text-primary-foreground",
+  special: "bg-chart-4 text-primary-foreground",
+  status: "bg-chart-3 text-primary-foreground",
 };
 
 const categoryIcon: Record<MoveCategory, string> = {
@@ -300,15 +301,25 @@ function DetailPill({
   tone?: "slate" | "warm";
 }) {
   return (
-    <span
-      className={
+    <Badge
+      className="w-fit"
+      getItemStyle={() =>
         tone === "warm"
-          ? "inline-flex w-fit items-center gap-2 rounded-lg bg-orange-100 px-3 py-1.5 text-sm font-semibold text-orange-950 dark:bg-[#3a2d27] dark:text-[#f3f4f6]"
-          : "inline-flex w-fit items-center gap-2 rounded-lg bg-slate-100 px-3 py-1.5 text-sm font-semibold text-slate-900 dark:bg-[#2a3140] dark:text-[#f3f4f6]"
+          ? {
+              backgroundColor: "color-mix(in srgb, var(--primary) 16%, var(--background))",
+              borderColor: "color-mix(in srgb, var(--primary) 38%, var(--border))",
+              color: "var(--foreground)",
+            }
+          : {
+              backgroundColor: "var(--muted)",
+              borderColor: "var(--border)",
+              color: "var(--foreground)",
+            }
       }
-    >
-      {children}
-    </span>
+      itemClassName="gap-2 rounded-lg px-3 py-1.5 text-sm"
+      items={[{ label: children, value: tone }]}
+      tone="neutral"
+    />
   );
 }
 
@@ -320,8 +331,8 @@ export function PokemonCompetitiveDetails({
   detail: PokemonDetail;
 }) {
   return (
-    <div className="dark:bg-[#101116]">
-      <header className="flex min-h-[120px] items-center gap-4 border-b border-border px-5 py-5 pr-16 dark:border-[#343842] sm:px-6 sm:pr-16">
+    <div>
+      <header className="flex min-h-[120px] items-center gap-4 border-b border-border px-5 py-5 pr-16 sm:px-6 sm:pr-16">
         <div className="relative size-[82px] shrink-0 overflow-visible">
           <div className={`absolute inset-0 rounded-full shadow-sm ${member.avatarBackground}`} />
           <img
@@ -338,21 +349,19 @@ export function PokemonCompetitiveDetails({
             <span className="text-xs text-muted-foreground">{member.number}</span>
           </div>
           <div className="mt-1 flex items-center gap-2">
-            <span className="size-2.5 rounded-full bg-orange-400 dark:bg-[#ff8a18]" />
+            <span className="size-2.5 rounded-full bg-primary" />
             <p className="text-base text-muted-foreground">Niv. {member.level}</p>
           </div>
         </div>
-        <div className="hidden shrink-0 flex-wrap justify-end gap-1.5 sm:flex">
-          {member.types.map((type) => (
-            <Badge key={type} color={type} size="sm" variant="dot">
-              {type}
-            </Badge>
-          ))}
-        </div>
+        <Badge
+          className="hidden shrink-0 justify-end gap-1.5 sm:flex"
+          items={member.types}
+          size="xs"
+        />
       </header>
 
       <div className="space-y-6 px-5 pb-7 pt-6 sm:px-6">
-        <section className="space-y-4 border-b border-border pb-5 dark:border-[#343842]">
+        <section className="space-y-4 border-b border-border pb-5">
           <div className="grid grid-cols-[78px_minmax(0,1fr)] items-center gap-x-4 gap-y-2">
             <p className="text-xs font-bold tracking-[0.09em] text-muted-foreground">ITEM</p>
             <DetailPill>
@@ -379,10 +388,10 @@ export function PokemonCompetitiveDetails({
             {detail.moves.map((move) => (
               <article
                 key={move.name}
-                className="flex min-h-[108px] flex-col justify-between rounded-xl border border-border p-3 dark:border-[#383c46]"
+                className="flex min-h-[108px] flex-col justify-between rounded-xl border border-border p-3"
               >
                 <div className="flex min-w-0 items-center gap-2.5">
-                  <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-sm font-black text-foreground dark:border-[#a75419] dark:bg-[#27231f] dark:text-[#ff9d53]">
+                  <span className="flex size-8 shrink-0 items-center justify-center rounded-lg border border-border bg-muted text-sm font-black text-foreground">
                     {categoryIcon[move.category]}
                   </span>
                   <span className="min-w-0 flex-1 truncate text-base font-bold tracking-tight text-foreground">
@@ -395,23 +404,23 @@ export function PokemonCompetitiveDetails({
                   </span>
                 </div>
                 <div className="flex gap-2 text-[10px] font-bold text-muted-foreground">
-                  <span className="rounded bg-muted px-2 py-1 dark:bg-[#29262e]">
+                  <span className="rounded bg-muted px-2 py-1">
                     PWR {move.power}
                   </span>
-                  <span className="rounded bg-muted px-2 py-1 dark:bg-[#29262e]">
+                  <span className="rounded bg-muted px-2 py-1">
                     ACC {move.accuracy}
                   </span>
-                  <span className="rounded bg-muted px-2 py-1 dark:bg-[#29262e]">PP {move.pp}</span>
+                  <span className="rounded bg-muted px-2 py-1">PP {move.pp}</span>
                 </div>
               </article>
             ))}
           </div>
         </section>
 
-        <section className="border-t border-border pt-5 dark:border-[#343842]">
+        <section className="border-t border-border pt-5">
           <div className="mb-3 flex items-center justify-between">
             <p className="text-xs font-bold tracking-[0.09em] text-muted-foreground">STATS</p>
-            <span className="rounded-md border border-emerald-600/60 px-2.5 py-1 text-sm font-bold text-emerald-700 dark:border-[#668d43] dark:text-[#9dde65]">
+            <span className="rounded-md border border-chart-3/60 px-2.5 py-1 text-sm font-bold text-chart-3">
               508 / 508
             </span>
           </div>
@@ -423,14 +432,14 @@ export function PokemonCompetitiveDetails({
               >
                 <span className="text-[15px] font-bold text-foreground">{stat.label}</span>
                 <span className="text-right text-sm text-muted-foreground">{stat.ev}</span>
-                <span className="relative h-2.5 overflow-hidden rounded-full bg-muted dark:bg-[#292d36]">
+                <span className="relative h-2.5 overflow-hidden rounded-full bg-muted">
                   <span
-                    className="absolute inset-y-0 left-0 rounded-l-full bg-orange-500 dark:bg-[#ff8a18]"
+                    className="absolute inset-y-0 left-0 rounded-l-full bg-primary"
                     style={{ width: `${stat.baseWidth}%` }}
                   />
                   {stat.boostWidth > 0 && (
                     <span
-                      className="absolute inset-y-0 bg-orange-300 dark:bg-[#ffc087]"
+                      className="absolute inset-y-0 bg-primary/60"
                       style={{ left: `${stat.baseWidth}%`, width: `${stat.boostWidth}%` }}
                     />
                   )}
@@ -456,11 +465,11 @@ const MemberItem = ({ member }: { member: Member }) => {
       }}
       transition={sweepSpring}
       style={{ originX: 1, originY: 1 }}
-      className="group overflow-hidden rounded-[22px] border border-border bg-background transition-[background-color,border-color,box-shadow] duration-300 hover:border-foreground/20 hover:bg-muted/30 dark:bg-[#101116]"
+      className="group overflow-hidden rounded-[22px] border border-border bg-background transition-[background-color,border-color,box-shadow] duration-300 hover:border-foreground/20 hover:bg-muted/30"
     >
       <PokemonDetailsModal
         ariaLabel={`${member.name} competitive details`}
-        className="max-w-[660px] rounded-[24px] dark:border-[#343842] dark:bg-[#101116]"
+        className="max-w-[660px] rounded-[24px]"
         trigger={
           <button
             type="button"
@@ -484,17 +493,11 @@ const MemberItem = ({ member }: { member: Member }) => {
                 <span className="text-xs text-muted-foreground">{member.number}</span>
               </div>
               <div className="mt-1 flex items-center gap-2">
-                <span className="size-2.5 rounded-full bg-orange-400 dark:bg-[#ff8a18]" />
+                <span className="size-2.5 rounded-full bg-primary" />
                 <p className="text-base text-muted-foreground">Niv. {member.level}</p>
               </div>
             </div>
-            <div className="flex shrink-0 flex-wrap items-center justify-end gap-1.5">
-              {member.types.map((type) => (
-                <Badge key={type} color={type} size="sm" variant="dot">
-                  {type}
-                </Badge>
-              ))}
-            </div>
+            <Badge className="shrink-0 justify-end gap-1.5" items={member.types} size="xs" />
             <ArrowUpRight
               aria-hidden="true"
               className="size-5 shrink-0 text-muted-foreground transition-colors group-hover:text-foreground"
@@ -540,7 +543,7 @@ export default function TeamDetails() {
 
   return (
     <div className="w-full max-w-[600px] p-4 font-sans not-prose sm:p-6">
-      <section className="overflow-hidden rounded-[32px] border border-border bg-background p-5 sm:p-7 dark:border-[#343842] dark:bg-[#101116]">
+      <section className="overflow-hidden rounded-[32px] border border-border bg-background p-5 sm:p-7">
         <header className="mb-6 flex items-center gap-3">
           <h2 className="text-2xl font-bold tracking-tight text-foreground">Active Team</h2>
           <span className="rounded-full bg-muted px-3 py-1 text-sm text-muted-foreground">

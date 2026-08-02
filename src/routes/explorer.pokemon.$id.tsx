@@ -1,14 +1,15 @@
 import { Link, createFileRoute } from "@tanstack/react-router";
 import { useSuspenseQuery } from "@tanstack/react-query";
 
+import Badge from "#/components/badge";
 import { pokemonDetailQueryOptions } from "#/features/pokemon/pokemon.queries";
 
 export const Route = createFileRoute("/explorer/pokemon/$id")({
   component: PokemonDetailPage,
-  loader: ({ context, params }) =>
-    context.queryCacheReady.then(() =>
-      context.queryClient.ensureQueryData(pokemonDetailQueryOptions(params.id)),
-    ),
+  loader: async ({ context, params }) => {
+    await Promise.resolve(context.queryCacheReady);
+    return context.queryClient.ensureQueryData(pokemonDetailQueryOptions(params.id));
+  },
 });
 
 function PokemonDetailPage() {
@@ -40,16 +41,11 @@ function PokemonDetailPage() {
             <h1 className="mt-1 text-4xl font-semibold capitalize tracking-tight">
               {pokemon.name}
             </h1>
-            <div className="mt-4 flex flex-wrap gap-2">
-              {pokemon.types.map(({ type }) => (
-                <span
-                  className="rounded-full bg-primary/10 px-3 py-1 text-sm font-medium capitalize text-primary"
-                  key={type.name}
-                >
-                  {type.name}
-                </span>
-              ))}
-            </div>
+            <Badge
+              className="mt-4 gap-1"
+              items={pokemon.types.map(({ type }) => type.name)}
+              size="xs"
+            />
 
             <dl className="mt-8 grid grid-cols-2 gap-4 text-sm sm:grid-cols-4">
               <DetailMetric label="Taille" value={`${pokemon.height ?? "—"} dm`} />

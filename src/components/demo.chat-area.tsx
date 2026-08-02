@@ -31,7 +31,7 @@ export default function ChatArea() {
         <Messages messages={messages} user={user} />
       </div>
 
-      <div className="border-t border-[var(--line)] bg-[var(--chip-bg)] px-4 py-4">
+      <div className="border-t border-border bg-muted px-4 py-4">
         <div className="flex items-center space-x-3">
           <select
             value={user}

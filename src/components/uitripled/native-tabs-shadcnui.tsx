@@ -34,7 +34,7 @@ export function NativeTabs({ items, defaultValue, className }: NativeTabsProps) 
         onValueChange={handleValueChange}
         className={cn("w-full max-w-md", className)}
       >
-        <TabsList className="relative flex h-auto w-full items-center gap-1 rounded-xl bg-muted/50 p-1 border border-black/5 dark:border-white/5">
+        <TabsList className="relative flex h-auto w-full items-center gap-1 rounded-xl border border-border/50 bg-muted/50 p-1">
           {items.map((tab) => {
             const isActive = activeTab === tab.id;
             return (
@@ -46,7 +46,7 @@ export function NativeTabs({ items, defaultValue, className }: NativeTabsProps) 
                 {isActive && (
                   <motion.div
                     layoutId={pillLayoutId}
-                    className="absolute inset-0 z-[-1] rounded-lg bg-background shadow-sm border border-black/5 dark:border-white/5"
+                    className="absolute inset-0 z-[-1] rounded-lg border border-border/50 bg-background shadow-sm"
                     transition={{ type: "spring", duration: 0.45, bounce: 0.15 }}
                   />
                 )}

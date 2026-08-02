@@ -620,6 +620,14 @@
   font-family: "Cormorant Garamond", Georgia, serif;
 }
 
+.hero-carousel-vignette {
+  background: radial-gradient(
+    ellipse at center,
+    transparent 0%,
+    color-mix(in srgb, var(--foreground) 40%, transparent) 100%
+  );
+}
+
 /* Elegant grain texture overlay */
 .grain-texture {
   position: relative;
@@ -1167,4 +1175,116 @@
 
 .menu-bento--editorial .menu-bento__bars span:nth-child(even) {
   background: var(--destructive-foreground);
+}
+
+/* Pokemon Finder workspace */
+.pokemon-finder-page {
+  height: calc(100dvh - 64px);
+}
+
+.pokemon-finder-shell {
+  height: 100%;
+  overflow: hidden;
+}
+
+.finder-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(9.5rem, 100%), 1fr));
+  grid-auto-rows: 10.25rem;
+  gap: 0.5rem;
+  align-content: start;
+  overflow: hidden;
+}
+
+.finder-grid--fill {
+  grid-auto-rows: minmax(10.25rem, 1fr);
+  align-content: stretch;
+}
+
+.finder-icon-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid transparent;
+  border-radius: 0.375rem;
+  color: var(--muted-foreground);
+  transition:
+    background-color 150ms ease,
+    border-color 150ms ease,
+    color 150ms ease;
+}
+
+.finder-icon-button:hover:not(:disabled) {
+  border-color: var(--border);
+  background: var(--muted);
+  color: var(--foreground);
+}
+
+.finder-icon-button:focus-visible,
+.finder-source:focus-visible {
+  outline: 2px solid var(--ring);
+  outline-offset: 2px;
+}
+
+.finder-icon-button:disabled {
+  cursor: not-allowed;
+  opacity: 0.35;
+}
+
+.finder-icon-button svg {
+  width: 1rem;
+  height: 1rem;
+}
+
+.finder-source {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 0.625rem;
+  border-radius: 0.375rem;
+  padding: 0.625rem 0.5rem;
+  color: var(--muted-foreground);
+  font-size: 0.75rem;
+  text-align: left;
+  transition:
+    background-color 150ms ease,
+    color 150ms ease;
+}
+
+.finder-source:hover {
+  background: color-mix(in srgb, var(--muted) 65%, transparent);
+  color: var(--foreground);
+}
+
+.finder-source svg {
+  width: 1rem;
+  height: 1rem;
+  flex: none;
+}
+
+.finder-label {
+  margin-bottom: 0.5rem;
+  color: var(--muted-foreground);
+  font-size: 0.625rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  line-height: 1rem;
+  text-transform: uppercase;
+}
+
+.pixelated {
+  image-rendering: pixelated;
+}
+
+@media (min-width: 640px) {
+  .pokemon-finder-page {
+    height: calc(100dvh - 74px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .finder-icon-button,
+  .finder-source {
+    transition: none;
+  }
 }
