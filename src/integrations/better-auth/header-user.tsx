@@ -14,15 +14,22 @@ export default function BetterAuthHeader() {
   if (session?.user) {
     return (
       <div className="flex items-center gap-1.5">
-        {session.user.image ? (
-          <img src={session.user.image} alt="" className="size-10 rounded-xl object-cover" />
-        ) : (
-          <div className="flex size-10 items-center justify-center rounded-xl border border-border/70 bg-muted text-muted-foreground">
-            <span className="text-sm font-semibold">
-              {session.user.name?.charAt(0).toUpperCase() || "U"}
-            </span>
-          </div>
-        )}
+        <Link
+          to="/profil"
+          aria-label="Ouvrir mon profil"
+          title="Ouvrir mon profil"
+          className="rounded-xl focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
+        >
+          {session.user.image ? (
+            <img src={session.user.image} alt="" className="size-10 rounded-xl object-cover" />
+          ) : (
+            <div className="flex size-10 items-center justify-center rounded-xl border border-border/70 bg-muted text-muted-foreground transition hover:border-border hover:bg-muted/70">
+              <span className="text-sm font-semibold">
+                {session.user.name?.charAt(0).toUpperCase() || "U"}
+              </span>
+            </div>
+          )}
+        </Link>
         <button
           onClick={() => {
             void authClient.signOut();
@@ -39,7 +46,7 @@ export default function BetterAuthHeader() {
 
   return (
     <Link
-      to="/demo/better-auth"
+      to="/connexion"
       aria-label="Se connecter"
       title="Se connecter"
       className={headerActionClassName}

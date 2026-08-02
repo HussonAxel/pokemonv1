@@ -14,16 +14,19 @@ import { Route as AboutRouteImport } from './routes/about'
 import { Route as BuilderRouteImport } from './routes/builder'
 import { Route as ChasserRouteImport } from './routes/chasser'
 import { Route as CollectionnerRouteImport } from './routes/collectionner'
+import { Route as ConnexionRouteImport } from './routes/connexion'
 import { Route as ExplorerRouteImport } from './routes/explorer'
 import { Route as HomeRouteImport } from './routes/home'
 import { Route as JouerRouteImport } from './routes/jouer'
+import { Route as MotDePasseOublieRouteImport } from './routes/mot-de-passe-oublie'
+import { Route as NouveauMotDePasseRouteImport } from './routes/nouveau-mot-de-passe'
 import { Route as OutilsRouteImport } from './routes/outils'
 import { Route as PartagesRouteImport } from './routes/partages'
 import { Route as PreferencesRouteImport } from './routes/preferences'
+import { Route as ProfilRouteImport } from './routes/profil'
 import { Route as StrategieRouteImport } from './routes/strategie'
 import { Route as ApiRemyChatRouteImport } from './routes/api.remy-chat'
 import { Route as ComponentsComponentsRouteImport } from './routes/components/components'
-import { Route as DemoBetterAuthRouteImport } from './routes/demo/better-auth'
 import { Route as DemoDbChatRouteImport } from './routes/demo/db-chat'
 import { Route as DemoDbChatApiRouteImport } from './routes/demo/db-chat-api'
 import { Route as DemoDrizzleRouteImport } from './routes/demo/drizzle'
@@ -68,6 +71,11 @@ const CollectionnerRoute = CollectionnerRouteImport.update({
   path: '/collectionner',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ConnexionRoute = ConnexionRouteImport.update({
+  id: '/connexion',
+  path: '/connexion',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const ExplorerRoute = ExplorerRouteImport.update({
   id: '/explorer',
   path: '/explorer',
@@ -81,6 +89,16 @@ const HomeRoute = HomeRouteImport.update({
 const JouerRoute = JouerRouteImport.update({
   id: '/jouer',
   path: '/jouer',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MotDePasseOublieRoute = MotDePasseOublieRouteImport.update({
+  id: '/mot-de-passe-oublie',
+  path: '/mot-de-passe-oublie',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const NouveauMotDePasseRoute = NouveauMotDePasseRouteImport.update({
+  id: '/nouveau-mot-de-passe',
+  path: '/nouveau-mot-de-passe',
   getParentRoute: () => rootRouteImport,
 } as any)
 const OutilsRoute = OutilsRouteImport.update({
@@ -98,6 +116,11 @@ const PreferencesRoute = PreferencesRouteImport.update({
   path: '/preferences',
   getParentRoute: () => rootRouteImport,
 } as any)
+const ProfilRoute = ProfilRouteImport.update({
+  id: '/profil',
+  path: '/profil',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const StrategieRoute = StrategieRouteImport.update({
   id: '/strategie',
   path: '/strategie',
@@ -111,11 +134,6 @@ const ApiRemyChatRoute = ApiRemyChatRouteImport.update({
 const ComponentsComponentsRoute = ComponentsComponentsRouteImport.update({
   id: '/components/components',
   path: '/components/components',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const DemoBetterAuthRoute = DemoBetterAuthRouteImport.update({
-  id: '/demo/better-auth',
-  path: '/demo/better-auth',
   getParentRoute: () => rootRouteImport,
 } as any)
 const DemoDbChatRoute = DemoDbChatRouteImport.update({
@@ -215,16 +233,19 @@ export interface FileRoutesByFullPath {
   '/builder': typeof BuilderRoute
   '/chasser': typeof ChasserRoute
   '/collectionner': typeof CollectionnerRoute
+  '/connexion': typeof ConnexionRoute
   '/explorer': typeof ExplorerRouteWithChildren
   '/home': typeof HomeRoute
   '/jouer': typeof JouerRoute
+  '/mot-de-passe-oublie': typeof MotDePasseOublieRoute
+  '/nouveau-mot-de-passe': typeof NouveauMotDePasseRoute
   '/outils': typeof OutilsRoute
   '/partages': typeof PartagesRoute
   '/preferences': typeof PreferencesRoute
+  '/profil': typeof ProfilRoute
   '/strategie': typeof StrategieRoute
   '/api/remy-chat': typeof ApiRemyChatRoute
   '/components/components': typeof ComponentsComponentsRoute
-  '/demo/better-auth': typeof DemoBetterAuthRoute
   '/demo/db-chat': typeof DemoDbChatRoute
   '/demo/db-chat-api': typeof DemoDbChatApiRoute
   '/demo/drizzle': typeof DemoDrizzleRoute
@@ -250,15 +271,18 @@ export interface FileRoutesByTo {
   '/builder': typeof BuilderRoute
   '/chasser': typeof ChasserRoute
   '/collectionner': typeof CollectionnerRoute
+  '/connexion': typeof ConnexionRoute
   '/home': typeof HomeRoute
   '/jouer': typeof JouerRoute
+  '/mot-de-passe-oublie': typeof MotDePasseOublieRoute
+  '/nouveau-mot-de-passe': typeof NouveauMotDePasseRoute
   '/outils': typeof OutilsRoute
   '/partages': typeof PartagesRoute
   '/preferences': typeof PreferencesRoute
+  '/profil': typeof ProfilRoute
   '/strategie': typeof StrategieRoute
   '/api/remy-chat': typeof ApiRemyChatRoute
   '/components/components': typeof ComponentsComponentsRoute
-  '/demo/better-auth': typeof DemoBetterAuthRoute
   '/demo/db-chat': typeof DemoDbChatRoute
   '/demo/db-chat-api': typeof DemoDbChatApiRoute
   '/demo/drizzle': typeof DemoDrizzleRoute
@@ -284,16 +308,19 @@ export interface FileRoutesById {
   '/builder': typeof BuilderRoute
   '/chasser': typeof ChasserRoute
   '/collectionner': typeof CollectionnerRoute
+  '/connexion': typeof ConnexionRoute
   '/explorer': typeof ExplorerRouteWithChildren
   '/home': typeof HomeRoute
   '/jouer': typeof JouerRoute
+  '/mot-de-passe-oublie': typeof MotDePasseOublieRoute
+  '/nouveau-mot-de-passe': typeof NouveauMotDePasseRoute
   '/outils': typeof OutilsRoute
   '/partages': typeof PartagesRoute
   '/preferences': typeof PreferencesRoute
+  '/profil': typeof ProfilRoute
   '/strategie': typeof StrategieRoute
   '/api/remy-chat': typeof ApiRemyChatRoute
   '/components/components': typeof ComponentsComponentsRoute
-  '/demo/better-auth': typeof DemoBetterAuthRoute
   '/demo/db-chat': typeof DemoDbChatRoute
   '/demo/db-chat-api': typeof DemoDbChatApiRoute
   '/demo/drizzle': typeof DemoDrizzleRoute
@@ -321,16 +348,19 @@ export interface FileRouteTypes {
     | '/builder'
     | '/chasser'
     | '/collectionner'
+    | '/connexion'
     | '/explorer'
     | '/home'
     | '/jouer'
+    | '/mot-de-passe-oublie'
+    | '/nouveau-mot-de-passe'
     | '/outils'
     | '/partages'
     | '/preferences'
+    | '/profil'
     | '/strategie'
     | '/api/remy-chat'
     | '/components/components'
-    | '/demo/better-auth'
     | '/demo/db-chat'
     | '/demo/db-chat-api'
     | '/demo/drizzle'
@@ -356,15 +386,18 @@ export interface FileRouteTypes {
     | '/builder'
     | '/chasser'
     | '/collectionner'
+    | '/connexion'
     | '/home'
     | '/jouer'
+    | '/mot-de-passe-oublie'
+    | '/nouveau-mot-de-passe'
     | '/outils'
     | '/partages'
     | '/preferences'
+    | '/profil'
     | '/strategie'
     | '/api/remy-chat'
     | '/components/components'
-    | '/demo/better-auth'
     | '/demo/db-chat'
     | '/demo/db-chat-api'
     | '/demo/drizzle'
@@ -389,16 +422,19 @@ export interface FileRouteTypes {
     | '/builder'
     | '/chasser'
     | '/collectionner'
+    | '/connexion'
     | '/explorer'
     | '/home'
     | '/jouer'
+    | '/mot-de-passe-oublie'
+    | '/nouveau-mot-de-passe'
     | '/outils'
     | '/partages'
     | '/preferences'
+    | '/profil'
     | '/strategie'
     | '/api/remy-chat'
     | '/components/components'
-    | '/demo/better-auth'
     | '/demo/db-chat'
     | '/demo/db-chat-api'
     | '/demo/drizzle'
@@ -425,16 +461,19 @@ export interface RootRouteChildren {
   BuilderRoute: typeof BuilderRoute
   ChasserRoute: typeof ChasserRoute
   CollectionnerRoute: typeof CollectionnerRoute
+  ConnexionRoute: typeof ConnexionRoute
   ExplorerRoute: typeof ExplorerRouteWithChildren
   HomeRoute: typeof HomeRoute
   JouerRoute: typeof JouerRoute
+  MotDePasseOublieRoute: typeof MotDePasseOublieRoute
+  NouveauMotDePasseRoute: typeof NouveauMotDePasseRoute
   OutilsRoute: typeof OutilsRoute
   PartagesRoute: typeof PartagesRoute
   PreferencesRoute: typeof PreferencesRoute
+  ProfilRoute: typeof ProfilRoute
   StrategieRoute: typeof StrategieRoute
   ApiRemyChatRoute: typeof ApiRemyChatRoute
   ComponentsComponentsRoute: typeof ComponentsComponentsRoute
-  DemoBetterAuthRoute: typeof DemoBetterAuthRoute
   DemoDbChatRoute: typeof DemoDbChatRoute
   DemoDbChatApiRoute: typeof DemoDbChatApiRoute
   DemoDrizzleRoute: typeof DemoDrizzleRoute
@@ -482,6 +521,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof CollectionnerRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/connexion': {
+      id: '/connexion'
+      path: '/connexion'
+      fullPath: '/connexion'
+      preLoaderRoute: typeof ConnexionRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/explorer': {
       id: '/explorer'
       path: '/explorer'
@@ -501,6 +547,20 @@ declare module '@tanstack/react-router' {
       path: '/jouer'
       fullPath: '/jouer'
       preLoaderRoute: typeof JouerRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mot-de-passe-oublie': {
+      id: '/mot-de-passe-oublie'
+      path: '/mot-de-passe-oublie'
+      fullPath: '/mot-de-passe-oublie'
+      preLoaderRoute: typeof MotDePasseOublieRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/nouveau-mot-de-passe': {
+      id: '/nouveau-mot-de-passe'
+      path: '/nouveau-mot-de-passe'
+      fullPath: '/nouveau-mot-de-passe'
+      preLoaderRoute: typeof NouveauMotDePasseRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/outils': {
@@ -524,6 +584,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof PreferencesRouteImport
       parentRoute: typeof rootRouteImport
     }
+    '/profil': {
+      id: '/profil'
+      path: '/profil'
+      fullPath: '/profil'
+      preLoaderRoute: typeof ProfilRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/strategie': {
       id: '/strategie'
       path: '/strategie'
@@ -543,13 +610,6 @@ declare module '@tanstack/react-router' {
       path: '/components/components'
       fullPath: '/components/components'
       preLoaderRoute: typeof ComponentsComponentsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/better-auth': {
-      id: '/demo/better-auth'
-      path: '/demo/better-auth'
-      fullPath: '/demo/better-auth'
-      preLoaderRoute: typeof DemoBetterAuthRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/demo/db-chat': {
@@ -727,16 +787,19 @@ const rootRouteChildren: RootRouteChildren = {
   BuilderRoute: BuilderRoute,
   ChasserRoute: ChasserRoute,
   CollectionnerRoute: CollectionnerRoute,
+  ConnexionRoute: ConnexionRoute,
   ExplorerRoute: ExplorerRouteWithChildren,
   HomeRoute: HomeRoute,
   JouerRoute: JouerRoute,
+  MotDePasseOublieRoute: MotDePasseOublieRoute,
+  NouveauMotDePasseRoute: NouveauMotDePasseRoute,
   OutilsRoute: OutilsRoute,
   PartagesRoute: PartagesRoute,
   PreferencesRoute: PreferencesRoute,
+  ProfilRoute: ProfilRoute,
   StrategieRoute: StrategieRoute,
   ApiRemyChatRoute: ApiRemyChatRoute,
   ComponentsComponentsRoute: ComponentsComponentsRoute,
-  DemoBetterAuthRoute: DemoBetterAuthRoute,
   DemoDbChatRoute: DemoDbChatRoute,
   DemoDbChatApiRoute: DemoDbChatApiRoute,
   DemoDrizzleRoute: DemoDrizzleRoute,
