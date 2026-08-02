@@ -1,12 +1,19 @@
-import { HeadContent, Scripts, createRootRouteWithContext } from "@tanstack/react-router";
+import {
+  HeadContent,
+  Scripts,
+  createRootRouteWithContext,
+  useRouterState,
+} from "@tanstack/react-router";
 import { TanStackRouterDevtoolsPanel } from "@tanstack/react-router-devtools";
 import { TanStackDevtools } from "@tanstack/react-devtools";
 import TanStackQueryDevtools from "../integrations/tanstack-query/devtools";
 import Header from "../components/Header";
+import { initializeSounds, playCue } from "../lib/sounds";
 
 import appCss from "../styles.css?url";
 
 import type { QueryClient } from "@tanstack/react-query";
+import { useEffect, useRef } from "react";
 
 interface MyRouterContext {
   queryClient: QueryClient;
@@ -40,6 +47,18 @@ export const Route = createRootRouteWithContext<MyRouterContext>()({
 });
 
 function RootDocument({ children }: { children: React.ReactNode }) {
+  const pathname = useRouterState({ select: (state) => state.location.pathname });
+  const hasNavigated = useRef(false);
+
+  useEffect(() => {
+    initializeSounds();
+  }, []);
+
+  useEffect(() => {
+    if (hasNavigated.current) playCue("page", { volume: 0.6 });
+    hasNavigated.current = true;
+  }, [pathname]);
+
   return (
     <html lang="en" className="dark" suppressHydrationWarning>
       <head>

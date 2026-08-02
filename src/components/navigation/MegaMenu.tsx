@@ -28,6 +28,7 @@ function MenuLink({ item, onNavigate }: { item: MegaMenuLink; onNavigate?: () =>
   return (
     <Link
       {...item.link}
+      data-cuelume-hover="tick"
       className={menuLinkClassName}
       activeProps={{ className: `${menuLinkClassName} bg-foreground/[0.09] text-foreground` }}
       role="menuitem"
@@ -89,6 +90,7 @@ function MenuPanel({
         >
           <Link
             {...section.browse.link}
+            data-cuelume-hover="tick"
             className="group flex items-center gap-2 rounded-[9px] px-2.5 py-[7px] font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground no-underline transition-[color,background-color] duration-150 ease-out hover:bg-foreground/[0.07] hover:text-foreground focus-visible:bg-foreground/[0.07] focus-visible:text-foreground focus-visible:outline-none motion-reduce:transition-none"
             role="menuitem"
             onClick={onNavigate}
@@ -124,6 +126,7 @@ function MobileMenu({ sections }: { sections: readonly MegaMenuSection[] }) {
     <div className="static block min-[901px]:hidden">
       <button
         type="button"
+        data-cuelume-toggle="toggle"
         className={headerActionClassName}
         aria-expanded={isOpen}
         aria-controls="mobile-navigation-menu"
@@ -169,6 +172,7 @@ function MobileMenu({ sections }: { sections: readonly MegaMenuSection[] }) {
             >
               <button
                 type="button"
+                data-cuelume-toggle="toggle"
                 className="flex w-full items-center justify-between px-1 py-[13px] text-left text-[15px] font-semibold text-foreground"
                 aria-expanded={isSectionOpen}
                 aria-controls={`mobile-navigation-section-${section.id}`}

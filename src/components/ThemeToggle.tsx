@@ -73,6 +73,7 @@ export default function ThemeToggle() {
   return (
     <button
       type="button"
+      data-cuelume-toggle="toggle"
       onClick={toggleMode}
       aria-label={label}
       title={label}

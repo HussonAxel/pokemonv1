@@ -38,6 +38,7 @@ import {
 import type { PokemonFilterState } from "@/features/Finder/pokemon-finder.types";
 import { keepPreviousData, useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import { playCue } from "#/lib/sounds";
 import {
   Activity,
   ArrowUpRight,
@@ -358,6 +359,7 @@ export function PokemonFinder() {
   const changePage = (nextPage: number) => {
     if (nextPage < 1 || nextPage > totalPages || nextPage === page) return;
     setPage(nextPage);
+    playCue("page", { volume: 0.45 });
   };
 
   const abilityOptions = (abilityListQuery.data?.results ?? [])
@@ -537,8 +539,6 @@ export function PokemonFinder() {
                 aria-label="Change theme"
                 onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
               >
-                <Moon className="dark:hidden" />
-                <Sun className="hidden text-primary dark:block" />
               </button>
             </div>
           }
@@ -609,7 +609,11 @@ function PokemonContextMenu({
     targets.length > 1 ? `${targets.length} Pokemon selected` : (file.name ?? "Pokemon");
 
   return (
-    <ContextMenu>
+    <ContextMenu
+      onOpenChange={(open) => {
+        if (open) playCue("bloom", { volume: 0.45 });
+      }}
+    >
       <ContextMenuTrigger>{trigger}</ContextMenuTrigger>
       <ContextMenuContent ariaLabel="Pokemon actions" className="w-64">
         <ContextMenuLabel>{selectionLabel}</ContextMenuLabel>

@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 
 import BetterAuthHeader from "../integrations/better-auth/header-user.tsx";
 import MegaMenu from "./navigation/MegaMenu";
+import SoundToggle from "./SoundToggle";
 import ThemeToggle from "./ThemeToggle";
 
 export default function Header() {
@@ -10,6 +11,7 @@ export default function Header() {
       <nav className="page-wrap mx-auto flex h-16 items-center justify-between sm:h-[74px]">
         <Link
           to="/"
+          data-cuelume-hover="chime"
           aria-label="Pokémon Home"
           className="inline-flex items-center gap-2 rounded-xl text-foreground no-underline outline-none focus-visible:ring-2 focus-visible:ring-ring min-[901px]:invisible"
         >
@@ -23,6 +25,7 @@ export default function Header() {
         <div className="flex items-center gap-1.5 sm:gap-2">
           <BetterAuthHeader />
           <ThemeToggle />
+          <SoundToggle />
           <MegaMenu />
         </div>
       </nav>
