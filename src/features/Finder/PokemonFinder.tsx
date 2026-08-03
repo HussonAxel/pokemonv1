@@ -38,6 +38,7 @@ import {
 import type { PokemonFilterState } from "@/features/Finder/pokemon-finder.types";
 import { keepPreviousData, useQueries, useQuery, useQueryClient } from "@tanstack/react-query";
 import { useNavigate } from "@tanstack/react-router";
+import { authClient } from "#/lib/auth-client";
 import { playCue } from "#/lib/sounds";
 import {
   Activity,
@@ -48,11 +49,9 @@ import {
   Dna,
   Folder,
   Library,
-  Moon,
   Ruler,
   Sparkles,
   Star,
-  Sun,
   Weight,
 } from "lucide-react";
 import * as React from "react";
@@ -61,7 +60,6 @@ const DEFAULT_PAGE_SIZE = 30;
 const MAX_PAGE_SIZE = 96;
 const CATALOG_LIMIT = 2000;
 const SPRITE_BASE_URL = "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon";
-const FAVORITES_STORAGE_KEY = "pokemon-finder:favorites";
 
 type PokemonFinderItem = {
   bst: number;
@@ -78,47 +76,42 @@ function formatName(name: string) {
   return name.replaceAll("-", " ").replace(/\b\w/g, (letter) => letter.toUpperCase());
 }
 
-function readFavoriteIds() {
-  if (typeof window === "undefined") return [];
-
-  try {
-    const stored = JSON.parse(window.localStorage.getItem(FAVORITES_STORAGE_KEY) ?? "null");
-    if (!Array.isArray(stored)) return [];
-
-    return [
-      ...new Set(
-        stored.filter(
-          (id): id is number => typeof id === "number" && Number.isInteger(id) && id > 0,
-        ),
-      ),
-    ].sort((left, right) => left - right);
-  } catch {
-    return [];
-  }
-}
-
 function usePokemonFavorites() {
+  const { data: session, isPending: isSessionPending } = authClient.useSession();
+  const userId = session?.user.id;
   const [favoriteIds, setFavoriteIds] = React.useState<number[]>([]);
-  const [isHydrated, setIsHydrated] = React.useState(false);
 
   React.useEffect(() => {
-    setFavoriteIds(readFavoriteIds());
-    setIsHydrated(true);
-  }, []);
-
-  React.useEffect(() => {
-    if (!isHydrated) return;
-
-    try {
-      window.localStorage.setItem(FAVORITES_STORAGE_KEY, JSON.stringify(favoriteIds));
-    } catch {
-      // Favorites still work for the current session when storage is unavailable.
+    if (isSessionPending) return;
+    if (!userId) {
+      setFavoriteIds([]);
+      return;
     }
-  }, [favoriteIds, isHydrated]);
+
+    let cancelled = false;
+    setFavoriteIds([]);
+    void fetch("/api/favorites", { credentials: "same-origin" })
+      .then(async (response) => {
+        if (!response.ok) throw new Error("Unable to load favorites");
+        return (await response.json()) as { pokemonIds: number[] };
+      })
+      .then(({ pokemonIds }) => {
+        if (!cancelled) setFavoriteIds(pokemonIds);
+      })
+      .catch(() => {
+        if (!cancelled) setFavoriteIds([]);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [isSessionPending, userId]);
 
   const favoriteIdSet = React.useMemo(() => new Set(favoriteIds), [favoriteIds]);
   const setFavoriteStatus = React.useCallback(
     (files: ReadonlyArray<FileSystemFileItem>, isFavorite: boolean) => {
+      if (!userId) return;
+
       setFavoriteIds((previous) => {
         const next = new Set(previous);
 
@@ -131,8 +124,21 @@ function usePokemonFavorites() {
 
         return [...next].sort((left, right) => left - right);
       });
+
+      void Promise.all(
+        files.map(async (file) => {
+          const pokemonId = Number(file.key);
+          if (!Number.isInteger(pokemonId) || pokemonId <= 0) return;
+          await fetch("/api/favorites", {
+            body: JSON.stringify({ pokemonId, isFavorite }),
+            credentials: "same-origin",
+            headers: { "Content-Type": "application/json" },
+            method: "PUT",
+          });
+        }),
+      );
     },
-    [],
+    [userId],
   );
 
   return { favoriteIdSet, setFavoriteStatus };
@@ -416,7 +422,7 @@ export function PokemonFinder() {
             </p>
             <button
               type="button"
-              className="finder-source aria-pressed:bg-primary/10 aria-pressed:text-primary"
+              className="finder-source hover:bg-foreground/[0.04] aria-pressed:bg-foreground/[0.04] aria-pressed:text-foreground dark:hover:bg-muted dark:aria-pressed:bg-muted"
               aria-pressed={!filters.collection}
               onClick={() =>
                 updateFilters({ collection: undefined, collectionOperator: undefined })
@@ -432,7 +438,7 @@ export function PokemonFinder() {
               <button
                 key={collection.key}
                 type="button"
-                className="finder-source aria-pressed:bg-primary/10 aria-pressed:text-primary"
+                className="finder-source hover:bg-foreground/[0.04] aria-pressed:bg-foreground/[0.04] aria-pressed:text-foreground dark:hover:bg-muted dark:aria-pressed:bg-muted"
                 aria-pressed={filters.collection === collection.key}
                 onClick={() =>
                   updateFilters({ collection: collection.key, collectionOperator: undefined })
@@ -451,9 +457,7 @@ export function PokemonFinder() {
         <FileSystem
           items={items}
           className={
-            isCaughtView
-              ? "!h-full min-h-0 [&_[data-file-index]]:opacity-35"
-              : "!h-full min-h-0"
+            isCaughtView ? "!h-full min-h-0 [&_[data-file-index]]:opacity-35" : "!h-full min-h-0"
           }
           title={
             pokemonCollectionFilters.find((item) => item.key === filters.collection)?.title ??
@@ -542,8 +546,7 @@ export function PokemonFinder() {
                 className="finder-icon-button"
                 aria-label="Change theme"
                 onClick={() => setTheme(resolvedTheme === "dark" ? "light" : "dark")}
-              >
-              </button>
+              ></button>
             </div>
           }
           filterBar={<PokemonActiveFilters filters={filters} onUpdate={updateFilters} />}

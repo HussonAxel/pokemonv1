@@ -387,18 +387,17 @@ export function PokemonCommandPalette({
       <button
         ref={triggerRef}
         type="button"
-        className={`finder-icon-button relative h-8 w-8 ${open ? "bg-background text-foreground shadow-xs" : ""}`}
+        className={`finder-icon-button relative h-8 w-auto gap-1.5 px-2.5 ${open ? "bg-foreground/[0.04] text-foreground shadow-xs dark:bg-muted" : ""}`}
         aria-label={triggerLabel}
         aria-expanded={open}
         aria-controls={panelId}
+        aria-haspopup="dialog"
         onClick={() => setOpen((value) => !value)}
       >
-        <ListFilter />
+        <ListFilter className="size-4" />
+        <span>Filters</span>
         {count ? (
-          <span
-            className="pointer-events-none absolute -right-0.5 -top-0.5 flex size-3.5 items-center justify-center rounded-full bg-primary text-[9px] font-semibold leading-none text-primary-foreground"
-            aria-hidden="true"
-          >
+          <span className="flex size-4 items-center justify-center rounded-full bg-primary text-[9px] font-semibold leading-none text-primary-foreground">
             {count}
           </span>
         ) : null}
@@ -409,11 +408,18 @@ export function PokemonCommandPalette({
           ref={panelRef}
           id={panelId}
           role="dialog"
-          aria-label="Pokemon filters"
+          aria-labelledby={`${panelId}-title`}
           className="absolute right-0 top-[calc(100%+0.5rem)] z-50 w-[min(42rem,calc(100vw-4.5rem))] rounded-xl border border-border/80 bg-background/95 p-1 shadow-xl backdrop-blur-sm"
         >
-          <div className="flex items-center justify-between px-2 py-1">
-            <span className="text-[11px] font-medium text-muted-foreground">Pokemon filters</span>
+          <div className="flex items-start justify-between gap-3 border-b border-border/70 px-3 pb-2.5 pt-2">
+            <div>
+              <h2 id={`${panelId}-title`} className="text-sm font-semibold text-foreground">
+                Pokemon filters
+              </h2>
+              <p className="mt-0.5 text-xs text-muted-foreground">
+                Choose a filter to add it to the explorer.
+              </p>
+            </div>
             <button
               type="button"
               className="finder-icon-button h-7 w-7"

@@ -151,7 +151,6 @@ function filterItems(filters: PokemonFilterState): BadgeItem[] {
 
 export function PokemonActiveFilters({ filters, onUpdate }: PokemonActiveFiltersProps) {
   const items = React.useMemo(() => filterItems(filters), [filters]);
-  if (!items.length) return null;
 
   const removeFilter = (_event: React.MouseEvent<HTMLButtonElement>, value: string) => {
     const [kind, rawValue] = value.split(":", 2);
@@ -201,27 +200,34 @@ export function PokemonActiveFilters({ filters, onUpdate }: PokemonActiveFilters
     <div
       data-slot="pokemon-filters"
       className="shrink-0 border-b bg-muted/10 px-3 py-2"
-      aria-label="Active Pokemon filters"
+      aria-label="Pokemon filters"
+      aria-live="polite"
     >
       <div className="flex min-w-0 items-center gap-1.5">
         <span className="shrink-0 text-[10px] font-semibold uppercase tracking-wider text-muted-foreground">
           Filters
         </span>
-        <Badge
-          className="min-w-0 flex-1 flex-wrap"
-          itemClassName="max-w-[min(22rem,60vw)]"
-          items={items}
-          onItemClick={removeFilter}
-          size="sm"
-        />
-        <button
-          type="button"
-          className="finder-icon-button h-7 w-7 shrink-0"
-          aria-label="Clear all Pokemon filters"
-          onClick={() => onUpdate(emptyFilters())}
-        >
-          <X />
-        </button>
+        {items.length ? (
+          <>
+            <Badge
+              className="min-w-0 flex-1 flex-wrap"
+              itemClassName="max-w-[min(22rem,60vw)]"
+              items={items}
+              onItemClick={removeFilter}
+              size="sm"
+            />
+            <button
+              type="button"
+              className="finder-icon-button h-7 w-7 shrink-0"
+              aria-label="Clear all Pokemon filters"
+              onClick={() => onUpdate(emptyFilters())}
+            >
+              <X />
+            </button>
+          </>
+        ) : (
+          <span className="min-w-0 flex-1 text-xs text-muted-foreground/75">No active filters</span>
+        )}
       </div>
     </div>
   );
