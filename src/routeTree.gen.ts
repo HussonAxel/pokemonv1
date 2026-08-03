@@ -8,762 +8,782 @@
 // You should NOT make any changes in this file as it will be overwritten.
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
-import { Route as rootRouteImport } from './routes/__root'
-import { Route as IndexRouteImport } from './routes/index'
-import { Route as AboutRouteImport } from './routes/about'
-import { Route as BuilderRouteImport } from './routes/builder'
-import { Route as ChasserRouteImport } from './routes/chasser'
-import { Route as CollectionnerRouteImport } from './routes/collectionner'
-import { Route as ConnexionRouteImport } from './routes/connexion'
-import { Route as ExplorerRouteImport } from './routes/explorer'
-import { Route as HomeRouteImport } from './routes/home'
-import { Route as JouerRouteImport } from './routes/jouer'
-import { Route as MotDePasseOublieRouteImport } from './routes/mot-de-passe-oublie'
-import { Route as NouveauMotDePasseRouteImport } from './routes/nouveau-mot-de-passe'
-import { Route as OutilsRouteImport } from './routes/outils'
-import { Route as PartagesRouteImport } from './routes/partages'
-import { Route as PreferencesRouteImport } from './routes/preferences'
-import { Route as ProfilRouteImport } from './routes/profil'
-import { Route as StrategieRouteImport } from './routes/strategie'
-import { Route as ApiRemyChatRouteImport } from './routes/api.remy-chat'
-import { Route as ComponentsComponentsRouteImport } from './routes/components/components'
-import { Route as DemoDbChatRouteImport } from './routes/demo/db-chat'
-import { Route as DemoDbChatApiRouteImport } from './routes/demo/db-chat-api'
-import { Route as DemoDrizzleRouteImport } from './routes/demo/drizzle'
-import { Route as DemoTableRouteImport } from './routes/demo/table'
-import { Route as DemoTanstackQueryRouteImport } from './routes/demo/tanstack-query'
-import { Route as ExplorerIndexRouteImport } from './routes/explorer.index'
-import { Route as ExplorerAttaquesRouteImport } from './routes/explorer.attaques'
-import { Route as ExplorerEvolutionsRouteImport } from './routes/explorer.evolutions'
-import { Route as ExplorerObjetsRouteImport } from './routes/explorer.objets'
-import { Route as ExplorerPokemonRouteImport } from './routes/explorer.pokemon'
-import { Route as ExplorerStatistiquesRouteImport } from './routes/explorer.statistiques'
-import { Route as ExplorerTalentsRouteImport } from './routes/explorer.talents'
-import { Route as ExplorerTypesRouteImport } from './routes/explorer.types'
-import { Route as TeamsIndexRouteImport } from './routes/teams/index'
-import { Route as TeamsTeamRouteImport } from './routes/teams/$team'
-import { Route as ApiAuthSplatRouteImport } from './routes/api/auth/$'
-import { Route as ExplorerPokemonIndexRouteImport } from './routes/explorer.pokemon.index'
-import { Route as ExplorerPokemonIdRouteImport } from './routes/explorer.pokemon.$id'
+import { Route as rootRouteImport } from "./routes/__root";
+import { Route as IndexRouteImport } from "./routes/index";
+import { Route as AboutRouteImport } from "./routes/about";
+import { Route as BuilderRouteImport } from "./routes/builder";
+import { Route as ChasserRouteImport } from "./routes/chasser";
+import { Route as CollectionnerRouteImport } from "./routes/collectionner";
+import { Route as ConnexionRouteImport } from "./routes/connexion";
+import { Route as ExplorerRouteImport } from "./routes/explorer";
+import { Route as HomeRouteImport } from "./routes/home";
+import { Route as JouerRouteImport } from "./routes/jouer";
+import { Route as MotDePasseOublieRouteImport } from "./routes/mot-de-passe-oublie";
+import { Route as NouveauMotDePasseRouteImport } from "./routes/nouveau-mot-de-passe";
+import { Route as OutilsRouteImport } from "./routes/outils";
+import { Route as PartagesRouteImport } from "./routes/partages";
+import { Route as PreferencesRouteImport } from "./routes/preferences";
+import { Route as ProfilRouteImport } from "./routes/profil";
+import { Route as StrategieRouteImport } from "./routes/strategie";
+import { Route as ApiFavoritesRouteImport } from "./routes/api/favorites";
+import { Route as ApiRemyChatRouteImport } from "./routes/api.remy-chat";
+import { Route as ComponentsComponentsRouteImport } from "./routes/components/components";
+import { Route as DemoDbChatRouteImport } from "./routes/demo/db-chat";
+import { Route as DemoDbChatApiRouteImport } from "./routes/demo/db-chat-api";
+import { Route as DemoDrizzleRouteImport } from "./routes/demo/drizzle";
+import { Route as DemoTableRouteImport } from "./routes/demo/table";
+import { Route as DemoTanstackQueryRouteImport } from "./routes/demo/tanstack-query";
+import { Route as ExplorerIndexRouteImport } from "./routes/explorer.index";
+import { Route as ExplorerAttaquesRouteImport } from "./routes/explorer.attaques";
+import { Route as ExplorerEvolutionsRouteImport } from "./routes/explorer.evolutions";
+import { Route as ExplorerObjetsRouteImport } from "./routes/explorer.objets";
+import { Route as ExplorerPokemonRouteImport } from "./routes/explorer.pokemon";
+import { Route as ExplorerStatistiquesRouteImport } from "./routes/explorer.statistiques";
+import { Route as ExplorerTalentsRouteImport } from "./routes/explorer.talents";
+import { Route as ExplorerTypesRouteImport } from "./routes/explorer.types";
+import { Route as TeamsIndexRouteImport } from "./routes/teams/index";
+import { Route as TeamsTeamRouteImport } from "./routes/teams/$team";
+import { Route as ApiAuthSplatRouteImport } from "./routes/api/auth/$";
+import { Route as ExplorerPokemonIndexRouteImport } from "./routes/explorer.pokemon.index";
+import { Route as ExplorerPokemonIdRouteImport } from "./routes/explorer.pokemon.$id";
 
 const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const AboutRoute = AboutRouteImport.update({
-  id: '/about',
-  path: '/about',
+  id: "/about",
+  path: "/about",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const BuilderRoute = BuilderRouteImport.update({
-  id: '/builder',
-  path: '/builder',
+  id: "/builder",
+  path: "/builder",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ChasserRoute = ChasserRouteImport.update({
-  id: '/chasser',
-  path: '/chasser',
+  id: "/chasser",
+  path: "/chasser",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const CollectionnerRoute = CollectionnerRouteImport.update({
-  id: '/collectionner',
-  path: '/collectionner',
+  id: "/collectionner",
+  path: "/collectionner",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ConnexionRoute = ConnexionRouteImport.update({
-  id: '/connexion',
-  path: '/connexion',
+  id: "/connexion",
+  path: "/connexion",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ExplorerRoute = ExplorerRouteImport.update({
-  id: '/explorer',
-  path: '/explorer',
+  id: "/explorer",
+  path: "/explorer",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const HomeRoute = HomeRouteImport.update({
-  id: '/home',
-  path: '/home',
+  id: "/home",
+  path: "/home",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const JouerRoute = JouerRouteImport.update({
-  id: '/jouer',
-  path: '/jouer',
+  id: "/jouer",
+  path: "/jouer",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const MotDePasseOublieRoute = MotDePasseOublieRouteImport.update({
-  id: '/mot-de-passe-oublie',
-  path: '/mot-de-passe-oublie',
+  id: "/mot-de-passe-oublie",
+  path: "/mot-de-passe-oublie",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const NouveauMotDePasseRoute = NouveauMotDePasseRouteImport.update({
-  id: '/nouveau-mot-de-passe',
-  path: '/nouveau-mot-de-passe',
+  id: "/nouveau-mot-de-passe",
+  path: "/nouveau-mot-de-passe",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const OutilsRoute = OutilsRouteImport.update({
-  id: '/outils',
-  path: '/outils',
+  id: "/outils",
+  path: "/outils",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const PartagesRoute = PartagesRouteImport.update({
-  id: '/partages',
-  path: '/partages',
+  id: "/partages",
+  path: "/partages",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const PreferencesRoute = PreferencesRouteImport.update({
-  id: '/preferences',
-  path: '/preferences',
+  id: "/preferences",
+  path: "/preferences",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ProfilRoute = ProfilRouteImport.update({
-  id: '/profil',
-  path: '/profil',
+  id: "/profil",
+  path: "/profil",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const StrategieRoute = StrategieRouteImport.update({
-  id: '/strategie',
-  path: '/strategie',
+  id: "/strategie",
+  path: "/strategie",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
+const ApiFavoritesRoute = ApiFavoritesRouteImport.update({
+  id: "/api/favorites",
+  path: "/api/favorites",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const ApiRemyChatRoute = ApiRemyChatRouteImport.update({
-  id: '/api/remy-chat',
-  path: '/api/remy-chat',
+  id: "/api/remy-chat",
+  path: "/api/remy-chat",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ComponentsComponentsRoute = ComponentsComponentsRouteImport.update({
-  id: '/components/components',
-  path: '/components/components',
+  id: "/components/components",
+  path: "/components/components",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const DemoDbChatRoute = DemoDbChatRouteImport.update({
-  id: '/demo/db-chat',
-  path: '/demo/db-chat',
+  id: "/demo/db-chat",
+  path: "/demo/db-chat",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const DemoDbChatApiRoute = DemoDbChatApiRouteImport.update({
-  id: '/demo/db-chat-api',
-  path: '/demo/db-chat-api',
+  id: "/demo/db-chat-api",
+  path: "/demo/db-chat-api",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const DemoDrizzleRoute = DemoDrizzleRouteImport.update({
-  id: '/demo/drizzle',
-  path: '/demo/drizzle',
+  id: "/demo/drizzle",
+  path: "/demo/drizzle",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const DemoTableRoute = DemoTableRouteImport.update({
-  id: '/demo/table',
-  path: '/demo/table',
+  id: "/demo/table",
+  path: "/demo/table",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const DemoTanstackQueryRoute = DemoTanstackQueryRouteImport.update({
-  id: '/demo/tanstack-query',
-  path: '/demo/tanstack-query',
+  id: "/demo/tanstack-query",
+  path: "/demo/tanstack-query",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ExplorerIndexRoute = ExplorerIndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => ExplorerRoute,
-} as any)
+} as any);
 const ExplorerAttaquesRoute = ExplorerAttaquesRouteImport.update({
-  id: '/attaques',
-  path: '/attaques',
+  id: "/attaques",
+  path: "/attaques",
   getParentRoute: () => ExplorerRoute,
-} as any)
+} as any);
 const ExplorerEvolutionsRoute = ExplorerEvolutionsRouteImport.update({
-  id: '/evolutions',
-  path: '/evolutions',
+  id: "/evolutions",
+  path: "/evolutions",
   getParentRoute: () => ExplorerRoute,
-} as any)
+} as any);
 const ExplorerObjetsRoute = ExplorerObjetsRouteImport.update({
-  id: '/objets',
-  path: '/objets',
+  id: "/objets",
+  path: "/objets",
   getParentRoute: () => ExplorerRoute,
-} as any)
+} as any);
 const ExplorerPokemonRoute = ExplorerPokemonRouteImport.update({
-  id: '/pokemon',
-  path: '/pokemon',
+  id: "/pokemon",
+  path: "/pokemon",
   getParentRoute: () => ExplorerRoute,
-} as any)
+} as any);
 const ExplorerStatistiquesRoute = ExplorerStatistiquesRouteImport.update({
-  id: '/statistiques',
-  path: '/statistiques',
+  id: "/statistiques",
+  path: "/statistiques",
   getParentRoute: () => ExplorerRoute,
-} as any)
+} as any);
 const ExplorerTalentsRoute = ExplorerTalentsRouteImport.update({
-  id: '/talents',
-  path: '/talents',
+  id: "/talents",
+  path: "/talents",
   getParentRoute: () => ExplorerRoute,
-} as any)
+} as any);
 const ExplorerTypesRoute = ExplorerTypesRouteImport.update({
-  id: '/types',
-  path: '/types',
+  id: "/types",
+  path: "/types",
   getParentRoute: () => ExplorerRoute,
-} as any)
+} as any);
 const TeamsIndexRoute = TeamsIndexRouteImport.update({
-  id: '/teams/',
-  path: '/teams/',
+  id: "/teams/",
+  path: "/teams/",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const TeamsTeamRoute = TeamsTeamRouteImport.update({
-  id: '/teams/$team',
-  path: '/teams/$team',
+  id: "/teams/$team",
+  path: "/teams/$team",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ApiAuthSplatRoute = ApiAuthSplatRouteImport.update({
-  id: '/api/auth/$',
-  path: '/api/auth/$',
+  id: "/api/auth/$",
+  path: "/api/auth/$",
   getParentRoute: () => rootRouteImport,
-} as any)
+} as any);
 const ExplorerPokemonIndexRoute = ExplorerPokemonIndexRouteImport.update({
-  id: '/',
-  path: '/',
+  id: "/",
+  path: "/",
   getParentRoute: () => ExplorerPokemonRoute,
-} as any)
+} as any);
 const ExplorerPokemonIdRoute = ExplorerPokemonIdRouteImport.update({
-  id: '/$id',
-  path: '/$id',
+  id: "/$id",
+  path: "/$id",
   getParentRoute: () => ExplorerPokemonRoute,
-} as any)
+} as any);
 
 export interface FileRoutesByFullPath {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/builder': typeof BuilderRoute
-  '/chasser': typeof ChasserRoute
-  '/collectionner': typeof CollectionnerRoute
-  '/connexion': typeof ConnexionRoute
-  '/explorer': typeof ExplorerRouteWithChildren
-  '/home': typeof HomeRoute
-  '/jouer': typeof JouerRoute
-  '/mot-de-passe-oublie': typeof MotDePasseOublieRoute
-  '/nouveau-mot-de-passe': typeof NouveauMotDePasseRoute
-  '/outils': typeof OutilsRoute
-  '/partages': typeof PartagesRoute
-  '/preferences': typeof PreferencesRoute
-  '/profil': typeof ProfilRoute
-  '/strategie': typeof StrategieRoute
-  '/api/remy-chat': typeof ApiRemyChatRoute
-  '/components/components': typeof ComponentsComponentsRoute
-  '/demo/db-chat': typeof DemoDbChatRoute
-  '/demo/db-chat-api': typeof DemoDbChatApiRoute
-  '/demo/drizzle': typeof DemoDrizzleRoute
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/explorer/attaques': typeof ExplorerAttaquesRoute
-  '/explorer/evolutions': typeof ExplorerEvolutionsRoute
-  '/explorer/objets': typeof ExplorerObjetsRoute
-  '/explorer/pokemon': typeof ExplorerPokemonRouteWithChildren
-  '/explorer/statistiques': typeof ExplorerStatistiquesRoute
-  '/explorer/talents': typeof ExplorerTalentsRoute
-  '/explorer/types': typeof ExplorerTypesRoute
-  '/teams/$team': typeof TeamsTeamRoute
-  '/explorer/': typeof ExplorerIndexRoute
-  '/teams/': typeof TeamsIndexRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
-  '/explorer/pokemon/$id': typeof ExplorerPokemonIdRoute
-  '/explorer/pokemon/': typeof ExplorerPokemonIndexRoute
+  "/": typeof IndexRoute;
+  "/about": typeof AboutRoute;
+  "/builder": typeof BuilderRoute;
+  "/chasser": typeof ChasserRoute;
+  "/collectionner": typeof CollectionnerRoute;
+  "/connexion": typeof ConnexionRoute;
+  "/explorer": typeof ExplorerRouteWithChildren;
+  "/home": typeof HomeRoute;
+  "/jouer": typeof JouerRoute;
+  "/mot-de-passe-oublie": typeof MotDePasseOublieRoute;
+  "/nouveau-mot-de-passe": typeof NouveauMotDePasseRoute;
+  "/outils": typeof OutilsRoute;
+  "/partages": typeof PartagesRoute;
+  "/preferences": typeof PreferencesRoute;
+  "/profil": typeof ProfilRoute;
+  "/strategie": typeof StrategieRoute;
+  "/api/favorites": typeof ApiFavoritesRoute;
+  "/api/remy-chat": typeof ApiRemyChatRoute;
+  "/components/components": typeof ComponentsComponentsRoute;
+  "/demo/db-chat": typeof DemoDbChatRoute;
+  "/demo/db-chat-api": typeof DemoDbChatApiRoute;
+  "/demo/drizzle": typeof DemoDrizzleRoute;
+  "/demo/table": typeof DemoTableRoute;
+  "/demo/tanstack-query": typeof DemoTanstackQueryRoute;
+  "/explorer/attaques": typeof ExplorerAttaquesRoute;
+  "/explorer/evolutions": typeof ExplorerEvolutionsRoute;
+  "/explorer/objets": typeof ExplorerObjetsRoute;
+  "/explorer/pokemon": typeof ExplorerPokemonRouteWithChildren;
+  "/explorer/statistiques": typeof ExplorerStatistiquesRoute;
+  "/explorer/talents": typeof ExplorerTalentsRoute;
+  "/explorer/types": typeof ExplorerTypesRoute;
+  "/teams/$team": typeof TeamsTeamRoute;
+  "/explorer/": typeof ExplorerIndexRoute;
+  "/teams/": typeof TeamsIndexRoute;
+  "/api/auth/$": typeof ApiAuthSplatRoute;
+  "/explorer/pokemon/$id": typeof ExplorerPokemonIdRoute;
+  "/explorer/pokemon/": typeof ExplorerPokemonIndexRoute;
 }
 export interface FileRoutesByTo {
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/builder': typeof BuilderRoute
-  '/chasser': typeof ChasserRoute
-  '/collectionner': typeof CollectionnerRoute
-  '/connexion': typeof ConnexionRoute
-  '/home': typeof HomeRoute
-  '/jouer': typeof JouerRoute
-  '/mot-de-passe-oublie': typeof MotDePasseOublieRoute
-  '/nouveau-mot-de-passe': typeof NouveauMotDePasseRoute
-  '/outils': typeof OutilsRoute
-  '/partages': typeof PartagesRoute
-  '/preferences': typeof PreferencesRoute
-  '/profil': typeof ProfilRoute
-  '/strategie': typeof StrategieRoute
-  '/api/remy-chat': typeof ApiRemyChatRoute
-  '/components/components': typeof ComponentsComponentsRoute
-  '/demo/db-chat': typeof DemoDbChatRoute
-  '/demo/db-chat-api': typeof DemoDbChatApiRoute
-  '/demo/drizzle': typeof DemoDrizzleRoute
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/explorer/attaques': typeof ExplorerAttaquesRoute
-  '/explorer/evolutions': typeof ExplorerEvolutionsRoute
-  '/explorer/objets': typeof ExplorerObjetsRoute
-  '/explorer/statistiques': typeof ExplorerStatistiquesRoute
-  '/explorer/talents': typeof ExplorerTalentsRoute
-  '/explorer/types': typeof ExplorerTypesRoute
-  '/teams/$team': typeof TeamsTeamRoute
-  '/explorer': typeof ExplorerIndexRoute
-  '/teams': typeof TeamsIndexRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
-  '/explorer/pokemon/$id': typeof ExplorerPokemonIdRoute
-  '/explorer/pokemon': typeof ExplorerPokemonIndexRoute
+  "/": typeof IndexRoute;
+  "/about": typeof AboutRoute;
+  "/builder": typeof BuilderRoute;
+  "/chasser": typeof ChasserRoute;
+  "/collectionner": typeof CollectionnerRoute;
+  "/connexion": typeof ConnexionRoute;
+  "/home": typeof HomeRoute;
+  "/jouer": typeof JouerRoute;
+  "/mot-de-passe-oublie": typeof MotDePasseOublieRoute;
+  "/nouveau-mot-de-passe": typeof NouveauMotDePasseRoute;
+  "/outils": typeof OutilsRoute;
+  "/partages": typeof PartagesRoute;
+  "/preferences": typeof PreferencesRoute;
+  "/profil": typeof ProfilRoute;
+  "/strategie": typeof StrategieRoute;
+  "/api/favorites": typeof ApiFavoritesRoute;
+  "/api/remy-chat": typeof ApiRemyChatRoute;
+  "/components/components": typeof ComponentsComponentsRoute;
+  "/demo/db-chat": typeof DemoDbChatRoute;
+  "/demo/db-chat-api": typeof DemoDbChatApiRoute;
+  "/demo/drizzle": typeof DemoDrizzleRoute;
+  "/demo/table": typeof DemoTableRoute;
+  "/demo/tanstack-query": typeof DemoTanstackQueryRoute;
+  "/explorer/attaques": typeof ExplorerAttaquesRoute;
+  "/explorer/evolutions": typeof ExplorerEvolutionsRoute;
+  "/explorer/objets": typeof ExplorerObjetsRoute;
+  "/explorer/statistiques": typeof ExplorerStatistiquesRoute;
+  "/explorer/talents": typeof ExplorerTalentsRoute;
+  "/explorer/types": typeof ExplorerTypesRoute;
+  "/teams/$team": typeof TeamsTeamRoute;
+  "/explorer": typeof ExplorerIndexRoute;
+  "/teams": typeof TeamsIndexRoute;
+  "/api/auth/$": typeof ApiAuthSplatRoute;
+  "/explorer/pokemon/$id": typeof ExplorerPokemonIdRoute;
+  "/explorer/pokemon": typeof ExplorerPokemonIndexRoute;
 }
 export interface FileRoutesById {
-  __root__: typeof rootRouteImport
-  '/': typeof IndexRoute
-  '/about': typeof AboutRoute
-  '/builder': typeof BuilderRoute
-  '/chasser': typeof ChasserRoute
-  '/collectionner': typeof CollectionnerRoute
-  '/connexion': typeof ConnexionRoute
-  '/explorer': typeof ExplorerRouteWithChildren
-  '/home': typeof HomeRoute
-  '/jouer': typeof JouerRoute
-  '/mot-de-passe-oublie': typeof MotDePasseOublieRoute
-  '/nouveau-mot-de-passe': typeof NouveauMotDePasseRoute
-  '/outils': typeof OutilsRoute
-  '/partages': typeof PartagesRoute
-  '/preferences': typeof PreferencesRoute
-  '/profil': typeof ProfilRoute
-  '/strategie': typeof StrategieRoute
-  '/api/remy-chat': typeof ApiRemyChatRoute
-  '/components/components': typeof ComponentsComponentsRoute
-  '/demo/db-chat': typeof DemoDbChatRoute
-  '/demo/db-chat-api': typeof DemoDbChatApiRoute
-  '/demo/drizzle': typeof DemoDrizzleRoute
-  '/demo/table': typeof DemoTableRoute
-  '/demo/tanstack-query': typeof DemoTanstackQueryRoute
-  '/explorer/attaques': typeof ExplorerAttaquesRoute
-  '/explorer/evolutions': typeof ExplorerEvolutionsRoute
-  '/explorer/objets': typeof ExplorerObjetsRoute
-  '/explorer/pokemon': typeof ExplorerPokemonRouteWithChildren
-  '/explorer/statistiques': typeof ExplorerStatistiquesRoute
-  '/explorer/talents': typeof ExplorerTalentsRoute
-  '/explorer/types': typeof ExplorerTypesRoute
-  '/teams/$team': typeof TeamsTeamRoute
-  '/explorer/': typeof ExplorerIndexRoute
-  '/teams/': typeof TeamsIndexRoute
-  '/api/auth/$': typeof ApiAuthSplatRoute
-  '/explorer/pokemon/$id': typeof ExplorerPokemonIdRoute
-  '/explorer/pokemon/': typeof ExplorerPokemonIndexRoute
+  __root__: typeof rootRouteImport;
+  "/": typeof IndexRoute;
+  "/about": typeof AboutRoute;
+  "/builder": typeof BuilderRoute;
+  "/chasser": typeof ChasserRoute;
+  "/collectionner": typeof CollectionnerRoute;
+  "/connexion": typeof ConnexionRoute;
+  "/explorer": typeof ExplorerRouteWithChildren;
+  "/home": typeof HomeRoute;
+  "/jouer": typeof JouerRoute;
+  "/mot-de-passe-oublie": typeof MotDePasseOublieRoute;
+  "/nouveau-mot-de-passe": typeof NouveauMotDePasseRoute;
+  "/outils": typeof OutilsRoute;
+  "/partages": typeof PartagesRoute;
+  "/preferences": typeof PreferencesRoute;
+  "/profil": typeof ProfilRoute;
+  "/strategie": typeof StrategieRoute;
+  "/api/favorites": typeof ApiFavoritesRoute;
+  "/api/remy-chat": typeof ApiRemyChatRoute;
+  "/components/components": typeof ComponentsComponentsRoute;
+  "/demo/db-chat": typeof DemoDbChatRoute;
+  "/demo/db-chat-api": typeof DemoDbChatApiRoute;
+  "/demo/drizzle": typeof DemoDrizzleRoute;
+  "/demo/table": typeof DemoTableRoute;
+  "/demo/tanstack-query": typeof DemoTanstackQueryRoute;
+  "/explorer/attaques": typeof ExplorerAttaquesRoute;
+  "/explorer/evolutions": typeof ExplorerEvolutionsRoute;
+  "/explorer/objets": typeof ExplorerObjetsRoute;
+  "/explorer/pokemon": typeof ExplorerPokemonRouteWithChildren;
+  "/explorer/statistiques": typeof ExplorerStatistiquesRoute;
+  "/explorer/talents": typeof ExplorerTalentsRoute;
+  "/explorer/types": typeof ExplorerTypesRoute;
+  "/teams/$team": typeof TeamsTeamRoute;
+  "/explorer/": typeof ExplorerIndexRoute;
+  "/teams/": typeof TeamsIndexRoute;
+  "/api/auth/$": typeof ApiAuthSplatRoute;
+  "/explorer/pokemon/$id": typeof ExplorerPokemonIdRoute;
+  "/explorer/pokemon/": typeof ExplorerPokemonIndexRoute;
 }
 export interface FileRouteTypes {
-  fileRoutesByFullPath: FileRoutesByFullPath
+  fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    | '/'
-    | '/about'
-    | '/builder'
-    | '/chasser'
-    | '/collectionner'
-    | '/connexion'
-    | '/explorer'
-    | '/home'
-    | '/jouer'
-    | '/mot-de-passe-oublie'
-    | '/nouveau-mot-de-passe'
-    | '/outils'
-    | '/partages'
-    | '/preferences'
-    | '/profil'
-    | '/strategie'
-    | '/api/remy-chat'
-    | '/components/components'
-    | '/demo/db-chat'
-    | '/demo/db-chat-api'
-    | '/demo/drizzle'
-    | '/demo/table'
-    | '/demo/tanstack-query'
-    | '/explorer/attaques'
-    | '/explorer/evolutions'
-    | '/explorer/objets'
-    | '/explorer/pokemon'
-    | '/explorer/statistiques'
-    | '/explorer/talents'
-    | '/explorer/types'
-    | '/teams/$team'
-    | '/explorer/'
-    | '/teams/'
-    | '/api/auth/$'
-    | '/explorer/pokemon/$id'
-    | '/explorer/pokemon/'
-  fileRoutesByTo: FileRoutesByTo
+    | "/"
+    | "/about"
+    | "/builder"
+    | "/chasser"
+    | "/collectionner"
+    | "/connexion"
+    | "/explorer"
+    | "/home"
+    | "/jouer"
+    | "/mot-de-passe-oublie"
+    | "/nouveau-mot-de-passe"
+    | "/outils"
+    | "/partages"
+    | "/preferences"
+    | "/profil"
+    | "/strategie"
+    | "/api/favorites"
+    | "/api/remy-chat"
+    | "/components/components"
+    | "/demo/db-chat"
+    | "/demo/db-chat-api"
+    | "/demo/drizzle"
+    | "/demo/table"
+    | "/demo/tanstack-query"
+    | "/explorer/attaques"
+    | "/explorer/evolutions"
+    | "/explorer/objets"
+    | "/explorer/pokemon"
+    | "/explorer/statistiques"
+    | "/explorer/talents"
+    | "/explorer/types"
+    | "/teams/$team"
+    | "/explorer/"
+    | "/teams/"
+    | "/api/auth/$"
+    | "/explorer/pokemon/$id"
+    | "/explorer/pokemon/";
+  fileRoutesByTo: FileRoutesByTo;
   to:
-    | '/'
-    | '/about'
-    | '/builder'
-    | '/chasser'
-    | '/collectionner'
-    | '/connexion'
-    | '/home'
-    | '/jouer'
-    | '/mot-de-passe-oublie'
-    | '/nouveau-mot-de-passe'
-    | '/outils'
-    | '/partages'
-    | '/preferences'
-    | '/profil'
-    | '/strategie'
-    | '/api/remy-chat'
-    | '/components/components'
-    | '/demo/db-chat'
-    | '/demo/db-chat-api'
-    | '/demo/drizzle'
-    | '/demo/table'
-    | '/demo/tanstack-query'
-    | '/explorer/attaques'
-    | '/explorer/evolutions'
-    | '/explorer/objets'
-    | '/explorer/statistiques'
-    | '/explorer/talents'
-    | '/explorer/types'
-    | '/teams/$team'
-    | '/explorer'
-    | '/teams'
-    | '/api/auth/$'
-    | '/explorer/pokemon/$id'
-    | '/explorer/pokemon'
+    | "/"
+    | "/about"
+    | "/builder"
+    | "/chasser"
+    | "/collectionner"
+    | "/connexion"
+    | "/home"
+    | "/jouer"
+    | "/mot-de-passe-oublie"
+    | "/nouveau-mot-de-passe"
+    | "/outils"
+    | "/partages"
+    | "/preferences"
+    | "/profil"
+    | "/strategie"
+    | "/api/favorites"
+    | "/api/remy-chat"
+    | "/components/components"
+    | "/demo/db-chat"
+    | "/demo/db-chat-api"
+    | "/demo/drizzle"
+    | "/demo/table"
+    | "/demo/tanstack-query"
+    | "/explorer/attaques"
+    | "/explorer/evolutions"
+    | "/explorer/objets"
+    | "/explorer/statistiques"
+    | "/explorer/talents"
+    | "/explorer/types"
+    | "/teams/$team"
+    | "/explorer"
+    | "/teams"
+    | "/api/auth/$"
+    | "/explorer/pokemon/$id"
+    | "/explorer/pokemon";
   id:
-    | '__root__'
-    | '/'
-    | '/about'
-    | '/builder'
-    | '/chasser'
-    | '/collectionner'
-    | '/connexion'
-    | '/explorer'
-    | '/home'
-    | '/jouer'
-    | '/mot-de-passe-oublie'
-    | '/nouveau-mot-de-passe'
-    | '/outils'
-    | '/partages'
-    | '/preferences'
-    | '/profil'
-    | '/strategie'
-    | '/api/remy-chat'
-    | '/components/components'
-    | '/demo/db-chat'
-    | '/demo/db-chat-api'
-    | '/demo/drizzle'
-    | '/demo/table'
-    | '/demo/tanstack-query'
-    | '/explorer/attaques'
-    | '/explorer/evolutions'
-    | '/explorer/objets'
-    | '/explorer/pokemon'
-    | '/explorer/statistiques'
-    | '/explorer/talents'
-    | '/explorer/types'
-    | '/teams/$team'
-    | '/explorer/'
-    | '/teams/'
-    | '/api/auth/$'
-    | '/explorer/pokemon/$id'
-    | '/explorer/pokemon/'
-  fileRoutesById: FileRoutesById
+    | "__root__"
+    | "/"
+    | "/about"
+    | "/builder"
+    | "/chasser"
+    | "/collectionner"
+    | "/connexion"
+    | "/explorer"
+    | "/home"
+    | "/jouer"
+    | "/mot-de-passe-oublie"
+    | "/nouveau-mot-de-passe"
+    | "/outils"
+    | "/partages"
+    | "/preferences"
+    | "/profil"
+    | "/strategie"
+    | "/api/favorites"
+    | "/api/remy-chat"
+    | "/components/components"
+    | "/demo/db-chat"
+    | "/demo/db-chat-api"
+    | "/demo/drizzle"
+    | "/demo/table"
+    | "/demo/tanstack-query"
+    | "/explorer/attaques"
+    | "/explorer/evolutions"
+    | "/explorer/objets"
+    | "/explorer/pokemon"
+    | "/explorer/statistiques"
+    | "/explorer/talents"
+    | "/explorer/types"
+    | "/teams/$team"
+    | "/explorer/"
+    | "/teams/"
+    | "/api/auth/$"
+    | "/explorer/pokemon/$id"
+    | "/explorer/pokemon/";
+  fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  IndexRoute: typeof IndexRoute
-  AboutRoute: typeof AboutRoute
-  BuilderRoute: typeof BuilderRoute
-  ChasserRoute: typeof ChasserRoute
-  CollectionnerRoute: typeof CollectionnerRoute
-  ConnexionRoute: typeof ConnexionRoute
-  ExplorerRoute: typeof ExplorerRouteWithChildren
-  HomeRoute: typeof HomeRoute
-  JouerRoute: typeof JouerRoute
-  MotDePasseOublieRoute: typeof MotDePasseOublieRoute
-  NouveauMotDePasseRoute: typeof NouveauMotDePasseRoute
-  OutilsRoute: typeof OutilsRoute
-  PartagesRoute: typeof PartagesRoute
-  PreferencesRoute: typeof PreferencesRoute
-  ProfilRoute: typeof ProfilRoute
-  StrategieRoute: typeof StrategieRoute
-  ApiRemyChatRoute: typeof ApiRemyChatRoute
-  ComponentsComponentsRoute: typeof ComponentsComponentsRoute
-  DemoDbChatRoute: typeof DemoDbChatRoute
-  DemoDbChatApiRoute: typeof DemoDbChatApiRoute
-  DemoDrizzleRoute: typeof DemoDrizzleRoute
-  DemoTableRoute: typeof DemoTableRoute
-  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute
-  TeamsTeamRoute: typeof TeamsTeamRoute
-  TeamsIndexRoute: typeof TeamsIndexRoute
-  ApiAuthSplatRoute: typeof ApiAuthSplatRoute
+  IndexRoute: typeof IndexRoute;
+  AboutRoute: typeof AboutRoute;
+  BuilderRoute: typeof BuilderRoute;
+  ChasserRoute: typeof ChasserRoute;
+  CollectionnerRoute: typeof CollectionnerRoute;
+  ConnexionRoute: typeof ConnexionRoute;
+  ExplorerRoute: typeof ExplorerRouteWithChildren;
+  HomeRoute: typeof HomeRoute;
+  JouerRoute: typeof JouerRoute;
+  MotDePasseOublieRoute: typeof MotDePasseOublieRoute;
+  NouveauMotDePasseRoute: typeof NouveauMotDePasseRoute;
+  OutilsRoute: typeof OutilsRoute;
+  PartagesRoute: typeof PartagesRoute;
+  PreferencesRoute: typeof PreferencesRoute;
+  ProfilRoute: typeof ProfilRoute;
+  StrategieRoute: typeof StrategieRoute;
+  ApiFavoritesRoute: typeof ApiFavoritesRoute;
+  ApiRemyChatRoute: typeof ApiRemyChatRoute;
+  ComponentsComponentsRoute: typeof ComponentsComponentsRoute;
+  DemoDbChatRoute: typeof DemoDbChatRoute;
+  DemoDbChatApiRoute: typeof DemoDbChatApiRoute;
+  DemoDrizzleRoute: typeof DemoDrizzleRoute;
+  DemoTableRoute: typeof DemoTableRoute;
+  DemoTanstackQueryRoute: typeof DemoTanstackQueryRoute;
+  TeamsTeamRoute: typeof TeamsTeamRoute;
+  TeamsIndexRoute: typeof TeamsIndexRoute;
+  ApiAuthSplatRoute: typeof ApiAuthSplatRoute;
 }
 
-declare module '@tanstack/react-router' {
+declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/about': {
-      id: '/about'
-      path: '/about'
-      fullPath: '/about'
-      preLoaderRoute: typeof AboutRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/builder': {
-      id: '/builder'
-      path: '/builder'
-      fullPath: '/builder'
-      preLoaderRoute: typeof BuilderRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/chasser': {
-      id: '/chasser'
-      path: '/chasser'
-      fullPath: '/chasser'
-      preLoaderRoute: typeof ChasserRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/collectionner': {
-      id: '/collectionner'
-      path: '/collectionner'
-      fullPath: '/collectionner'
-      preLoaderRoute: typeof CollectionnerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/connexion': {
-      id: '/connexion'
-      path: '/connexion'
-      fullPath: '/connexion'
-      preLoaderRoute: typeof ConnexionRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/explorer': {
-      id: '/explorer'
-      path: '/explorer'
-      fullPath: '/explorer'
-      preLoaderRoute: typeof ExplorerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/home': {
-      id: '/home'
-      path: '/home'
-      fullPath: '/home'
-      preLoaderRoute: typeof HomeRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/jouer': {
-      id: '/jouer'
-      path: '/jouer'
-      fullPath: '/jouer'
-      preLoaderRoute: typeof JouerRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/mot-de-passe-oublie': {
-      id: '/mot-de-passe-oublie'
-      path: '/mot-de-passe-oublie'
-      fullPath: '/mot-de-passe-oublie'
-      preLoaderRoute: typeof MotDePasseOublieRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/nouveau-mot-de-passe': {
-      id: '/nouveau-mot-de-passe'
-      path: '/nouveau-mot-de-passe'
-      fullPath: '/nouveau-mot-de-passe'
-      preLoaderRoute: typeof NouveauMotDePasseRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/outils': {
-      id: '/outils'
-      path: '/outils'
-      fullPath: '/outils'
-      preLoaderRoute: typeof OutilsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/partages': {
-      id: '/partages'
-      path: '/partages'
-      fullPath: '/partages'
-      preLoaderRoute: typeof PartagesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/preferences': {
-      id: '/preferences'
-      path: '/preferences'
-      fullPath: '/preferences'
-      preLoaderRoute: typeof PreferencesRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/profil': {
-      id: '/profil'
-      path: '/profil'
-      fullPath: '/profil'
-      preLoaderRoute: typeof ProfilRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/strategie': {
-      id: '/strategie'
-      path: '/strategie'
-      fullPath: '/strategie'
-      preLoaderRoute: typeof StrategieRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/remy-chat': {
-      id: '/api/remy-chat'
-      path: '/api/remy-chat'
-      fullPath: '/api/remy-chat'
-      preLoaderRoute: typeof ApiRemyChatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/components/components': {
-      id: '/components/components'
-      path: '/components/components'
-      fullPath: '/components/components'
-      preLoaderRoute: typeof ComponentsComponentsRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/db-chat': {
-      id: '/demo/db-chat'
-      path: '/demo/db-chat'
-      fullPath: '/demo/db-chat'
-      preLoaderRoute: typeof DemoDbChatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/db-chat-api': {
-      id: '/demo/db-chat-api'
-      path: '/demo/db-chat-api'
-      fullPath: '/demo/db-chat-api'
-      preLoaderRoute: typeof DemoDbChatApiRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/drizzle': {
-      id: '/demo/drizzle'
-      path: '/demo/drizzle'
-      fullPath: '/demo/drizzle'
-      preLoaderRoute: typeof DemoDrizzleRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/table': {
-      id: '/demo/table'
-      path: '/demo/table'
-      fullPath: '/demo/table'
-      preLoaderRoute: typeof DemoTableRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/demo/tanstack-query': {
-      id: '/demo/tanstack-query'
-      path: '/demo/tanstack-query'
-      fullPath: '/demo/tanstack-query'
-      preLoaderRoute: typeof DemoTanstackQueryRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/explorer/': {
-      id: '/explorer/'
-      path: '/'
-      fullPath: '/explorer/'
-      preLoaderRoute: typeof ExplorerIndexRouteImport
-      parentRoute: typeof ExplorerRoute
-    }
-    '/explorer/attaques': {
-      id: '/explorer/attaques'
-      path: '/attaques'
-      fullPath: '/explorer/attaques'
-      preLoaderRoute: typeof ExplorerAttaquesRouteImport
-      parentRoute: typeof ExplorerRoute
-    }
-    '/explorer/evolutions': {
-      id: '/explorer/evolutions'
-      path: '/evolutions'
-      fullPath: '/explorer/evolutions'
-      preLoaderRoute: typeof ExplorerEvolutionsRouteImport
-      parentRoute: typeof ExplorerRoute
-    }
-    '/explorer/objets': {
-      id: '/explorer/objets'
-      path: '/objets'
-      fullPath: '/explorer/objets'
-      preLoaderRoute: typeof ExplorerObjetsRouteImport
-      parentRoute: typeof ExplorerRoute
-    }
-    '/explorer/pokemon': {
-      id: '/explorer/pokemon'
-      path: '/pokemon'
-      fullPath: '/explorer/pokemon'
-      preLoaderRoute: typeof ExplorerPokemonRouteImport
-      parentRoute: typeof ExplorerRoute
-    }
-    '/explorer/statistiques': {
-      id: '/explorer/statistiques'
-      path: '/statistiques'
-      fullPath: '/explorer/statistiques'
-      preLoaderRoute: typeof ExplorerStatistiquesRouteImport
-      parentRoute: typeof ExplorerRoute
-    }
-    '/explorer/talents': {
-      id: '/explorer/talents'
-      path: '/talents'
-      fullPath: '/explorer/talents'
-      preLoaderRoute: typeof ExplorerTalentsRouteImport
-      parentRoute: typeof ExplorerRoute
-    }
-    '/explorer/types': {
-      id: '/explorer/types'
-      path: '/types'
-      fullPath: '/explorer/types'
-      preLoaderRoute: typeof ExplorerTypesRouteImport
-      parentRoute: typeof ExplorerRoute
-    }
-    '/teams/': {
-      id: '/teams/'
-      path: '/teams'
-      fullPath: '/teams/'
-      preLoaderRoute: typeof TeamsIndexRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/teams/$team': {
-      id: '/teams/$team'
-      path: '/teams/$team'
-      fullPath: '/teams/$team'
-      preLoaderRoute: typeof TeamsTeamRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/api/auth/$': {
-      id: '/api/auth/$'
-      path: '/api/auth/$'
-      fullPath: '/api/auth/$'
-      preLoaderRoute: typeof ApiAuthSplatRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/explorer/pokemon/': {
-      id: '/explorer/pokemon/'
-      path: '/'
-      fullPath: '/explorer/pokemon/'
-      preLoaderRoute: typeof ExplorerPokemonIndexRouteImport
-      parentRoute: typeof ExplorerPokemonRoute
-    }
-    '/explorer/pokemon/$id': {
-      id: '/explorer/pokemon/$id'
-      path: '/$id'
-      fullPath: '/explorer/pokemon/$id'
-      preLoaderRoute: typeof ExplorerPokemonIdRouteImport
-      parentRoute: typeof ExplorerPokemonRoute
-    }
+    "/": {
+      id: "/";
+      path: "/";
+      fullPath: "/";
+      preLoaderRoute: typeof IndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/about": {
+      id: "/about";
+      path: "/about";
+      fullPath: "/about";
+      preLoaderRoute: typeof AboutRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/builder": {
+      id: "/builder";
+      path: "/builder";
+      fullPath: "/builder";
+      preLoaderRoute: typeof BuilderRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/chasser": {
+      id: "/chasser";
+      path: "/chasser";
+      fullPath: "/chasser";
+      preLoaderRoute: typeof ChasserRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/collectionner": {
+      id: "/collectionner";
+      path: "/collectionner";
+      fullPath: "/collectionner";
+      preLoaderRoute: typeof CollectionnerRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/connexion": {
+      id: "/connexion";
+      path: "/connexion";
+      fullPath: "/connexion";
+      preLoaderRoute: typeof ConnexionRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/explorer": {
+      id: "/explorer";
+      path: "/explorer";
+      fullPath: "/explorer";
+      preLoaderRoute: typeof ExplorerRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/home": {
+      id: "/home";
+      path: "/home";
+      fullPath: "/home";
+      preLoaderRoute: typeof HomeRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/jouer": {
+      id: "/jouer";
+      path: "/jouer";
+      fullPath: "/jouer";
+      preLoaderRoute: typeof JouerRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/mot-de-passe-oublie": {
+      id: "/mot-de-passe-oublie";
+      path: "/mot-de-passe-oublie";
+      fullPath: "/mot-de-passe-oublie";
+      preLoaderRoute: typeof MotDePasseOublieRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/nouveau-mot-de-passe": {
+      id: "/nouveau-mot-de-passe";
+      path: "/nouveau-mot-de-passe";
+      fullPath: "/nouveau-mot-de-passe";
+      preLoaderRoute: typeof NouveauMotDePasseRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/outils": {
+      id: "/outils";
+      path: "/outils";
+      fullPath: "/outils";
+      preLoaderRoute: typeof OutilsRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/partages": {
+      id: "/partages";
+      path: "/partages";
+      fullPath: "/partages";
+      preLoaderRoute: typeof PartagesRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/preferences": {
+      id: "/preferences";
+      path: "/preferences";
+      fullPath: "/preferences";
+      preLoaderRoute: typeof PreferencesRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/profil": {
+      id: "/profil";
+      path: "/profil";
+      fullPath: "/profil";
+      preLoaderRoute: typeof ProfilRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/strategie": {
+      id: "/strategie";
+      path: "/strategie";
+      fullPath: "/strategie";
+      preLoaderRoute: typeof StrategieRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/api/favorites": {
+      id: "/api/favorites";
+      path: "/api/favorites";
+      fullPath: "/api/favorites";
+      preLoaderRoute: typeof ApiFavoritesRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/api/remy-chat": {
+      id: "/api/remy-chat";
+      path: "/api/remy-chat";
+      fullPath: "/api/remy-chat";
+      preLoaderRoute: typeof ApiRemyChatRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/components/components": {
+      id: "/components/components";
+      path: "/components/components";
+      fullPath: "/components/components";
+      preLoaderRoute: typeof ComponentsComponentsRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/demo/db-chat": {
+      id: "/demo/db-chat";
+      path: "/demo/db-chat";
+      fullPath: "/demo/db-chat";
+      preLoaderRoute: typeof DemoDbChatRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/demo/db-chat-api": {
+      id: "/demo/db-chat-api";
+      path: "/demo/db-chat-api";
+      fullPath: "/demo/db-chat-api";
+      preLoaderRoute: typeof DemoDbChatApiRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/demo/drizzle": {
+      id: "/demo/drizzle";
+      path: "/demo/drizzle";
+      fullPath: "/demo/drizzle";
+      preLoaderRoute: typeof DemoDrizzleRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/demo/table": {
+      id: "/demo/table";
+      path: "/demo/table";
+      fullPath: "/demo/table";
+      preLoaderRoute: typeof DemoTableRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/demo/tanstack-query": {
+      id: "/demo/tanstack-query";
+      path: "/demo/tanstack-query";
+      fullPath: "/demo/tanstack-query";
+      preLoaderRoute: typeof DemoTanstackQueryRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/explorer/": {
+      id: "/explorer/";
+      path: "/";
+      fullPath: "/explorer/";
+      preLoaderRoute: typeof ExplorerIndexRouteImport;
+      parentRoute: typeof ExplorerRoute;
+    };
+    "/explorer/attaques": {
+      id: "/explorer/attaques";
+      path: "/attaques";
+      fullPath: "/explorer/attaques";
+      preLoaderRoute: typeof ExplorerAttaquesRouteImport;
+      parentRoute: typeof ExplorerRoute;
+    };
+    "/explorer/evolutions": {
+      id: "/explorer/evolutions";
+      path: "/evolutions";
+      fullPath: "/explorer/evolutions";
+      preLoaderRoute: typeof ExplorerEvolutionsRouteImport;
+      parentRoute: typeof ExplorerRoute;
+    };
+    "/explorer/objets": {
+      id: "/explorer/objets";
+      path: "/objets";
+      fullPath: "/explorer/objets";
+      preLoaderRoute: typeof ExplorerObjetsRouteImport;
+      parentRoute: typeof ExplorerRoute;
+    };
+    "/explorer/pokemon": {
+      id: "/explorer/pokemon";
+      path: "/pokemon";
+      fullPath: "/explorer/pokemon";
+      preLoaderRoute: typeof ExplorerPokemonRouteImport;
+      parentRoute: typeof ExplorerRoute;
+    };
+    "/explorer/statistiques": {
+      id: "/explorer/statistiques";
+      path: "/statistiques";
+      fullPath: "/explorer/statistiques";
+      preLoaderRoute: typeof ExplorerStatistiquesRouteImport;
+      parentRoute: typeof ExplorerRoute;
+    };
+    "/explorer/talents": {
+      id: "/explorer/talents";
+      path: "/talents";
+      fullPath: "/explorer/talents";
+      preLoaderRoute: typeof ExplorerTalentsRouteImport;
+      parentRoute: typeof ExplorerRoute;
+    };
+    "/explorer/types": {
+      id: "/explorer/types";
+      path: "/types";
+      fullPath: "/explorer/types";
+      preLoaderRoute: typeof ExplorerTypesRouteImport;
+      parentRoute: typeof ExplorerRoute;
+    };
+    "/teams/": {
+      id: "/teams/";
+      path: "/teams";
+      fullPath: "/teams/";
+      preLoaderRoute: typeof TeamsIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/teams/$team": {
+      id: "/teams/$team";
+      path: "/teams/$team";
+      fullPath: "/teams/$team";
+      preLoaderRoute: typeof TeamsTeamRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/api/auth/$": {
+      id: "/api/auth/$";
+      path: "/api/auth/$";
+      fullPath: "/api/auth/$";
+      preLoaderRoute: typeof ApiAuthSplatRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/explorer/pokemon/": {
+      id: "/explorer/pokemon/";
+      path: "/";
+      fullPath: "/explorer/pokemon/";
+      preLoaderRoute: typeof ExplorerPokemonIndexRouteImport;
+      parentRoute: typeof ExplorerPokemonRoute;
+    };
+    "/explorer/pokemon/$id": {
+      id: "/explorer/pokemon/$id";
+      path: "/$id";
+      fullPath: "/explorer/pokemon/$id";
+      preLoaderRoute: typeof ExplorerPokemonIdRouteImport;
+      parentRoute: typeof ExplorerPokemonRoute;
+    };
   }
 }
 
 interface ExplorerPokemonRouteChildren {
-  ExplorerPokemonIdRoute: typeof ExplorerPokemonIdRoute
-  ExplorerPokemonIndexRoute: typeof ExplorerPokemonIndexRoute
+  ExplorerPokemonIdRoute: typeof ExplorerPokemonIdRoute;
+  ExplorerPokemonIndexRoute: typeof ExplorerPokemonIndexRoute;
 }
 
 const ExplorerPokemonRouteChildren: ExplorerPokemonRouteChildren = {
   ExplorerPokemonIdRoute: ExplorerPokemonIdRoute,
   ExplorerPokemonIndexRoute: ExplorerPokemonIndexRoute,
-}
+};
 
 const ExplorerPokemonRouteWithChildren = ExplorerPokemonRoute._addFileChildren(
   ExplorerPokemonRouteChildren,
-)
+);
 
 interface ExplorerRouteChildren {
-  ExplorerAttaquesRoute: typeof ExplorerAttaquesRoute
-  ExplorerEvolutionsRoute: typeof ExplorerEvolutionsRoute
-  ExplorerObjetsRoute: typeof ExplorerObjetsRoute
-  ExplorerPokemonRoute: typeof ExplorerPokemonRouteWithChildren
-  ExplorerStatistiquesRoute: typeof ExplorerStatistiquesRoute
-  ExplorerTalentsRoute: typeof ExplorerTalentsRoute
-  ExplorerTypesRoute: typeof ExplorerTypesRoute
-  ExplorerIndexRoute: typeof ExplorerIndexRoute
+  ExplorerAttaquesRoute: typeof ExplorerAttaquesRoute;
+  ExplorerEvolutionsRoute: typeof ExplorerEvolutionsRoute;
+  ExplorerObjetsRoute: typeof ExplorerObjetsRoute;
+  ExplorerPokemonRoute: typeof ExplorerPokemonRouteWithChildren;
+  ExplorerStatistiquesRoute: typeof ExplorerStatistiquesRoute;
+  ExplorerTalentsRoute: typeof ExplorerTalentsRoute;
+  ExplorerTypesRoute: typeof ExplorerTypesRoute;
+  ExplorerIndexRoute: typeof ExplorerIndexRoute;
 }
 
 const ExplorerRouteChildren: ExplorerRouteChildren = {
@@ -775,11 +795,9 @@ const ExplorerRouteChildren: ExplorerRouteChildren = {
   ExplorerTalentsRoute: ExplorerTalentsRoute,
   ExplorerTypesRoute: ExplorerTypesRoute,
   ExplorerIndexRoute: ExplorerIndexRoute,
-}
+};
 
-const ExplorerRouteWithChildren = ExplorerRoute._addFileChildren(
-  ExplorerRouteChildren,
-)
+const ExplorerRouteWithChildren = ExplorerRoute._addFileChildren(ExplorerRouteChildren);
 
 const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
@@ -798,6 +816,7 @@ const rootRouteChildren: RootRouteChildren = {
   PreferencesRoute: PreferencesRoute,
   ProfilRoute: ProfilRoute,
   StrategieRoute: StrategieRoute,
+  ApiFavoritesRoute: ApiFavoritesRoute,
   ApiRemyChatRoute: ApiRemyChatRoute,
   ComponentsComponentsRoute: ComponentsComponentsRoute,
   DemoDbChatRoute: DemoDbChatRoute,
@@ -808,16 +827,16 @@ const rootRouteChildren: RootRouteChildren = {
   TeamsTeamRoute: TeamsTeamRoute,
   TeamsIndexRoute: TeamsIndexRoute,
   ApiAuthSplatRoute: ApiAuthSplatRoute,
-}
+};
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
-  ._addFileTypes<FileRouteTypes>()
+  ._addFileTypes<FileRouteTypes>();
 
-import type { getRouter } from './router.tsx'
-import type { createStart } from '@tanstack/react-start'
-declare module '@tanstack/react-start' {
+import type { getRouter } from "./router.tsx";
+import type { createStart } from "@tanstack/react-start";
+declare module "@tanstack/react-start" {
   interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
+    ssr: true;
+    router: Awaited<ReturnType<typeof getRouter>>;
   }
 }
