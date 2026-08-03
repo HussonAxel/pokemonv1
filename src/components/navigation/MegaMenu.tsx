@@ -9,8 +9,11 @@ import type { MegaMenuGroup, MegaMenuLink, MegaMenuSection } from "./mega-menu-c
 
 export type MegaMenuProps = { sections?: readonly MegaMenuSection[]; className?: string };
 
-const menuLinkClassName =
-  "group flex min-h-[42px] items-center gap-2.5 rounded-[13px] px-[11px] py-[7px] text-muted-foreground no-underline transition-[color,background-color] duration-150 ease-out hover:bg-foreground/[0.09] hover:text-foreground focus-visible:bg-foreground/[0.09] focus-visible:text-foreground focus-visible:outline-none motion-reduce:transition-none";
+const menuInteractionStates =
+  "hover:bg-foreground/[0.04] hover:text-foreground focus-visible:bg-foreground/[0.04] focus-visible:text-foreground dark:hover:bg-muted dark:focus-visible:bg-muted";
+const menuActiveState = "bg-foreground/[0.04] text-foreground dark:bg-muted";
+
+const menuLinkClassName = `group flex min-h-11 items-center gap-2.5 rounded-xl px-3 py-2 text-muted-foreground no-underline transition-[color,background-color] duration-150 ease-out ${menuInteractionStates} focus-visible:outline-none motion-reduce:transition-none`;
 
 function isSectionActive(section: MegaMenuSection, pathname: string) {
   return section.groups.some((group) =>
@@ -30,7 +33,7 @@ function MenuLink({ item, onNavigate }: { item: MegaMenuLink; onNavigate?: () =>
       {...item.link}
       data-cuelume-hover="tick"
       className={menuLinkClassName}
-      activeProps={{ className: `${menuLinkClassName} bg-foreground/[0.09] text-foreground` }}
+      activeProps={{ className: `${menuLinkClassName} ${menuActiveState}` }}
       role="menuitem"
       onClick={onNavigate}
     >
@@ -41,7 +44,7 @@ function MenuLink({ item, onNavigate }: { item: MegaMenuLink; onNavigate?: () =>
         <Icon />
       </span>
       <span className="flex min-w-0 flex-1 flex-col gap-0.5">
-        <span className="truncate text-base leading-[21px]">{item.label}</span>
+        <span className="truncate text-sm font-medium leading-5">{item.label}</span>
         {item.description ? (
           <span className="text-xs leading-4 text-muted-foreground">{item.description}</span>
         ) : null}
@@ -53,13 +56,13 @@ function MenuLink({ item, onNavigate }: { item: MegaMenuLink; onNavigate?: () =>
 function MenuGroup({ group, onNavigate }: { group: MegaMenuGroup; onNavigate?: () => void }) {
   return (
     <section
-      className="min-w-0 flex-[1_1_0]"
+      className="min-w-0 flex-none"
       style={{ "--mega-menu-tone": group.tone } as CSSProperties}
     >
-      <h3 className="mb-3.5 pl-2.5 font-mono text-xs font-medium uppercase leading-4 tracking-[0.08em] text-[var(--mega-menu-tone)]">
+      <h3 className="mb-3 pl-3 font-mono text-xs font-medium uppercase leading-4 tracking-[0.08em] text-[var(--mega-menu-tone)]">
         {group.label}
       </h3>
-      <div className="flex flex-col gap-[3px]">
+      <div className="flex flex-col gap-1">
         {group.links.map((item) => (
           <MenuLink key={item.id} item={item} onNavigate={onNavigate} />
         ))}
@@ -78,20 +81,20 @@ function MenuPanel({
   mobile?: boolean;
 }) {
   return (
-    <div className={mobile ? "pb-[18px]" : "px-[38px] pb-7 pt-[34px]"}>
-      <div className={mobile ? "flex flex-col gap-5" : "flex items-start gap-[42px]"}>
+    <div className={mobile ? "pb-[18px]" : "px-7 pb-6 pt-7"}>
+      <div className={mobile ? "flex flex-col gap-5" : "flex items-start gap-6"}>
         {section.groups.map((group) => (
           <MenuGroup key={group.id} group={group} onNavigate={onNavigate} />
         ))}
       </div>
       {section.browse ? (
         <div
-          className={`mt-[26px] flex border-t border-foreground/[0.12] pt-3.5 ${mobile ? "justify-start" : "justify-center"}`}
+          className={`mt-6 flex border-t border-foreground/[0.12] pt-4 ${mobile ? "justify-start" : "justify-center"}`}
         >
           <Link
             {...section.browse.link}
             data-cuelume-hover="tick"
-            className="group flex items-center gap-2 rounded-[9px] px-2.5 py-[7px] font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground no-underline transition-[color,background-color] duration-150 ease-out hover:bg-foreground/[0.07] hover:text-foreground focus-visible:bg-foreground/[0.07] focus-visible:text-foreground focus-visible:outline-none motion-reduce:transition-none"
+            className={`group flex items-center gap-2 rounded-[9px] px-2.5 py-[7px] font-mono text-xs uppercase tracking-[0.08em] text-muted-foreground no-underline transition-[color,background-color] duration-150 ease-out ${menuInteractionStates} focus-visible:outline-none motion-reduce:transition-none`}
             role="menuitem"
             onClick={onNavigate}
           >
@@ -158,7 +161,7 @@ function MobileMenu({ sections }: { sections: readonly MegaMenuSection[] }) {
         layout={!shouldReduceMotion}
         transition={{ type: "spring", stiffness: 240, damping: 30, mass: 0.8 }}
         id="mobile-navigation-menu"
-        className={`absolute left-1/2 top-[calc(100%+12px)] z-[60] w-[calc(100vw-2rem)] max-w-[420px] -translate-x-1/2 origin-top overflow-hidden rounded-[20px] border border-foreground/20 bg-popover/95 px-3.5 py-2.5 shadow-[0_24px_70px_color-mix(in_srgb,var(--shadow-color)_34%,transparent)] backdrop-blur-2xl transition-[opacity,transform,visibility] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] motion-reduce:transition-none ${isOpen ? "visible translate-y-0 scale-100 opacity-100 pointer-events-auto" : "invisible -translate-y-2 scale-[0.98] opacity-0 pointer-events-none"}`}
+        className={`absolute left-1/2 top-[calc(100%+12px)] z-[60] w-[calc(100vw-2rem)] max-w-[420px] -translate-x-1/2 origin-top overflow-hidden rounded-[16px] border border-foreground/20 bg-background/95 px-3.5 py-2.5 shadow-[0_24px_70px_color-mix(in_srgb,var(--shadow-color)_34%,transparent)] backdrop-blur-2xl transition-[opacity,transform,visibility] duration-200 ease-[cubic-bezier(0.19,1,0.22,1)] motion-reduce:transition-none ${isOpen ? "visible translate-y-0 scale-100 opacity-100 pointer-events-auto" : "invisible -translate-y-2 scale-[0.98] opacity-0 pointer-events-none"}`}
         aria-hidden={!isOpen}
         aria-label="Navigation principale"
       >
@@ -271,8 +274,7 @@ export function MegaMenu({ sections = pokemonMegaMenu, className = "" }: MegaMen
             >
               <button
                 type="button"
-                className={`inline-flex h-[42px] items-center rounded-[10px] px-3 text-[13px] font-semibold text-muted-foreground transition-[color,background-color,transform] duration-150 ease-out hover:bg-foreground/[0.08] hover:text-foreground focus-visible:bg-foreground/[0.08] focus-visible:text-foreground focus-visible:outline-none active:scale-[0.98] motion-reduce:transition-[color,background-color] motion-reduce:transform-none ${isOpen || isActive ? "bg-foreground/[0.08] text-foreground shadow-[inset_0_0_0_1px_color-mix(in_srgb,var(--mega-menu-tone)_38%,transparent)]" : ""}`}
-                style={{ "--mega-menu-tone": section.tone } as CSSProperties}
+                className={`inline-flex h-[42px] items-center rounded-[10px] px-3 text-sm font-semibold text-muted-foreground transition-[color,background-color,transform] duration-150 ease-out ${menuInteractionStates} focus-visible:outline-none active:scale-[0.98] motion-reduce:transition-[color,background-color] motion-reduce:transform-none ${isOpen || isActive ? menuActiveState : ""}`}
                 aria-controls={isOpen ? panelId : undefined}
                 aria-expanded={isOpen}
                 aria-haspopup="true"
@@ -290,7 +292,7 @@ export function MegaMenu({ sections = pokemonMegaMenu, className = "" }: MegaMen
               {isOpen ? (
                 <div
                   id={panelId}
-                  className="absolute left-1/2 top-[calc(100%+12px)] w-[min(960px,calc(100vw-2rem))] -translate-x-1/2 overflow-hidden rounded-[20px] bg-popover/95 shadow-[0_0_0_1px_color-mix(in_srgb,var(--foreground)_20%,transparent),0_24px_70px_color-mix(in_srgb,var(--shadow-color)_34%,transparent),inset_0_0_0_1px_color-mix(in_srgb,var(--background)_7%,transparent)] backdrop-blur-2xl animate-in fade-in duration-200 motion-reduce:animate-none"
+                  className="absolute left-1/2 top-[calc(100%+12px)] w-fit max-w-[calc(100vw-2rem)] -translate-x-1/2 overflow-hidden rounded-[16px] bg-background/95 shadow-[0_0_0_1px_color-mix(in_srgb,var(--foreground)_20%,transparent),0_24px_70px_color-mix(in_srgb,var(--shadow-color)_34%,transparent),inset_0_0_0_1px_color-mix(in_srgb,var(--background)_7%,transparent)] backdrop-blur-2xl animate-in fade-in duration-200 motion-reduce:animate-none"
                   role="menu"
                 >
                   <MenuPanel section={section} onNavigate={() => setOpenSectionId(null)} />

@@ -417,7 +417,8 @@ export function FileSystem({
               type="button"
               className={cn(
                 "finder-icon-button h-7 w-8 rounded-[4px]",
-                view === option.value && "bg-background text-foreground shadow-xs",
+                view === option.value &&
+                  "bg-foreground/[0.04] text-foreground shadow-xs dark:bg-muted",
               )}
               aria-label={`${option.label} view`}
               aria-pressed={view === option.value}
@@ -462,7 +463,7 @@ export function FileSystem({
           <div
             ref={iconGridRef}
             className={cn(
-              "finder-grid h-full w-full p-1",
+              "finder-grid h-full w-full p-2",
               iconGridCapacity > 0 && files.length >= iconGridCapacity && "finder-grid--fill",
             )}
             tabIndex={-1}
@@ -474,9 +475,9 @@ export function FileSystem({
                   key={file.path}
                   type="button"
                   {...itemProps(file, index)}
-                  className="group grid min-h-0 min-w-0 grid-rows-[minmax(0,1fr)_auto_auto] items-center gap-0.5 rounded-md p-0 outline-none transition-colors hover:bg-muted/55 focus-visible:ring-2 focus-visible:ring-ring/40 aria-selected:bg-primary/10 lg:gap-0.5"
+                  className="group grid min-h-0 min-w-0 grid-rows-[minmax(0,1fr)_auto_auto] items-center gap-1 rounded-md bg-transparent p-0.5 outline-none transition-colors hover:bg-foreground/[0.04] focus-visible:ring-2 focus-visible:ring-ring/40 aria-selected:bg-foreground/[0.04] dark:hover:bg-muted dark:aria-selected:bg-muted lg:gap-1"
                 >
-                  <span className="relative h-full min-h-0 w-full place-self-center overflow-hidden rounded-md border border-transparent bg-sidebar/80 transition-colors group-hover:border-border group-aria-selected:border-primary/35 group-aria-selected:bg-primary/5">
+                  <span className="relative h-full min-h-0 w-full place-self-center overflow-hidden rounded-md bg-foreground/[0.04] transition-colors dark:bg-sidebar/80">
                     <span className="absolute inset-0.5 grid min-h-0 min-w-0 place-items-center [&_img]:absolute [&_img]:inset-0 [&_img]:m-auto [&_img]:h-full [&_img]:max-h-28 [&_img]:w-full [&_img]:max-w-28 [&_img]:scale-110 [&_img]:object-contain">
                       <FilePreview file={file} render={renderFilePreview} />
                     </span>
@@ -506,7 +507,7 @@ export function FileSystem({
                   key={file.path}
                   type="button"
                   {...itemProps(file, index)}
-                  className="grid min-h-17 w-full min-w-[780px] grid-cols-[minmax(220px,1.15fr)_minmax(130px,.65fr)_minmax(220px,1.1fr)_minmax(170px,.8fr)] items-center border-b px-4 py-2.5 text-left text-sm outline-none transition-colors hover:bg-muted/45 focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/40 aria-selected:bg-primary/10"
+                  className="grid min-h-17 w-full min-w-[780px] grid-cols-[minmax(220px,1.15fr)_minmax(130px,.65fr)_minmax(220px,1.1fr)_minmax(170px,.8fr)] items-center border-b px-4 py-2.5 text-left text-sm outline-none transition-colors hover:bg-foreground/[0.04] focus-visible:ring-2 focus-visible:ring-inset focus-visible:ring-ring/40 aria-selected:bg-foreground/[0.04] dark:hover:bg-muted dark:aria-selected:bg-muted"
                 >
                   <span className="flex min-w-0 items-center gap-3">
                     <span className="grid size-12 shrink-0 place-items-center rounded-[4px] border bg-muted/25 p-1">
@@ -556,7 +557,7 @@ export function FileSystem({
                     key={file.path}
                     type="button"
                     {...itemProps(file, index)}
-                    className="flex h-10 w-full items-center gap-2 px-3 text-left text-sm outline-none hover:bg-muted/50 focus-visible:ring-2 focus-visible:ring-inset aria-selected:bg-primary aria-selected:text-primary-foreground"
+                    className="flex h-10 w-full items-center gap-2 px-3 text-left text-sm outline-none hover:bg-foreground/[0.04] focus-visible:ring-2 focus-visible:ring-inset aria-selected:bg-foreground/[0.04] dark:hover:bg-muted dark:aria-selected:bg-muted"
                   >
                     <span className="size-8 shrink-0">
                       <FilePreview file={file} render={renderFilePreview} />
@@ -609,7 +610,7 @@ export function FileSystem({
                     key={file.path}
                     type="button"
                     {...itemProps(file, index)}
-                    className="flex w-24 shrink-0 flex-col items-center rounded-[4px] p-1 text-[10px] outline-none hover:bg-muted/50 focus-visible:ring-2 aria-selected:bg-primary/10"
+                    className="flex w-24 shrink-0 flex-col items-center rounded-[4px] p-1 text-[10px] outline-none hover:bg-foreground/[0.04] focus-visible:ring-2 aria-selected:bg-foreground/[0.04] dark:hover:bg-muted dark:aria-selected:bg-muted"
                   >
                     <span className="h-16">
                       <FilePreview file={file} render={renderFilePreview} />

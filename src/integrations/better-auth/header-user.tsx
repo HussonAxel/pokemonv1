@@ -1,6 +1,6 @@
 import { authClient } from "#/lib/auth-client";
 import { Link } from "@tanstack/react-router";
-import { SignIn, SignOut } from "@phosphor-icons/react";
+import { SignOut, UserCircle } from "@phosphor-icons/react";
 
 import { headerActionClassName } from "../../components/header-action";
 
@@ -51,7 +51,7 @@ export default function BetterAuthHeader() {
       title="Se connecter"
       className={headerActionClassName}
     >
-      <SignIn aria-hidden="true" size={20} weight="duotone" />
+      <UserCircle aria-hidden="true" size={21} weight="duotone" />
     </Link>
   );
 }
